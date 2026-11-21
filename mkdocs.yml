@@ -1,0 +1,138 @@
+site_name: Round Robin Hood
+site_description: Home Assistant PV surplus allocation by Satisfried
+site_dir: site-build
+docs_dir: docs/site
+theme:
+  name: material
+  features:
+  - navigation.sections
+  - navigation.expand
+  - navigation.top
+  - search.suggest
+  - search.highlight
+plugins:
+- search
+- i18n:
+    docs_structure: folder
+    languages:
+    - locale: de
+      name: Deutsch
+      build: true
+      default: true
+    - locale: en
+      name: English
+      build: true
+      nav_translations:
+        Start: Home
+        Installation & Update: Installation & upgrades
+        Einrichtung: Setup
+        Dashboard: Dashboard
+        Verbraucher: Consumers
+        Profile & Strategien: Profiles & strategies
+        Sensorbedingungen: Sensor conditions
+        Energie & Kosten: Energy & costs
+        Einstellungen: Settings
+        Sensortypen: Sensor types
+        Startverhalten: Restart behavior
+        Fehlerdiagnose: Troubleshooting
+        Sicherheit: Safety
+        FAQ: FAQ
+        Glossar: Glossary
+        Über: About
+    - locale: fr
+      name: Français
+      build: true
+      nav_translations:
+        Start: Accueil
+        Installation & Update: Installation et mises à jour
+        Einrichtung: Configuration
+        Dashboard: Tableau de bord
+        Verbraucher: Appareils
+        Profile & Strategien: Profils et stratégies
+        Sensorbedingungen: Conditions de capteurs
+        Energie & Kosten: Énergie et coûts
+        Einstellungen: Paramètres
+        Sensortypen: Capteurs Home Assistant
+        Startverhalten: Comportement au redémarrage
+        Fehlerdiagnose: Dépannage
+        Sicherheit: Sécurité
+        FAQ: FAQ
+        Glossar: Glossaire
+        Über: À propos
+    - locale: es
+      name: Español
+      build: true
+      nav_translations:
+        Start: Inicio
+        Installation & Update: Instalación y actualizaciones
+        Einrichtung: Configuración
+        Dashboard: Panel de control
+        Verbraucher: Consumidores
+        Profile & Strategien: Perfiles y estrategias
+        Sensorbedingungen: Condiciones de sensores
+        Energie & Kosten: Energía y costes
+        Einstellungen: Ajustes
+        Sensortypen: Sensores HA
+        Startverhalten: Reinicio
+        Fehlerdiagnose: Solución de problemas
+        Sicherheit: Seguridad
+        FAQ: Preguntas frecuentes
+        Glossar: Glosario
+        Über: Acerca de
+    - locale: pt
+      name: Português
+      build: true
+      nav_translations:
+        Start: Início
+        Installation & Update: Instalação e atualizações
+        Einrichtung: Configuração
+        Dashboard: Painel
+        Verbraucher: Consumidores
+        Profile & Strategien: Perfis e estratégias
+        Sensorbedingungen: Condições de sensores
+        Energie & Kosten: Energia e custos
+        Einstellungen: Definições
+        Sensortypen: Sensores HA
+        Startverhalten: Reinício
+        Fehlerdiagnose: Resolução de problemas
+        Sicherheit: Segurança
+        FAQ: Perguntas frequentes
+        Glossar: Glossário
+        Über: Sobre
+    - locale: it
+      name: Italiano
+      build: true
+      nav_translations:
+        Start: Introduzione
+        Installation & Update: Installazione e aggiornamenti
+        Einrichtung: Configurazione
+        Dashboard: Dashboard
+        Verbraucher: Dispositivi
+        Profile & Strategien: Profili e strategie
+        Sensorbedingungen: Condizioni dei sensori
+        Energie & Kosten: Energia e costi
+        Einstellungen: Impostazioni
+        Sensortypen: Sensori HA
+        Startverhalten: Riavvio
+        Fehlerdiagnose: Risoluzione dei problemi
+        Sicherheit: Sicurezza
+        FAQ: FAQ
+        Glossar: Glossario
+        Über: Informazioni
+nav:
+- Start: index.md
+- Installation & Update: installation.md
+- Einrichtung: setup.md
+- Dashboard: dashboard.md
+- Verbraucher: consumers.md
+- Profile & Strategien: profiles.md
+- Sensorbedingungen: conditions.md
+- Energie & Kosten: energy.md
+- Einstellungen: settings.md
+- Sensortypen: sensors.md
+- Startverhalten: startup.md
+- Fehlerdiagnose: troubleshooting.md
+- Sicherheit: safety.md
+- FAQ: faq.md
+- Glossar: glossary.md
+- Über: about.md

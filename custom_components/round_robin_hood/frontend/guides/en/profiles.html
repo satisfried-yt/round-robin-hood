@@ -1,0 +1,129 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>Round Robin Hood | Profiles &amp; strategies</title><style>*{box-sizing:border-box}body{margin:0;background:#161a1b;color:#eef2f2;font:15px system-ui, sans-serif;line-height:1.65}aside{background:#202525;border-right:1px solid #334345;padding:18px 14px;overflow:auto}aside h2{font-size:1.2rem;margin:0 0 12px;color:#d5ffeb}aside a{display:block;color:#cbd6da;padding:7px 10px;text-decoration:none;border-radius:7px}aside a[hidden]{display:none!important}aside a:hover,aside a.active{background:#324244;color:#91e5b3}aside input{width:100%;border:1px solid #526469;background:#121919;color:#fff;padding:9px;border-radius:7px;margin:0 0 14px}main{min-width:0;max-width:100%;padding:22px 32px;overflow-wrap:anywhere}h1{font-size:1.65rem;margin:0 0 18px;color:#a3e6bb}h2{font-size:1.28rem;margin:25px 0 10px;color:#ffdf91}h3{font-size:1.05rem;color:#bad0fd}a{color:#6dd4ff}table{border-collapse:collapse;display:block;overflow:auto}th,td{padding:8px 10px;border-bottom:1px solid #455054;text-align:left}code{background:#333b3c;border-radius:4px;padding:2px 5px}pre{overflow:auto;background:#121619;padding:13px;border-radius:8px}pre code{padding:0}blockquote{border-left:3px solid #93d5bc;padding-left:16px;margin-left:0}header{display:none}@media(min-width:780px){body{display:grid;grid-template-columns:245px 1fr;min-height:100vh}aside{position:sticky;top:0;max-height:100vh}}@media(max-width:779px){aside{max-height:200px}main{padding:16px}}aside select{width:100%;padding:8px;border:1px solid #526469;background:#121919;color:#eef2f2;border-radius:7px;margin:0 0 12px}</style></head><body><aside><h2>Round Robin Hood</h2><select id="guide-language" aria-label="Language"><option value="de">Deutsch</option><option value="en" selected>English</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option></select><input id="filter" type="search" placeholder="Search chapters and content" aria-label="Search chapters and content"><nav id="nav"><a class="" href="index.html">Home</a><a class="" href="installation.html">Installation &amp; upgrades</a><a class="" href="setup.html">Setup</a><a class="" href="dashboard.html">Dashboard</a><a class="" href="consumers.html">Consumers</a><a class="active" href="profiles.html">Profiles &amp; strategies</a><a class="" href="conditions.html">Sensor conditions</a><a class="" href="energy.html">Energy &amp; costs</a><a class="" href="settings.html">Settings</a><a class="" href="sensors.html">Sensor types</a><a class="" href="startup.html">Restart behavior</a><a class="" href="troubleshooting.html">Troubleshooting</a><a class="" href="safety.html">Safety</a><a class="" href="faq.html">FAQ</a><a class="" href="glossary.html">Glossary</a><a class="" href="about.html">About</a></nav><p id="search-status" role="status" aria-live="polite" style="font-size:12px;color:#cbd6da"></p></aside><main><h1>Profiles, priorities and strategies</h1>
+<p>A profile groups unique consumers; a consumer can belong to one profile only (except a separately assigned residual-surplus load). Profiles have ordered priority and, under safety constraints, a higher-priority profile may reclaim power from a lower one.</p>
+<h2>Eight strategies</h2>
+<table>
+<thead>
+<tr>
+  <th>Strategy</th>
+  <th>Behavior</th>
+  <th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Classic Round Robin</strong></td>
+  <td>Rotate in fixed order; Strict or Skip when a load will not fit.</td>
+  <td>Cyclic sharing.</td>
+</tr>
+<tr>
+  <td><strong>Fair Runtime</strong></td>
+  <td>Prioritize lowest confirmed RRH operating time; minimum gap/rotation delay limits thrashing.</td>
+  <td>Balanced running hours.</td>
+</tr>
+<tr>
+  <td><strong>Fair Energy</strong></td>
+  <td>Prioritize least estimated credited Wh (declared W × runtime); uses a separate minimum credit gap.</td>
+  <td>Consumers of differing wattage.</td>
+</tr>
+<tr>
+  <td><strong>Fixed Priority</strong></td>
+  <td>Highest listed eligible load first, Strict or Skip if insufficient power.</td>
+  <td>Predictable priority.</td>
+</tr>
+<tr>
+  <td><strong>Maximum Efficiency</strong></td>
+  <td>Select a combination yielding greater surplus utilization; at most 24 consumers per profile.</td>
+  <td>Maximize use of available watts.</td>
+</tr>
+<tr>
+  <td><strong>Power Ascending</strong></td>
+  <td>Prefer lower-watt loads; Strict or Skip.</td>
+  <td>Favor smaller appliances.</td>
+</tr>
+<tr>
+  <td><strong>Power Descending</strong></td>
+  <td>Prefer larger-watt loads; Strict or Skip.</td>
+  <td>Favor larger appliances.</td>
+</tr>
+<tr>
+  <td><strong>Stable Operation</strong></td>
+  <td>Favor continuity, avoid avoidable switching.</td>
+  <td>Loads sensitive to repeated starts.</td>
+</tr>
+</tbody>
+</table>
+<h2>Profile editor fields and defaults</h2>
+<table>
+<thead>
+<tr>
+  <th>Field</th>
+  <th>Meaning / default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Name / enabled</strong></td>
+  <td>Unique display label and profile participation toggle.</td>
+</tr>
+<tr>
+  <td><strong>Priority ↑/↓</strong></td>
+  <td>Profile order, separate from consumer ordering.</td>
+</tr>
+<tr>
+  <td><strong>Member list</strong></td>
+  <td>Unique consumer assignment across profiles.</td>
+</tr>
+<tr>
+  <td><strong>Strategy</strong></td>
+  <td>Allocation algorithm; relevant options nested inside one bordered group.</td>
+</tr>
+<tr>
+  <td><strong>Dashboard order</strong></td>
+  <td>Fixed or dynamic order where supported.</td>
+</tr>
+<tr>
+  <td><strong>Strict / Skip</strong></td>
+  <td>Strict can block later eligible loads when a candidate does not fit; Skip may proceed to a fitting one. Not available for every strategy.</td>
+</tr>
+<tr>
+  <td><strong>Fair comparison period</strong></td>
+  <td>Lifetime or fixed 24 h, 7 d, 14 d, 30 d. The wall-clock period does not stop during Pause.</td>
+</tr>
+<tr>
+  <td><strong>Fair rotation interval</strong></td>
+  <td>Minimum time between elective rotations, default <strong>900 s</strong> (60–86400).</td>
+</tr>
+<tr>
+  <td><strong>Fair runtime gap</strong></td>
+  <td>Minimum credited time advantage, default <strong>60 s</strong>.</td>
+</tr>
+<tr>
+  <td><strong>Fair energy gap</strong></td>
+  <td>Minimum credited energy advantage, default <strong>10 Wh</strong>.</td>
+</tr>
+<tr>
+  <td><strong>Efficiency minimum gain</strong></td>
+  <td>Required extra watt usage, default <strong>200 W</strong>.</td>
+</tr>
+<tr>
+  <td><strong>Optimization interval</strong></td>
+  <td>Minimum spacing between optimizations, default <strong>60 s</strong> (10–3600).</td>
+</tr>
+<tr>
+  <td><strong>Efficiency start margin</strong></td>
+  <td>Extra safe startup headroom, default <strong>50 W</strong>.</td>
+</tr>
+<tr>
+  <td><strong>Sensor conditions</strong></td>
+  <td>Profile-level ALL/ANY predicates and hysteresis.</td>
+</tr>
+<tr>
+  <td><strong>Reset fairness credit</strong></td>
+  <td>Resets selected fair score only; energy/money ledger and other score remain intact.</td>
+</tr>
+</tbody>
+</table>
+<p>Fair scores count only confirmed RRH allocation while the associated fair strategy is operating, not all lifetime appliance hours. Minimum-run, cooldown, data-quality rules and <strong>All OFF</strong> still apply. See <a href="conditions.html">Conditions</a>.</p>
+<h2>Profile participants</h2>
+<p>The profile editor groups member selection and base order inside the labelled <strong>Profile participants</strong> fieldset. This is a presentation change; profile priority and strategy behaviour are unchanged.</p>
+<hr><p><small>Copyright (c) 2026 Satisfried | Safety | <a href="safety.html">Safety</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" matching articles":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/profiles.html";});filter();})();</script></body></html>

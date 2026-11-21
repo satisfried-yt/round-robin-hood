@@ -1,0 +1,44 @@
+name: Documentation build check
+
+on:
+  push:
+    branches:
+      - main
+      - release-prep/v0.9.3
+    paths:
+      - "docs/site/**"
+      - "mkdocs.yml"
+      - "docs/SITE_BUILD.md"
+      - ".github/workflows/docs-check.yml"
+  pull_request:
+    paths:
+      - "docs/site/**"
+      - "mkdocs.yml"
+      - "docs/SITE_BUILD.md"
+      - ".github/workflows/docs-check.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned-major documentation dependencies
+        run: python -m pip install 'mkdocs>=1.6,<2' 'mkdocs-material>=9.7,<10' 'mkdocs-static-i18n>=1.2,<2'
+      - name: Build all languages in strict mode
+        run: python -m mkdocs build --strict
+      - name: Upload private build artifact (no public deployment)
+        uses: actions/upload-artifact@v4
+        with:
+          name: rrh-handbook-preview
+          path: site-build/
+          if-no-files-found: error
+          retention-days: 7

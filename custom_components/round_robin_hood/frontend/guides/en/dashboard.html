@@ -1,0 +1,86 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>Round Robin Hood | Dashboard</title><style>*{box-sizing:border-box}body{margin:0;background:#161a1b;color:#eef2f2;font:15px system-ui, sans-serif;line-height:1.65}aside{background:#202525;border-right:1px solid #334345;padding:18px 14px;overflow:auto}aside h2{font-size:1.2rem;margin:0 0 12px;color:#d5ffeb}aside a{display:block;color:#cbd6da;padding:7px 10px;text-decoration:none;border-radius:7px}aside a[hidden]{display:none!important}aside a:hover,aside a.active{background:#324244;color:#91e5b3}aside input{width:100%;border:1px solid #526469;background:#121919;color:#fff;padding:9px;border-radius:7px;margin:0 0 14px}main{min-width:0;max-width:100%;padding:22px 32px;overflow-wrap:anywhere}h1{font-size:1.65rem;margin:0 0 18px;color:#a3e6bb}h2{font-size:1.28rem;margin:25px 0 10px;color:#ffdf91}h3{font-size:1.05rem;color:#bad0fd}a{color:#6dd4ff}table{border-collapse:collapse;display:block;overflow:auto}th,td{padding:8px 10px;border-bottom:1px solid #455054;text-align:left}code{background:#333b3c;border-radius:4px;padding:2px 5px}pre{overflow:auto;background:#121619;padding:13px;border-radius:8px}pre code{padding:0}blockquote{border-left:3px solid #93d5bc;padding-left:16px;margin-left:0}header{display:none}@media(min-width:780px){body{display:grid;grid-template-columns:245px 1fr;min-height:100vh}aside{position:sticky;top:0;max-height:100vh}}@media(max-width:779px){aside{max-height:200px}main{padding:16px}}aside select{width:100%;padding:8px;border:1px solid #526469;background:#121919;color:#eef2f2;border-radius:7px;margin:0 0 12px}</style></head><body><aside><h2>Round Robin Hood</h2><select id="guide-language" aria-label="Language"><option value="de">Deutsch</option><option value="en" selected>English</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option></select><input id="filter" type="search" placeholder="Search chapters and content" aria-label="Search chapters and content"><nav id="nav"><a class="" href="index.html">Home</a><a class="" href="installation.html">Installation &amp; upgrades</a><a class="" href="setup.html">Setup</a><a class="active" href="dashboard.html">Dashboard</a><a class="" href="consumers.html">Consumers</a><a class="" href="profiles.html">Profiles &amp; strategies</a><a class="" href="conditions.html">Sensor conditions</a><a class="" href="energy.html">Energy &amp; costs</a><a class="" href="settings.html">Settings</a><a class="" href="sensors.html">Sensor types</a><a class="" href="startup.html">Restart behavior</a><a class="" href="troubleshooting.html">Troubleshooting</a><a class="" href="safety.html">Safety</a><a class="" href="faq.html">FAQ</a><a class="" href="glossary.html">Glossary</a><a class="" href="about.html">About</a></nav><p id="search-status" role="status" aria-live="polite" style="font-size:12px;color:#cbd6da"></p></aside><main><h1>Dashboard – every card and action</h1>
+<h2>Operation controls</h2>
+<table>
+<thead>
+<tr>
+  <th>Indicator/action</th>
+  <th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Operation</strong></td>
+  <td>Current controller state and any blocking reason.</td>
+</tr>
+<tr>
+  <td><strong>RRH ON</strong></td>
+  <td>Starts automatic allocation if configuration and fresh grid reading are valid; it may turn on real authorized devices.</td>
+</tr>
+<tr>
+  <td><strong>All OFF</strong></td>
+  <td>Requests OFF for RRH-managed devices; verify actual feedback. Not a certified physical emergency stop.</td>
+</tr>
+<tr>
+  <td><strong>Pause</strong></td>
+  <td>Suspends allocation; <strong>existing loads may stay running</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h2>Metrics and money</h2>
+<table>
+<thead>
+<tr>
+  <th>Card</th>
+  <th>Definition, unit and limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Grid export</strong></td>
+  <td>Signed measured grid power in W; negative values mean import. Observe reading freshness.</td>
+</tr>
+<tr>
+  <td><strong>Additional available</strong></td>
+  <td>Positive export minus reserved watts, floored at 0 W.</td>
+</tr>
+<tr>
+  <td><strong>Total budget</strong></td>
+  <td>Additional available plus confirmed currently RRH-managed W; estimate, not a meter.</td>
+</tr>
+<tr>
+  <td><strong>Estimated managed power</strong></td>
+  <td>Sum of confirmed ON consumers' configured ratings in W.</td>
+</tr>
+<tr>
+  <td><strong>Net benefit now</strong></td>
+  <td>Estimated RRH-controlled kW × (purchase – feed-in tariff), <strong>currency per hour</strong>; live rate, not cumulative. Missing tariffs show “—”.</td>
+</tr>
+<tr>
+  <td><strong>Accumulated net benefit</strong></td>
+  <td>Historical estimated credited energy value minus forgone feed-in income, not a guaranteed invoice saving.</td>
+</tr>
+<tr>
+  <td><strong>RRH-used surplus</strong></td>
+  <td>Estimated integrated RRH-attributed PV energy in kWh.</td>
+</tr>
+<tr>
+  <td><strong>Surplus utilization ratio</strong></td>
+  <td>Current managed load watts / reconstructed available positive surplus watts as a percentage; unavailable with invalid input.</td>
+</tr>
+<tr>
+  <td><strong>PV power</strong></td>
+  <td>Optional independent HA PV production sensor in W; installed nominal watts shown below where set.</td>
+</tr>
+</tbody>
+</table>
+<h2>Full-width live chart</h2>
+<p>The chart stretches over the full content row and offers <strong>gauge, line, bar, area, donut, stacked and sparkline</strong>. It depicts estimated capture percentage, not overall solar production. Hide/show any dashboard metric from <strong>Settings → Dashboard appearance &amp; language</strong>. The chart stays full row when other cards are hidden.</p>
+<h2>Current allocation order</h2>
+<p>Profiles are shown in their priority order; member chips show physical state, planned watts, confirmed allocation, conditions and waiting reasons. Green marks confirmed RRH-owned ON consumers. Conditions may block an entire profile even with surplus. See <a href="profiles.html">Profiles</a> and <a href="energy.html">Energy &amp; costs</a>.</p>
+<h2>Features and usage</h2>
+<p>The dashboard now shows the international tagline <strong>Power your home. Not their profits.</strong> / <strong>Less to the grid. More for the little guy.</strong> The estimated live monetary benefit is displayed <strong>per hour</strong> with two decimal places; it is not a certified savings measurement. Estimated RRH-used surplus is also shown with two decimal places in kWh.</p>
+<p>The optional <strong>Buy me a drink</strong> link below lifetime net benefit opens an external donation page only when clicked; hide it under <strong>Settings → Dashboard</strong>.</p>
+<p><strong>Control loop:</strong> If a rated 500 W device starts with 500 W net export and measured export consequently drops to 0 W, RRH must not stop it for that reason alone. Additional available power is the <strong>current</strong> positive export less reserve. Running owned watts are added only for estimated overall potential. Genuine import is handled by the configured deficit-shedding protections.</p>
+<h2>Features and usage</h2>
+<p>The optional donation link beneath <strong>Total net advantage</strong> now says <strong>“Buy me a drink”</strong>. Its information icon displays a hover/tap hint: <strong>“Large amounts of rum and cola fueled this project. That isn't free.”</strong> RRH embeds no third-party donation content until the external link is opened. Disable the link under <strong>Settings → Dashboard</strong> at any time.</p>
+<hr><p><small>Copyright (c) 2026 Satisfried | Safety | <a href="safety.html">Safety</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" matching articles":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/dashboard.html";});filter();})();</script></body></html>

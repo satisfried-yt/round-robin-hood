@@ -1,0 +1,21 @@
+{
+  "domain": "round_robin_hood",
+  "name": "Round Robin Hood",
+  "codeowners": [
+    "@satisfried-yt"
+  ],
+  "config_flow": true,
+  "dependencies": [
+    "frontend",
+    "http",
+    "websocket_api",
+    "panel_custom"
+  ],
+  "documentation": "https://github.com/satisfried-yt/round-robin-hood#documentation",
+  "integration_type": "service",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/satisfried-yt/round-robin-hood/issues",
+  "requirements": [],
+  "single_config_entry": true,
+  "version": "0.9.3"
+}

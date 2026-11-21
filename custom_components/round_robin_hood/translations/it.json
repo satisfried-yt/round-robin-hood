@@ -1,0 +1,14 @@
+{
+  "title": "Round Robin Hood",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Round Robin Hood",
+        "description": "Configura Round Robin Hood dal pannello laterale. Dopo le avvertenze di sicurezza, scegli la procedura guidata, la demo isolata o la configurazione manuale. Gli helper esistenti di Home Assistant non vengono modificati."
+      }
+    },
+    "abort": {
+      "already_configured": "È consentita una sola istanza di Round Robin Hood."
+    }
+  }
+}

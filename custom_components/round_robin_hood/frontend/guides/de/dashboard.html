@@ -1,0 +1,87 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>Round Robin Hood | Dashboard</title><style>*{box-sizing:border-box}body{margin:0;background:#161a1b;color:#eef2f2;font:15px system-ui, sans-serif;line-height:1.65}aside{background:#202525;border-right:1px solid #334345;padding:18px 14px;overflow:auto}aside h2{font-size:1.2rem;margin:0 0 12px;color:#d5ffeb}aside a{display:block;color:#cbd6da;padding:7px 10px;text-decoration:none;border-radius:7px}aside a[hidden]{display:none!important}aside a:hover,aside a.active{background:#324244;color:#91e5b3}aside input{width:100%;border:1px solid #526469;background:#121919;color:#fff;padding:9px;border-radius:7px;margin:0 0 14px}main{min-width:0;max-width:100%;padding:22px 32px;overflow-wrap:anywhere}h1{font-size:1.65rem;margin:0 0 18px;color:#a3e6bb}h2{font-size:1.28rem;margin:25px 0 10px;color:#ffdf91}h3{font-size:1.05rem;color:#bad0fd}a{color:#6dd4ff}table{border-collapse:collapse;display:block;overflow:auto}th,td{padding:8px 10px;border-bottom:1px solid #455054;text-align:left}code{background:#333b3c;border-radius:4px;padding:2px 5px}pre{overflow:auto;background:#121619;padding:13px;border-radius:8px}pre code{padding:0}blockquote{border-left:3px solid #93d5bc;padding-left:16px;margin-left:0}header{display:none}@media(min-width:780px){body{display:grid;grid-template-columns:245px 1fr;min-height:100vh}aside{position:sticky;top:0;max-height:100vh}}@media(max-width:779px){aside{max-height:200px}main{padding:16px}}aside select{width:100%;padding:8px;border:1px solid #526469;background:#121919;color:#eef2f2;border-radius:7px;margin:0 0 12px}</style></head><body><aside><h2>Round Robin Hood</h2><select id="guide-language" aria-label="Language"><option value="de" selected>Deutsch</option><option value="en">English</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option></select><input id="filter" type="search" placeholder="Kapitel und Inhalte suchen" aria-label="Kapitel und Inhalte suchen"><nav id="nav"><a class="" href="index.html">Start</a><a class="" href="installation.html">Installation &amp; Update</a><a class="" href="setup.html">Einrichtung</a><a class="active" href="dashboard.html">Dashboard</a><a class="" href="consumers.html">Verbraucher</a><a class="" href="profiles.html">Profile &amp; Strategien</a><a class="" href="conditions.html">Sensorbedingungen</a><a class="" href="energy.html">Energie &amp; Kosten</a><a class="" href="settings.html">Einstellungen</a><a class="" href="sensors.html">Sensortypen</a><a class="" href="startup.html">Startverhalten</a><a class="" href="troubleshooting.html">Fehlerdiagnose</a><a class="" href="safety.html">Sicherheit</a><a class="" href="faq.html">FAQ</a><a class="" href="glossary.html">Glossar</a><a class="" href="about.html">Über</a></nav><p id="search-status" role="status" aria-live="polite" style="font-size:12px;color:#cbd6da"></p></aside><main><h1>Dashboard – alle Karten und Schalter</h1>
+<h2>Betrieb und Eingriff</h2>
+<table>
+<thead>
+<tr>
+  <th>Anzeige/Aktion</th>
+  <th>Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Betrieb</strong></td>
+  <td>Aktueller Zustand (aktiv, pausiert, Fehler usw.) und Grund für Sperren.</td>
+</tr>
+<tr>
+  <td><strong>RRH EIN</strong></td>
+  <td>Startet die Automatik nur bei gültiger Konfiguration und frischer Netzmessung. Vorsicht: kann konfigurierte reale Geräte schalten.</td>
+</tr>
+<tr>
+  <td><strong>Alle AUS</strong></td>
+  <td>Fordert Abschaltung aller durch RRH verwalteten Geräte; Rückmeldungen prüfen. Kein zertifizierter Hardware-Not-Aus.</td>
+</tr>
+<tr>
+  <td><strong>Pause</strong></td>
+  <td>Stoppt Neuzuteilungen/Optimierung, schaltet <strong>laufende Geräte nicht notwendigerweise aus</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h2>Leistungs- und Geldkarten</h2>
+<table>
+<thead>
+<tr>
+  <th>Karte</th>
+  <th>Berechnung, Einheit und Grenze</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Netzeinspeisung</strong></td>
+  <td>Gemessener Netzfluss nach angewendetem Vorzeichen, W. Negative Werte bedeuten Netzbezug. Frische/Quelle beachten.</td>
+</tr>
+<tr>
+  <td><strong>Zusätzlich verfügbar</strong></td>
+  <td>Positive Einspeisung minus eingestellter Reserve, mindestens 0 W. Dies ist zusätzliche, noch nicht verbrauchte Leistung.</td>
+</tr>
+<tr>
+  <td><strong>Gesamtbudget</strong></td>
+  <td>Zusätzlich verfügbar plus bereits RRH-verwaltete bestätigte W. Rechenwert, kein Messgerät.</td>
+</tr>
+<tr>
+  <td><strong>Geschätzte verwaltete Leistung</strong></td>
+  <td>Summe laufender, bestätigter Verbraucher-Nennwerte in W.</td>
+</tr>
+<tr>
+  <td><strong>Netto-Vorteil jetzt</strong></td>
+  <td>Geschätzte kW der genutzten RRH-Leistung × (Strombezugspreis – Einspeisevergütung), <strong>Geldeinheiten pro Stunde</strong>. Live-Snapshot, nicht kumulativ. Fehlende Tarife ergeben „—“.</td>
+</tr>
+<tr>
+  <td><strong>Bisheriger Netto-Vorteil</strong></td>
+  <td>Aufgelaufener Schätzwert aus gültigen, bepreisten kWh minus entgangener Einspeisevergütung. Nicht notwendigerweise Ersparnis laut Rechnung.</td>
+</tr>
+<tr>
+  <td><strong>Von RRH genutzter Überschuss</strong></td>
+  <td>Zeitintegrierte, dem RRH zugerechnete PV-Energie in kWh.</td>
+</tr>
+<tr>
+  <td><strong>Überschuss-Nutzungsquote</strong></td>
+  <td>Augenblickliche RRH-Nutzleistung geteilt durch rekonstruierte positive Gesamteinspeise-/Nutzleistung in Prozent; bei unbrauchbaren Messungen „—“.</td>
+</tr>
+<tr>
+  <td><strong>PV-Leistung</strong></td>
+  <td>Optionaler vorhandener HA-PV-Leistungssensor in W; Anlagen-Nennleistung darunter in W. Ohne Sensor „—“.</td>
+</tr>
+</tbody>
+</table>
+<h2>Live-Effizienzkarte</h2>
+<p>Über die ganze Inhaltsbreite; wählbar als <strong>Gauge, Linie, Balken, Fläche, Donut, gestapelt oder Sparkline</strong>. Die Grafik visualisiert die berechnete momentane Nutzungsquote, nicht die absolute PV-Erzeugung. Ob eine Karte gezeigt wird, lässt sich unter <strong>Einstellungen → Dashboard-Anzeigen &amp; Sprache</strong> einzeln ändern. Die Karten fließen responsive; das Diagramm bleibt über die gesamte Zeile.</p>
+<h2>Aktuelle Vergabereihenfolge</h2>
+<p>Profile erscheinen nach ihrer Priorität; darunter zeigen Gerätkarten Ein-/Aus-Status, geplante Leistung, aktuelle Zuteilung, Bedingungen, Fairness und Sperrgründe. Grün markiert bestätigte RRH-gesteuerte Verbraucher; <strong>inaktiv</strong> bedeutet nicht zwingend einen Defekt. Profilbedingungen können auch bei vorhandenem Überschuss sämtliche Geräte eines Profils blockieren.</p>
+<p>Siehe <a href="profiles.html">Profile &amp; Strategien</a> und <a href="energy.html">Energie &amp; Kosten</a>.</p>
+<h2>Bedienung und Funktionen</h2>
+<p>Das Dashboard verwendet den internationalen Slogan <strong>Power your home. Not their profits.</strong> / <strong>Less to the grid. More for the little guy.</strong>. Die Live-Anzeige des Netto-Vorteils ist eine geschätzte <strong>Währungsmenge pro Stunde</strong> mit zwei Nachkommastellen, nicht eine gemessene Einsparung. Ebenso zeigt die Karte des von RRH genutzten Überschusses zwei Nachkommastellen in kWh.</p>
+<p>Unter dem bisherigen Netto-Vorteil liegt optional der Link <strong>Gib einen Drink aus</strong>. Ein Klick öffnet eine externe Spendenseite; es wird ohne Klick nichts nachgeladen. Unter <strong>Einstellungen → Dashboard</strong> kann der Link abgeschaltet werden.</p>
+<p><strong>Regelkreis:</strong> Ein 500-W-Verbraucher, der bei +500 W tatsächlicher Netzeinspeisung startet und den Export dadurch auf 0 W senkt, darf nicht allein deswegen ausgehen. Zusätzliche freie Leistung wird aus der <strong>aktuellen</strong> Einspeisung abzüglich Reserve ermittelt. Bereits aktive bestätigte Nennleistung dient nur der Schätzung des Gesamtpotenzials. Bei echtem Netzbezug greifen Defizitverzögerungen und Schutzbedingungen.</p>
+<h2>Bedienung und Funktionen</h2>
+<p>Der optional sichtbare Link unter <strong>Bisheriger Netto-Vorteil</strong> heißt nun <strong>„Gib einen Drink aus“</strong>. Das Info-Symbol zeigt per Maus oder Berührung: <strong>„Große Mengen Rum-Cola waren Treibstoff für dieses Projekt. Das kostet.“</strong> Es werden ohne Klick auf den externen Link keine externen Inhalte eingebettet. Unter <strong>Einstellungen → Dashboard</strong> kannst du den Link weiterhin deaktivieren.</p>
+<hr><p><small>Copyright (c) 2026 Satisfried | Sicherheit | <a href="safety.html">Sicherheit</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" passende Kapitel":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/dashboard.html";});filter();})();</script></body></html>

@@ -1,0 +1,14 @@
+{
+  "title": "Round Robin Hood",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Round Robin Hood",
+        "description": "Set up Round Robin Hood using the sidebar panel. Start with the safety notice and choose the setup wizard, an isolated demo, or manual configuration. RRH does not modify existing Home Assistant helpers."
+      }
+    },
+    "abort": {
+      "already_configured": "Only one Round Robin Hood instance is supported."
+    }
+  }
+}

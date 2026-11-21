@@ -1,0 +1,36 @@
+name: HACS validation
+
+on:
+  push:
+    branches:
+      - main
+      - release-prep/v0.9.3
+    paths:
+      - "custom_components/**"
+      - "hacs.json"
+      - "README.md"
+      - ".github/workflows/hacs.yml"
+  pull_request:
+    paths:
+      - "custom_components/**"
+      - "hacs.json"
+      - "README.md"
+      - ".github/workflows/hacs.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  hacs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Validate HACS custom integration repository
+        uses: hacs/action@main
+        with:
+          category: integration
+          comment: "false"

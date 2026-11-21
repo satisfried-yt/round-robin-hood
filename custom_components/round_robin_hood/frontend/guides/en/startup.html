@@ -1,0 +1,36 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>Round Robin Hood | Restart behavior</title><style>*{box-sizing:border-box}body{margin:0;background:#161a1b;color:#eef2f2;font:15px system-ui, sans-serif;line-height:1.65}aside{background:#202525;border-right:1px solid #334345;padding:18px 14px;overflow:auto}aside h2{font-size:1.2rem;margin:0 0 12px;color:#d5ffeb}aside a{display:block;color:#cbd6da;padding:7px 10px;text-decoration:none;border-radius:7px}aside a[hidden]{display:none!important}aside a:hover,aside a.active{background:#324244;color:#91e5b3}aside input{width:100%;border:1px solid #526469;background:#121919;color:#fff;padding:9px;border-radius:7px;margin:0 0 14px}main{min-width:0;max-width:100%;padding:22px 32px;overflow-wrap:anywhere}h1{font-size:1.65rem;margin:0 0 18px;color:#a3e6bb}h2{font-size:1.28rem;margin:25px 0 10px;color:#ffdf91}h3{font-size:1.05rem;color:#bad0fd}a{color:#6dd4ff}table{border-collapse:collapse;display:block;overflow:auto}th,td{padding:8px 10px;border-bottom:1px solid #455054;text-align:left}code{background:#333b3c;border-radius:4px;padding:2px 5px}pre{overflow:auto;background:#121619;padding:13px;border-radius:8px}pre code{padding:0}blockquote{border-left:3px solid #93d5bc;padding-left:16px;margin-left:0}header{display:none}@media(min-width:780px){body{display:grid;grid-template-columns:245px 1fr;min-height:100vh}aside{position:sticky;top:0;max-height:100vh}}@media(max-width:779px){aside{max-height:200px}main{padding:16px}}aside select{width:100%;padding:8px;border:1px solid #526469;background:#121919;color:#eef2f2;border-radius:7px;margin:0 0 12px}</style></head><body><aside><h2>Round Robin Hood</h2><select id="guide-language" aria-label="Language"><option value="de">Deutsch</option><option value="en" selected>English</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option></select><input id="filter" type="search" placeholder="Search chapters and content" aria-label="Search chapters and content"><nav id="nav"><a class="" href="index.html">Home</a><a class="" href="installation.html">Installation &amp; upgrades</a><a class="" href="setup.html">Setup</a><a class="" href="dashboard.html">Dashboard</a><a class="" href="consumers.html">Consumers</a><a class="" href="profiles.html">Profiles &amp; strategies</a><a class="" href="conditions.html">Sensor conditions</a><a class="" href="energy.html">Energy &amp; costs</a><a class="" href="settings.html">Settings</a><a class="" href="sensors.html">Sensor types</a><a class="active" href="startup.html">Restart behavior</a><a class="" href="troubleshooting.html">Troubleshooting</a><a class="" href="safety.html">Safety</a><a class="" href="faq.html">FAQ</a><a class="" href="glossary.html">Glossary</a><a class="" href="about.html">About</a></nav><p id="search-status" role="status" aria-live="polite" style="font-size:12px;color:#cbd6da"></p></aside><main><h1>Restart behavior</h1>
+<p>Choose <strong>RRH → Settings → Behavior on Home Assistant restart</strong>.</p>
+<table>
+<thead>
+<tr>
+  <th>Option</th>
+  <th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Always OFF</strong> (default)</td>
+  <td>RRH does not resume its automatic controller after reboot. This is <strong>not</strong> a physical OFF command to devices that were already on.</td>
+</tr>
+<tr>
+  <td><strong>Always ON</strong></td>
+  <td>RRH attempts to start only after its safety checks have succeeded.</td>
+</tr>
+<tr>
+  <td><strong>Restore last state</strong></td>
+  <td>Previously running → attempt to start; paused → remain paused; OFF → remain stopped.</td>
+</tr>
+</tbody>
+</table>
+<h2>Features and usage</h2>
+<p><strong>Always ON</strong> and <strong>Restore last = ON</strong> now work for <strong>manually configured</strong> installations even when the optional setup wizard was not completed. RRH stays paused while the automatic start is pending. It starts only after all configured HA actuators return a known <code>on</code>/<code>off</code> state and a <strong>new valid grid-power report</strong> arrives after HA restart. Late-appearing entities no longer cancel the startup intent permanently. Unresolved switching or a bad grid source still blocks automation. Device ON states are never blindly restored.</p>
+<h2>Safety gate before any automatic dispatch</h2>
+<ol>
+<li>Valid grid source, configured consumers and an enabled profile (wizard completion is optional).</li>
+<li>No pending or unresolved prior switching commands.</li>
+<li>All configured actuator states observed as <code>on</code>/<code>off</code>; never blindly adopt an externally controlled load.</li>
+<li>A <strong>new</strong> valid grid report must arrive after restart; a cached reading cannot dispatch a command.</li>
+<li>Unavailable data keeps the controller paused with a diagnostic reason. Unresolved prior commands require manual action.</li>
+</ol>
+<p>Restart policy does not blindly restore physical switch states. Pause stops RRH decisions but does not turn running appliances off. For heaters or unattended electrical loads, prefer <strong>Always OFF</strong> and use independent safety hardware. RRH is not a certified emergency stop.</p>
+<hr><p><small>Copyright (c) 2026 Satisfried | Safety | <a href="safety.html">Safety</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" matching articles":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/startup.html";});filter();})();</script></body></html>

@@ -1,0 +1,14 @@
+{
+  "title": "Round Robin Hood",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Round Robin Hood",
+        "description": "Configurez Round Robin Hood dans le panneau latéral. Après les consignes de sécurité, choisissez l’assistant, la démonstration isolée ou la configuration manuelle. Les aides existantes de Home Assistant ne sont pas modifiées."
+      }
+    },
+    "abort": {
+      "already_configured": "Une seule instance de Round Robin Hood est autorisée."
+    }
+  }
+}

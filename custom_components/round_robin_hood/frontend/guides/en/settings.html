@@ -1,0 +1,137 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>Round Robin Hood | Settings</title><style>*{box-sizing:border-box}body{margin:0;background:#161a1b;color:#eef2f2;font:15px system-ui, sans-serif;line-height:1.65}aside{background:#202525;border-right:1px solid #334345;padding:18px 14px;overflow:auto}aside h2{font-size:1.2rem;margin:0 0 12px;color:#d5ffeb}aside a{display:block;color:#cbd6da;padding:7px 10px;text-decoration:none;border-radius:7px}aside a[hidden]{display:none!important}aside a:hover,aside a.active{background:#324244;color:#91e5b3}aside input{width:100%;border:1px solid #526469;background:#121919;color:#fff;padding:9px;border-radius:7px;margin:0 0 14px}main{min-width:0;max-width:100%;padding:22px 32px;overflow-wrap:anywhere}h1{font-size:1.65rem;margin:0 0 18px;color:#a3e6bb}h2{font-size:1.28rem;margin:25px 0 10px;color:#ffdf91}h3{font-size:1.05rem;color:#bad0fd}a{color:#6dd4ff}table{border-collapse:collapse;display:block;overflow:auto}th,td{padding:8px 10px;border-bottom:1px solid #455054;text-align:left}code{background:#333b3c;border-radius:4px;padding:2px 5px}pre{overflow:auto;background:#121619;padding:13px;border-radius:8px}pre code{padding:0}blockquote{border-left:3px solid #93d5bc;padding-left:16px;margin-left:0}header{display:none}@media(min-width:780px){body{display:grid;grid-template-columns:245px 1fr;min-height:100vh}aside{position:sticky;top:0;max-height:100vh}}@media(max-width:779px){aside{max-height:200px}main{padding:16px}}aside select{width:100%;padding:8px;border:1px solid #526469;background:#121919;color:#eef2f2;border-radius:7px;margin:0 0 12px}</style></head><body><aside><h2>Round Robin Hood</h2><select id="guide-language" aria-label="Language"><option value="de">Deutsch</option><option value="en" selected>English</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option></select><input id="filter" type="search" placeholder="Search chapters and content" aria-label="Search chapters and content"><nav id="nav"><a class="" href="index.html">Home</a><a class="" href="installation.html">Installation &amp; upgrades</a><a class="" href="setup.html">Setup</a><a class="" href="dashboard.html">Dashboard</a><a class="" href="consumers.html">Consumers</a><a class="" href="profiles.html">Profiles &amp; strategies</a><a class="" href="conditions.html">Sensor conditions</a><a class="" href="energy.html">Energy &amp; costs</a><a class="active" href="settings.html">Settings</a><a class="" href="sensors.html">Sensor types</a><a class="" href="startup.html">Restart behavior</a><a class="" href="troubleshooting.html">Troubleshooting</a><a class="" href="safety.html">Safety</a><a class="" href="faq.html">FAQ</a><a class="" href="glossary.html">Glossary</a><a class="" href="about.html">About</a></nav><p id="search-status" role="status" aria-live="polite" style="font-size:12px;color:#cbd6da"></p></aside><main><h1>Settings – every field and action</h1>
+<p><strong>Note:</strong> Editing affects the real controller; pause or turn all devices off and wait for in-flight commands. Pause does not necessarily turn devices off.</p>
+<h2>Grid source</h2>
+<table>
+<thead>
+<tr>
+  <th>Field</th>
+  <th>Meaning / default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Grid power source</strong></td>
+  <td>Existing <code>sensor.*</code> with instantaneous net W/kW, required for allocation.</td>
+</tr>
+<tr>
+  <td><strong>Sign</strong></td>
+  <td><code>Positive = export</code> (default) or <code>Negative = export</code>; choosing the wrong sign invalidates all available-watts decisions.</td>
+</tr>
+<tr>
+  <td><strong>Show data quality</strong></td>
+  <td>Visibility of the source freshness/diagnostics section, on by default.</td>
+</tr>
+</tbody>
+</table>
+<h2>Power and switching</h2>
+<table>
+<thead>
+<tr>
+  <th>Field</th>
+  <th>Meaning / default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Reserve</strong></td>
+  <td>W, default <strong>100</strong>, range 0–100,000; subtracts from positive export to reduce oscillation/grid import.</td>
+</tr>
+<tr>
+  <td><strong>Global deficit delay enabled</strong></td>
+  <td>On by default, delays normal shortfall OFF; <strong>All OFF</strong> remains immediate.</td>
+</tr>
+<tr>
+  <td><strong>Global deficit delay</strong></td>
+  <td>Seconds, default <strong>30</strong>, range 0–600; may temporarily draw from grid.</td>
+</tr>
+<tr>
+  <td><strong>Confirm skipping timers</strong></td>
+  <td>Request confirmation before manual override of minimum runtime/cooldown, on by default.</td>
+</tr>
+<tr>
+  <td><strong>Confirm disabling a profile</strong></td>
+  <td>Request confirmation for profile participation change, on by default.</td>
+</tr>
+<tr>
+  <td><strong>Residual-surplus consumer</strong></td>
+  <td>Optional one staged/variable load used <em>last</em>, never ahead of normal profiles.</td>
+</tr>
+</tbody>
+</table>
+<h2>Data quality</h2>
+<table>
+<thead>
+<tr>
+  <th>Field</th>
+  <th>Meaning / default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Maximum age of grid reading</strong></td>
+  <td>Seconds, default <strong>60</strong>, range 5–3600. Stale/unknown timestamps do <strong>not</strong> authorize new starts; a genuine new HA update can carry the same numeric value.</td>
+</tr>
+</tbody>
+</table>
+<h2>Dashboard appearance and language</h2>
+<table>
+<thead>
+<tr>
+  <th>Field</th>
+  <th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Live chart type</strong></td>
+  <td>Gauge, line, bar, area, donut, stacked, sparkline; presentation only.</td>
+</tr>
+<tr>
+  <td><strong>Language</strong></td>
+  <td><code>auto</code> follows HA locale; otherwise DE, EN, FR, ES, PT or IT. Some specialized feedback may fall back to English; all six UI languages are supported.</td>
+</tr>
+<tr>
+  <td><strong>Show/hide cards</strong></td>
+  <td>Grid, budget, managed power, live chart, live money, total money, used surplus, ratio, profile order and optional PV power. Full-width chart adapts if others are hidden.</td>
+</tr>
+</tbody>
+</table>
+<h2>Tools</h2>
+<table>
+<thead>
+<tr>
+  <th>Action</th>
+  <th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Demo mode</strong></td>
+  <td>Completely separate in-memory scenario; entry requires the real controller fully OFF. Virtual loads, slider and synthetic stats never touch real HA services or financial ledger.</td>
+</tr>
+<tr>
+  <td><strong>Restart setup wizard</strong></td>
+  <td>Draft existing settings, save only after review; see <a href="setup.html">Setup</a>.</td>
+</tr>
+<tr>
+  <td><strong>Show safety notice</strong></td>
+  <td>Reopen warning at any time and optionally change persistence; see <a href="safety.html">Safety</a>.</td>
+</tr>
+<tr>
+  <td><strong>Reset overall statistics</strong> (Energy &amp; costs page)</td>
+  <td>Confirmed ledger reset, independent of fair-runtime/fair-energy credits. Old monetary totals are not re-labelled.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Moved to Energy &amp; costs:</strong> currency, PV nominal watts, tariffs and optional energy sensors are edited exclusively on <a href="energy.html">Energy &amp; costs</a>.</p>
+<h2>Features and usage</h2>
+<ul>
+<li><strong>Show donation link on dashboard:</strong> Shows/hides the optional Buy me a drink link; enabled by default for migrated installations. This does not change the energy ledger.</li>
+<li><strong>Delete all RRH data:</strong> In Settings, open the factory-reset dialog and type exactly <code>RESET ROUND ROBIN HOOD</code>. RRH first dispatches <strong>All OFF</strong>, requiring confirmed OFF feedback from every configured actuator. Only then are RRH configuration, consumers, profiles, runtime/fairness history, statistics, setup flags and the stored safety acknowledgment cleared. <strong>No undo</strong> in RRH. Create a full HA backup including <code>.storage</code> first. If device confirmations or storage fail, check actual equipment and logs; do not blindly retry. External HA entities and recorder history are never deleted.</li>
+<li>After success, the safety notice appears before the first-use choice. Allocation does <strong>not</strong> start automatically.</li>
+</ul>
+<h2>Features and usage</h2>
+<p>Choose <strong>Always OFF</strong> (default), <strong>Always ON</strong>, or <strong>Restore last state</strong>. See <a href="startup.html">Restart behavior</a> for safety checks and physical-device caveats.</p>
+<h2>Features and usage</h2>
+<p>Settings cards now have <strong>equal heights within each grid row</strong> on wide displays, even when descriptions differ in length. The optional donation link reads <strong>“Buy me a drink”</strong>, with a tap- and hover-accessible information tip: “Large amounts of rum and cola fueled this project. That isn't free.” It is still configurable. First-time users can choose the wizard, a fully isolated Demo, or skip setup after seeing the safety notice.</p>
+<hr><p><small>Copyright (c) 2026 Satisfried | Safety | <a href="safety.html">Safety</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" matching articles":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/settings.html";});filter();})();</script></body></html>

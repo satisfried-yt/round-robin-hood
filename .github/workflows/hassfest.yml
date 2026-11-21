@@ -1,0 +1,29 @@
+name: Hassfest validation
+
+on:
+  push:
+    branches:
+      - main
+      - release-prep/v0.9.3
+    paths:
+      - "custom_components/**"
+      - ".github/workflows/hassfest.yml"
+  pull_request:
+    paths:
+      - "custom_components/**"
+      - ".github/workflows/hassfest.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  hassfest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Validate Home Assistant integration with hassfest
+        uses: home-assistant/actions/hassfest@master

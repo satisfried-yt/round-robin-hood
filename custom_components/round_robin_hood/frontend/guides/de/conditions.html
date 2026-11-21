@@ -1,0 +1,43 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>Round Robin Hood | Sensorbedingungen</title><style>*{box-sizing:border-box}body{margin:0;background:#161a1b;color:#eef2f2;font:15px system-ui, sans-serif;line-height:1.65}aside{background:#202525;border-right:1px solid #334345;padding:18px 14px;overflow:auto}aside h2{font-size:1.2rem;margin:0 0 12px;color:#d5ffeb}aside a{display:block;color:#cbd6da;padding:7px 10px;text-decoration:none;border-radius:7px}aside a[hidden]{display:none!important}aside a:hover,aside a.active{background:#324244;color:#91e5b3}aside input{width:100%;border:1px solid #526469;background:#121919;color:#fff;padding:9px;border-radius:7px;margin:0 0 14px}main{min-width:0;max-width:100%;padding:22px 32px;overflow-wrap:anywhere}h1{font-size:1.65rem;margin:0 0 18px;color:#a3e6bb}h2{font-size:1.28rem;margin:25px 0 10px;color:#ffdf91}h3{font-size:1.05rem;color:#bad0fd}a{color:#6dd4ff}table{border-collapse:collapse;display:block;overflow:auto}th,td{padding:8px 10px;border-bottom:1px solid #455054;text-align:left}code{background:#333b3c;border-radius:4px;padding:2px 5px}pre{overflow:auto;background:#121619;padding:13px;border-radius:8px}pre code{padding:0}blockquote{border-left:3px solid #93d5bc;padding-left:16px;margin-left:0}header{display:none}@media(min-width:780px){body{display:grid;grid-template-columns:245px 1fr;min-height:100vh}aside{position:sticky;top:0;max-height:100vh}}@media(max-width:779px){aside{max-height:200px}main{padding:16px}}aside select{width:100%;padding:8px;border:1px solid #526469;background:#121919;color:#eef2f2;border-radius:7px;margin:0 0 12px}</style></head><body><aside><h2>Round Robin Hood</h2><select id="guide-language" aria-label="Language"><option value="de" selected>Deutsch</option><option value="en">English</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option></select><input id="filter" type="search" placeholder="Kapitel und Inhalte suchen" aria-label="Kapitel und Inhalte suchen"><nav id="nav"><a class="" href="index.html">Start</a><a class="" href="installation.html">Installation &amp; Update</a><a class="" href="setup.html">Einrichtung</a><a class="" href="dashboard.html">Dashboard</a><a class="" href="consumers.html">Verbraucher</a><a class="" href="profiles.html">Profile &amp; Strategien</a><a class="active" href="conditions.html">Sensorbedingungen</a><a class="" href="energy.html">Energie &amp; Kosten</a><a class="" href="settings.html">Einstellungen</a><a class="" href="sensors.html">Sensortypen</a><a class="" href="startup.html">Startverhalten</a><a class="" href="troubleshooting.html">Fehlerdiagnose</a><a class="" href="safety.html">Sicherheit</a><a class="" href="faq.html">FAQ</a><a class="" href="glossary.html">Glossar</a><a class="" href="about.html">Über</a></nav><p id="search-status" role="status" aria-live="polite" style="font-size:12px;color:#cbd6da"></p></aside><main><h1>Sensorbedingungen – Grenzwerte, Logik, Hysterese</h1>
+<p>Bedingungen können <strong>pro Profil</strong> oder <strong>pro Verbraucher</strong> eingeschaltet werden. Sie verhindern Zuteilungen, wenn ein echter Messwert fehlt oder einen Grenzwert nicht erfüllt. Ein gesperrtes Profil gibt <strong>keines</strong> seiner Geräte frei, auch wenn genügend PV-Überschuss vorliegt.</p>
+<table>
+<thead>
+<tr>
+  <th>Feld</th>
+  <th>Erklärung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Sensorentität</strong></td>
+  <td>Vorhandener numerischer HA-<code>sensor.*</code> (z. B. Temperatur). <code>unknown</code> / <code>unavailable</code> sind ungültig.</td>
+</tr>
+<tr>
+  <td><strong>Vergleichsoperator</strong></td>
+  <td><code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code> gemäß Zielzustand.</td>
+</tr>
+<tr>
+  <td><strong>Grenzwert</strong></td>
+  <td>Numerische Schwelle in derselben Einheit wie der Sensor.</td>
+</tr>
+<tr>
+  <td><strong>Hysterese</strong></td>
+  <td>Rücksetzabstand zum Grenzwert, verhindert Flattern bei knappem Überschreiten.</td>
+</tr>
+<tr>
+  <td><strong>UND (alle)</strong></td>
+  <td>Sämtliche Bedingungen müssen erfüllt sein.</td>
+</tr>
+<tr>
+  <td><strong>ODER (eine)</strong></td>
+  <td>Mindestens eine Bedingung muss erfüllt sein.</td>
+</tr>
+<tr>
+  <td><strong>Aktivieren</strong></td>
+  <td>Ohne Aktivierung ist diese Bedingungsgruppe nicht als Filter wirksam.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Beispiel:</strong> Heizgerät darf nur starten, wenn <code>sensor.raumtemperatur &lt; 21</code> mit Hysterese <code>1</code> °C. Wenn derselbe Sensor nicht zuverlässig liefert, darf das Gerät nicht neu gestartet werden. Eine solche Softwarebedingung ist <strong>kein unabhängiger Temperaturbegrenzer</strong>.</p>
+<p>In Dashboard und Verbraucherübersicht zeigen Detailinformationen Erfüllung <code>x/y</code>, ungültige Sensoren und Schwellenwertprüfung. Änderungen an Regel/Operator/Sensor setzen die gespeicherte Hysterese-Logik sicher zurück. <a href="safety.html">Sicherheitshinweise</a>.</p>
+<hr><p><small>Copyright (c) 2026 Satisfried | Sicherheit | <a href="safety.html">Sicherheit</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" passende Kapitel":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/conditions.html";});filter();})();</script></body></html>

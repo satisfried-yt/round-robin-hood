@@ -1,0 +1,61 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>Round Robin Hood | Energy &amp; costs</title><style>*{box-sizing:border-box}body{margin:0;background:#161a1b;color:#eef2f2;font:15px system-ui, sans-serif;line-height:1.65}aside{background:#202525;border-right:1px solid #334345;padding:18px 14px;overflow:auto}aside h2{font-size:1.2rem;margin:0 0 12px;color:#d5ffeb}aside a{display:block;color:#cbd6da;padding:7px 10px;text-decoration:none;border-radius:7px}aside a[hidden]{display:none!important}aside a:hover,aside a.active{background:#324244;color:#91e5b3}aside input{width:100%;border:1px solid #526469;background:#121919;color:#fff;padding:9px;border-radius:7px;margin:0 0 14px}main{min-width:0;max-width:100%;padding:22px 32px;overflow-wrap:anywhere}h1{font-size:1.65rem;margin:0 0 18px;color:#a3e6bb}h2{font-size:1.28rem;margin:25px 0 10px;color:#ffdf91}h3{font-size:1.05rem;color:#bad0fd}a{color:#6dd4ff}table{border-collapse:collapse;display:block;overflow:auto}th,td{padding:8px 10px;border-bottom:1px solid #455054;text-align:left}code{background:#333b3c;border-radius:4px;padding:2px 5px}pre{overflow:auto;background:#121619;padding:13px;border-radius:8px}pre code{padding:0}blockquote{border-left:3px solid #93d5bc;padding-left:16px;margin-left:0}header{display:none}@media(min-width:780px){body{display:grid;grid-template-columns:245px 1fr;min-height:100vh}aside{position:sticky;top:0;max-height:100vh}}@media(max-width:779px){aside{max-height:200px}main{padding:16px}}aside select{width:100%;padding:8px;border:1px solid #526469;background:#121919;color:#eef2f2;border-radius:7px;margin:0 0 12px}</style></head><body><aside><h2>Round Robin Hood</h2><select id="guide-language" aria-label="Language"><option value="de">Deutsch</option><option value="en" selected>English</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option></select><input id="filter" type="search" placeholder="Search chapters and content" aria-label="Search chapters and content"><nav id="nav"><a class="" href="index.html">Home</a><a class="" href="installation.html">Installation &amp; upgrades</a><a class="" href="setup.html">Setup</a><a class="" href="dashboard.html">Dashboard</a><a class="" href="consumers.html">Consumers</a><a class="" href="profiles.html">Profiles &amp; strategies</a><a class="" href="conditions.html">Sensor conditions</a><a class="active" href="energy.html">Energy &amp; costs</a><a class="" href="settings.html">Settings</a><a class="" href="sensors.html">Sensor types</a><a class="" href="startup.html">Restart behavior</a><a class="" href="troubleshooting.html">Troubleshooting</a><a class="" href="safety.html">Safety</a><a class="" href="faq.html">FAQ</a><a class="" href="glossary.html">Glossary</a><a class="" href="about.html">About</a></nav><p id="search-status" role="status" aria-live="polite" style="font-size:12px;color:#cbd6da"></p></aside><main><h1>Energy &amp; costs – fields and calculations</h1>
+<p>The page combines reporting with the <strong>single source</strong> for nominal PV size and tariffs. Save changes while RRH is <strong>paused</strong>. These entries influence estimates, not the physical reserve or Home Assistant's own Energy Dashboard.</p>
+<h2>Configuration fields</h2>
+<table>
+<thead>
+<tr>
+  <th>Field</th>
+  <th>Meaning and unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Currency</strong></td>
+  <td><code>EUR</code>, <code>CHF</code>, <code>USD</code>, <code>GBP</code>. Existing values are <strong>not exchange-rate converted</strong>. Check new local tariffs; existing valued history prevents currency changes until the ledger is explicitly reset.</td>
+</tr>
+<tr>
+  <td><strong>Nominal PV size (W)</strong></td>
+  <td>Fixed nameplate watts (e.g. <code>4000</code>) or HA numeric entity; stored legacy <code>kWp</code> is displayed as watts ×1000. Informational, not a live power meter.</td>
+</tr>
+<tr>
+  <td><strong>Electricity purchase tariff (per kWh)</strong></td>
+  <td>Fixed or numeric HA entity, e.g. <code>0.30</code> EUR/kWh. Unitless helpers are not accepted as tariff sources.</td>
+</tr>
+<tr>
+  <td><strong>Feed-in remuneration (per kWh)</strong></td>
+  <td>What exported electricity would earn, e.g. <code>0.08</code> EUR/kWh. Higher export tariff than import price can make the net advantage negative.</td>
+</tr>
+<tr>
+  <td><strong>PV live power sensor</strong></td>
+  <td>Optional existing HA <code>sensor.*</code> with W/kW for displaying instantaneous production.</td>
+</tr>
+<tr>
+  <td><strong>PV cumulative energy meter</strong></td>
+  <td>Optional existing <code>sensor.*</code> with Wh/kWh/MWh for supplemental information.</td>
+</tr>
+<tr>
+  <td><strong>Grid export cumulative meter</strong></td>
+  <td>Optional energy meter; do not confuse it with the required <strong>instantaneous grid-power</strong> control source.</td>
+</tr>
+</tbody>
+</table>
+<h2>Statistics cards</h2>
+<ul>
+<li><strong>RRH-captured energy (kWh):</strong> integrated, solar-attributed managed load; split between devices in proportion to confirmed nominal W.</li>
+<li><strong>Potential surplus</strong> and <strong>remaining export (kWh):</strong> reconstructed only during valid live operation, never whole-system generation history.</li>
+<li><strong>Gross value:</strong> credited kWh × purchase tariff.</li>
+<li><strong>Foregone feed-in revenue:</strong> credited kWh × feed-in tariff.</li>
+<li><strong>Net advantage:</strong> gross value less foregone feed-in income.</li>
+<li><strong>Priced kWh:</strong> credited energy with valid tariff data; missing rates do not fabricate monetary values.</li>
+<li><strong>Runtime, starts, per-consumer and daily totals:</strong> based on confirmed RRH states, separate from strategy fairness credits. Daily detail is bounded to 45 days, lifetime totals persist until manual reset.</li>
+</ul>
+<h2>Real 24-hour history</h2>
+<p>The chart depicts <strong>export utilization percentage for the last 24 hours</strong> on a real time axis. Formula: <code>100 × RRH-managed W / (RRH-managed W + positive measured export W)</code> with valid fresh input. Y axis 0/50/100%; X axis hours before now. Typical interval 30 seconds, with at most 2890 stored history rows. Pauses, stale/missing data and outages create <strong>gaps</strong>, not interpolated usage. History is saved across HA restarts but no values are backfilled for the time before installation or while HA was stopped. It is <strong>not a utility-grade energy/money meter</strong>.</p>
+<h2>Changing currency</h2>
+<p>Priced EUR history cannot silently become CHF/USD/GBP. Export and explicitly reset the <strong>overall energy/statistics ledger</strong> first, then select a new currency and enter or explicitly reconfirm correct local purchase/feed-in tariffs. Check the unit of dynamic tariff sensors including cents/kWh and currency/MWh. Fairness credits are not reset alongside the energy ledger.</p>
+<p><a href="dashboard.html">Dashboard</a> · <a href="settings.html">Settings</a></p>
+<h2>Features and usage</h2>
+<p>Nominal PV capacity, import/feed-in tariffs, currency and optional HA sensors now appear <strong>above</strong> the statistics in a compact responsive three-column layout (two or one column on smaller screens). The section starts expanded. Existing values and sensor sources survive the update.</p>
+<h2>Features and usage</h2>
+<p>Sources are filtered by compatible units and currency; invalid live values are never priced. See <a href="sensors.html">Choosing sensors</a>.</p>
+<hr><p><small>Copyright (c) 2026 Satisfried | Safety | <a href="safety.html">Safety</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" matching articles":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/energy.html";});filter();})();</script></body></html>

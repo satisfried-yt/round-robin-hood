@@ -1,0 +1,108 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>Round Robin Hood | Consumers</title><style>*{box-sizing:border-box}body{margin:0;background:#161a1b;color:#eef2f2;font:15px system-ui, sans-serif;line-height:1.65}aside{background:#202525;border-right:1px solid #334345;padding:18px 14px;overflow:auto}aside h2{font-size:1.2rem;margin:0 0 12px;color:#d5ffeb}aside a{display:block;color:#cbd6da;padding:7px 10px;text-decoration:none;border-radius:7px}aside a[hidden]{display:none!important}aside a:hover,aside a.active{background:#324244;color:#91e5b3}aside input{width:100%;border:1px solid #526469;background:#121919;color:#fff;padding:9px;border-radius:7px;margin:0 0 14px}main{min-width:0;max-width:100%;padding:22px 32px;overflow-wrap:anywhere}h1{font-size:1.65rem;margin:0 0 18px;color:#a3e6bb}h2{font-size:1.28rem;margin:25px 0 10px;color:#ffdf91}h3{font-size:1.05rem;color:#bad0fd}a{color:#6dd4ff}table{border-collapse:collapse;display:block;overflow:auto}th,td{padding:8px 10px;border-bottom:1px solid #455054;text-align:left}code{background:#333b3c;border-radius:4px;padding:2px 5px}pre{overflow:auto;background:#121619;padding:13px;border-radius:8px}pre code{padding:0}blockquote{border-left:3px solid #93d5bc;padding-left:16px;margin-left:0}header{display:none}@media(min-width:780px){body{display:grid;grid-template-columns:245px 1fr;min-height:100vh}aside{position:sticky;top:0;max-height:100vh}}@media(max-width:779px){aside{max-height:200px}main{padding:16px}}aside select{width:100%;padding:8px;border:1px solid #526469;background:#121919;color:#eef2f2;border-radius:7px;margin:0 0 12px}</style></head><body><aside><h2>Round Robin Hood</h2><select id="guide-language" aria-label="Language"><option value="de">Deutsch</option><option value="en" selected>English</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option></select><input id="filter" type="search" placeholder="Search chapters and content" aria-label="Search chapters and content"><nav id="nav"><a class="" href="index.html">Home</a><a class="" href="installation.html">Installation &amp; upgrades</a><a class="" href="setup.html">Setup</a><a class="" href="dashboard.html">Dashboard</a><a class="active" href="consumers.html">Consumers</a><a class="" href="profiles.html">Profiles &amp; strategies</a><a class="" href="conditions.html">Sensor conditions</a><a class="" href="energy.html">Energy &amp; costs</a><a class="" href="settings.html">Settings</a><a class="" href="sensors.html">Sensor types</a><a class="" href="startup.html">Restart behavior</a><a class="" href="troubleshooting.html">Troubleshooting</a><a class="" href="safety.html">Safety</a><a class="" href="faq.html">FAQ</a><a class="" href="glossary.html">Glossary</a><a class="" href="about.html">About</a></nav><p id="search-status" role="status" aria-live="polite" style="font-size:12px;color:#cbd6da"></p></aside><main><h1>Consumers – devices and safety limits</h1>
+<h2>Cards</h2>
+<p>The responsive grid uses <strong>three equal-width slots</strong> on wide panels. With four or five devices, empty slots remain in the last row; narrow panels use two or one column. Each card shows name, MDI icon, confirmed state, planned/current watts, enabled flag, profile, waiting reason and relevant fairness credits.</p>
+<table>
+<thead>
+<tr>
+  <th>Action</th>
+  <th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Participate / stop participating</strong></td>
+  <td>Allows/removes participation. An already running device may require controlled shutdown.</td>
+</tr>
+<tr>
+  <td><strong>↑ / ↓</strong></td>
+  <td>Reorders the global list; power-sorted strategies impose their own order.</td>
+</tr>
+<tr>
+  <td><strong>Edit</strong></td>
+  <td>Opens power mode, safety timers, icon and conditions.</td>
+</tr>
+<tr>
+  <td><strong>Remove</strong></td>
+  <td>Unassigns RRH, <strong>does not delete the HA entity</strong>. Unsafe removal of still-on owned devices is rejected.</td>
+</tr>
+</tbody>
+</table>
+<h2>Basic editor fields</h2>
+<table>
+<thead>
+<tr>
+  <th>Field</th>
+  <th>Meaning / limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Name</strong></td>
+  <td>User label, 1–80 characters.</td>
+</tr>
+<tr>
+  <td><strong>Mode</strong></td>
+  <td><strong>Switch</strong>, <strong>staged</strong>, <strong>continuously variable</strong>. Determines available HA actions.</td>
+</tr>
+<tr>
+  <td><strong>HA control entity</strong></td>
+  <td>Real entity, never shared between RRH loads. A new/rebound entity requires separate explicit authorization.</td>
+</tr>
+<tr>
+  <td><strong>Rated / minimum power (W)</strong></td>
+  <td>Positive, ≤100,000 W; scheduling estimate, not measured electricity.</td>
+</tr>
+<tr>
+  <td><strong>Participate</strong></td>
+  <td>Whether RRH can allocate this consumer; independent of HA state.</td>
+</tr>
+<tr>
+  <td><strong>Icon</strong></td>
+  <td>Clickable MDI gallery with preview, or PNG/WebP up to 48 KB; affects appearance only.</td>
+</tr>
+</tbody>
+</table>
+<h2>Modes and extra fields</h2>
+<p><strong>Fixed switch (<code>switch.*</code>):</strong> single rated wattage, normal <code>switch.turn_on/turn_off</code>, feedback confirmation.</p>
+<p><strong>Staged (<code>switch.*</code>, <code>select.*</code>, <code>climate.*</code>):</strong> stage-control entity, rows <code>watts=option</code> (e.g. <code>500=1</code>, <code>1000=2</code>), an actual <strong>OFF option</strong> for <code>select.*</code> main controls. First stage is the minimum startup power. A climate fan mode is not proof of electrical wattage. Domain-specific OFF action is used.</p>
+<p><strong>Variable (<code>number.*</code>):</strong> minimum and <strong>maximum watts</strong>, <strong>step resolution (W)</strong>, <strong>regulation hysteresis/minimum change (W)</strong> and <strong>minimum regulation interval (s)</strong>. The HA <code>number</code> must support actual <strong>0 = OFF</strong>, report feedback and safely implement setpoints.</p>
+<h2>Timing fields</h2>
+<table>
+<thead>
+<tr>
+  <th>Field</th>
+  <th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Override shutdown delay</strong></td>
+  <td>Per-consumer 0–600 s, replaces global default.</td>
+</tr>
+<tr>
+  <td><strong>Minimum ON duration</strong></td>
+  <td>Hours/minutes/seconds during which voluntary rotation is deferred.</td>
+</tr>
+<tr>
+  <td><strong>Enforce minimum ON during shortfall</strong></td>
+  <td>May intentionally import grid electricity and incur costs; not a thermal safety mechanism.</td>
+</tr>
+<tr>
+  <td><strong>Restart cooldown</strong></td>
+  <td>Hours/minutes/seconds preventing rapid restart after OFF.</td>
+</tr>
+<tr>
+  <td><strong>Cooldown policy</strong></td>
+  <td>Skip blocked device or wait for it.</td>
+</tr>
+<tr>
+  <td><strong>Skip timer</strong></td>
+  <td>Overrides timing protection, with optional confirmation.</td>
+</tr>
+</tbody>
+</table>
+<h2>Conditions and authorization</h2>
+<p>Enable and combine individual sensor predicates using <code>ALL</code> or <code>ANY</code>. See <a href="conditions.html">Sensor conditions</a>. Missing feedback or external commands must not be taken as successful RRH control. The old redundant editor checkbox was removed, but <strong>new or rebound real entity bindings still require explicit safety approval</strong>, and backend domain/action whitelists remain in place. Heaters require independent over-temperature and electrical protection.</p>
+<h2>Features and usage</h2>
+<p>The consumer editor no longer has a textual MDI dropdown. Choose an icon from the clickable preview gallery; the selected tile is highlighted. Existing saved icons survive an update. Custom PNG and WebP images remain supported.</p>
+<hr><p><small>Copyright (c) 2026 Satisfried | Safety | <a href="safety.html">Safety</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" matching articles":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/consumers.html";});filter();})();</script></body></html>

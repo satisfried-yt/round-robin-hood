@@ -1,0 +1,60 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>Round Robin Hood | Glossar</title><style>*{box-sizing:border-box}body{margin:0;background:#161a1b;color:#eef2f2;font:15px system-ui, sans-serif;line-height:1.65}aside{background:#202525;border-right:1px solid #334345;padding:18px 14px;overflow:auto}aside h2{font-size:1.2rem;margin:0 0 12px;color:#d5ffeb}aside a{display:block;color:#cbd6da;padding:7px 10px;text-decoration:none;border-radius:7px}aside a[hidden]{display:none!important}aside a:hover,aside a.active{background:#324244;color:#91e5b3}aside input{width:100%;border:1px solid #526469;background:#121919;color:#fff;padding:9px;border-radius:7px;margin:0 0 14px}main{min-width:0;max-width:100%;padding:22px 32px;overflow-wrap:anywhere}h1{font-size:1.65rem;margin:0 0 18px;color:#a3e6bb}h2{font-size:1.28rem;margin:25px 0 10px;color:#ffdf91}h3{font-size:1.05rem;color:#bad0fd}a{color:#6dd4ff}table{border-collapse:collapse;display:block;overflow:auto}th,td{padding:8px 10px;border-bottom:1px solid #455054;text-align:left}code{background:#333b3c;border-radius:4px;padding:2px 5px}pre{overflow:auto;background:#121619;padding:13px;border-radius:8px}pre code{padding:0}blockquote{border-left:3px solid #93d5bc;padding-left:16px;margin-left:0}header{display:none}@media(min-width:780px){body{display:grid;grid-template-columns:245px 1fr;min-height:100vh}aside{position:sticky;top:0;max-height:100vh}}@media(max-width:779px){aside{max-height:200px}main{padding:16px}}aside select{width:100%;padding:8px;border:1px solid #526469;background:#121919;color:#eef2f2;border-radius:7px;margin:0 0 12px}</style></head><body><aside><h2>Round Robin Hood</h2><select id="guide-language" aria-label="Language"><option value="de" selected>Deutsch</option><option value="en">English</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option></select><input id="filter" type="search" placeholder="Kapitel und Inhalte suchen" aria-label="Kapitel und Inhalte suchen"><nav id="nav"><a class="" href="index.html">Start</a><a class="" href="installation.html">Installation &amp; Update</a><a class="" href="setup.html">Einrichtung</a><a class="" href="dashboard.html">Dashboard</a><a class="" href="consumers.html">Verbraucher</a><a class="" href="profiles.html">Profile &amp; Strategien</a><a class="" href="conditions.html">Sensorbedingungen</a><a class="" href="energy.html">Energie &amp; Kosten</a><a class="" href="settings.html">Einstellungen</a><a class="" href="sensors.html">Sensortypen</a><a class="" href="startup.html">Startverhalten</a><a class="" href="troubleshooting.html">Fehlerdiagnose</a><a class="" href="safety.html">Sicherheit</a><a class="" href="faq.html">FAQ</a><a class="active" href="glossary.html">Glossar</a><a class="" href="about.html">Über</a></nav><p id="search-status" role="status" aria-live="polite" style="font-size:12px;color:#cbd6da"></p></aside><main><h1>Glossar</h1>
+<table>
+<thead>
+<tr>
+  <th>Begriff</th>
+  <th>Erklärung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>PV</strong></td>
+  <td>Photovoltaik, elektrische Solarstromerzeugung.</td>
+</tr>
+<tr>
+  <td><strong>Einspeisung / Export</strong></td>
+  <td>Aktuell zum öffentlichen Netz abgegebene W; die Messwert-Vorzeichenrichtung ist konfigurierbar.</td>
+</tr>
+<tr>
+  <td><strong>Netzbezug / Import</strong></td>
+  <td>Aus dem Netz bezogene Leistung.</td>
+</tr>
+<tr>
+  <td><strong>W</strong></td>
+  <td>Watt: momentane Leistung. Eine Anlagengröße von 4 kW wird als 4000 W eingegeben.</td>
+</tr>
+<tr>
+  <td><strong>Wh / kWh</strong></td>
+  <td>Energie aus Leistung × Zeit; 1000 W eine Stunde = 1 kWh.</td>
+</tr>
+<tr>
+  <td><strong>kWp</strong></td>
+  <td>Nennleistung unter Standardtestbedingungen; RRH zeigt die Anlagenleistung in W an.</td>
+</tr>
+<tr>
+  <td><strong>Reserve</strong></td>
+  <td>Nicht zu vergebende Watt als Schutzabstand.</td>
+</tr>
+<tr>
+  <td><strong>Hysterese</strong></td>
+  <td>Abstand, ab dem ein Schalt-/Regelzustand wieder zurückwechseln darf.</td>
+</tr>
+<tr>
+  <td><strong>Zuteilung / Allocation</strong></td>
+  <td>Durch RRH geplante und bestätigte Nutzung eines Geräts.</td>
+</tr>
+<tr>
+  <td><strong>Fairness-Gutschrift</strong></td>
+  <td>Anrechenbare RRH-Laufzeit oder geschätzte zugeteilte Wh; getrennt von der allgemeinen Statistik.</td>
+</tr>
+<tr>
+  <td><strong>Strikt / Überspringen</strong></td>
+  <td>Entweder auf nächsten Kandidaten warten oder mit leistungsgerechtem Kandidaten weitergehen.</td>
+</tr>
+<tr>
+  <td><strong>Restüberschussverbraucher</strong></td>
+  <td>Nachrangiges regelbares Gerät für verfügbare Leistung nach normalen Profilen.</td>
+</tr>
+</tbody>
+</table>
+<hr><p><small>Copyright (c) 2026 Satisfried | Sicherheit | <a href="safety.html">Sicherheit</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" passende Kapitel":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/glossary.html";});filter();})();</script></body></html>
