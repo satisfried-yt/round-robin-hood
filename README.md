@@ -98,4 +98,6 @@ Project development has been assisted by AI. Rights in individual components, in
 
 [YouTube](https://www.youtube.com/@Satisfried_yt) · [TikTok](https://www.tiktok.com/@satisfried_yt) · [Twitch](https://www.twitch.tv/satisfried_yt) · [GitHub](https://github.com/satisfried-yt)
 
+**Impressum / Legal notice:** [satisfried.de](http://satisfried.de/)
+
 Copyright © 2026 Satisfried (project pseudonym), to the extent the publisher holds rights. See [LICENSE](LICENSE) for copyright permissions; no trademark rights are granted by Apache-2.0.

@@ -4,6 +4,8 @@
 
 L’onglet « À propos » affiche la version RRH et la version de Home Assistant Core si disponible. L’outil n’est ni un système certifié de sécurité ni un compteur étalonné.
 
+**Mentions légales:** [satisfried.de](http://satisfried.de/)
+
 Copyright (c) 2026 Satisfried. Round Robin Hood est sous licence Apache 2.0. Aucun droit de marque sur les noms ou logos n’est accordé ; consulter LICENSE et BRANDING.md dans le dépôt du projet.
 
 - [GitHub](https://github.com/satisfried-yt) | [YouTube](https://www.youtube.com/@Satisfried_yt) | [TikTok](https://www.tiktok.com/@satisfried_yt) | [Twitch](https://www.twitch.tv/satisfried_yt)
