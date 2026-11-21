@@ -9,6 +9,12 @@
 
 > **Version 0.9.3:** Open-source Home Assistant integration under [Apache License 2.0](LICENSE). Check [GitHub Releases](https://github.com/satisfried-yt/round-robin-hood/releases) for downloadable versions. Approval for the official Marketplace/HACS catalog is separate and not implied by a GitHub release.
 
+## Watch the introduction
+
+[![Round Robin Hood – introduction video by Satisfried](https://img.youtube.com/vi/UV0elAdSXdY/hqdefault.jpg)](https://www.youtube.com/watch?v=UV0elAdSXdY)
+
+[Watch the Round Robin Hood introduction on YouTube](https://www.youtube.com/watch?v=UV0elAdSXdY) (German)
+
 ## At a glance
 
 | Control | Your options |
