@@ -87,7 +87,7 @@ Read the [full safety guidance](docs/site/en/safety.md) before use.
 ## Version, permissions and project status
 
 - **Current release candidate:** 0.9.3. [Changelog](CHANGELOG.md) · [Release notes](docs/RELEASE_NOTES_0.9.3.md)
-- **License status:** [Personal-use license draft](LICENSE_DRAFT.md), **pending legal review**. Intended rights permit personal non-commercial use and private modifications, but require permission for redistribution or republication. **This draft is not a final grant of rights.**
+- **License status:** A proprietary personal-use license is planned, but its legal review and final approval are still pending. **No public distribution or general end-user license has been granted yet.** The final license will be published before the release.
 - **Other software:** [Third-party notices](THIRD_PARTY_NOTICES.md).
 - **Package verification:** When signed release files are published, follow the [verification guide](VERIFY_RELEASE.md). The repository does not contain the private signing key.
 

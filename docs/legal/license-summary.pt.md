@@ -1,3 +1,5 @@
-# Licença de uso pessoal – resumo
+# Modelo de licença previsto – aviso
 
-Round Robin Hood pode ser descarregado, instalado, utilizado e modificado para uso pessoal e não comercial. A redistribuição, publicação de versões modificadas e exploração comercial exigem autorização prévia por escrito do titular dos direitos. As licenças de terceiros e a legislação aplicável mantêm-se em vigor. Este resumo não é vinculativo; consulte a minuta LICENSE_DRAFT.md, sujeita a revisão jurídica.
+Round Robin Hood ainda não foi publicado. Está prevista uma licença proprietária que permita a utilização privada e não comercial, incluindo modificações mantidas em privado. A redistribuição, a publicação de versões modificadas e a utilização comercial exigiriam autorização escrita separada.
+
+**Este aviso não concede uma licença de utilização.** A licença definitiva, sujeita a análise jurídica, será publicada antes do lançamento público. Os direitos de terceiros e a legislação imperativa permanecem aplicáveis.
