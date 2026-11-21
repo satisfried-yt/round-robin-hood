@@ -19,7 +19,7 @@ Apache-2.0 section 6 does **not** grant a license to use the publisher's trade n
 - Refer truthfully to the official Round Robin Hood software, link to the official repository, and retain original copyright and NOTICE attribution.
 - Write tutorials, reviews, comparisons or documentation using the name and relevant screenshots where otherwise lawful.
 - Describe a modified version accurately as **"based on Round Robin Hood"**, **"forked from Round Robin Hood"** or similar, while clearly identifying its independent maintainer.
-- Show the official icon or logo to identify genuine official RRH releases, including installation and display through Home Assistant and HACS.
+- Show the official icon or logo to identify genuine official RRH releases, including installation and display through the Home Assistant Marketplace (and legacy HACS versions).
 
 ## Avoid misleading affiliation
 
@@ -30,5 +30,8 @@ This guidance concerns **brand confusion**, not whether forks may be written, di
 For a planned use of the project's distinctive branding that may imply official endorsement, request permission through the official repository's issues.
 
 ## Rights and provenance caveat
+
+The bundled PNG icon and mascot are currently distributed under Apache-2.0 as described above. This copyright permission cannot be withdrawn retroactively for compliant copies. The separate trademark provision concerns misleading uses as branding and does not prohibit distribution of open-source images under their applicable copyright license. If the publisher later wants different copyright terms for future artwork, that requires a separately reviewed asset-licensing decision and compatibility assessment.
+
 
 The RRH mascot and icons were generated for this project with AI assistance. The extent of any exclusive copyright in those images, protectability of the project names, and possible third-party conflicts has **not** been established. This policy reserves only rights that actually exist; it does not create rights through wording alone. A legal and trademark-clearance review remains required before public release.

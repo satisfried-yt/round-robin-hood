@@ -7,7 +7,7 @@
 
 **Round Robin Hood (RRH)** is a Home Assistant custom integration by **Satisfried**. Instead of sending every available watt of solar surplus to the grid, RRH allocates measured grid-export surplus to suitable loads in your home—subject to your priorities, device limits and safety settings.
 
-> **Release preparation:** Version **0.9.3** has passed user acceptance, the six-language documentation build and Hassfest. Apache-2.0 licensing and a separate branding policy are prepared for review; third-party rights, publication approval and HACS validation on a public repository remain pending. This private branch is not a public release or HACS listing.
+> **Release preparation:** Version **0.9.3** has passed user acceptance, the six-language documentation build and Hassfest. Apache-2.0 licensing and a separate branding policy are prepared for review; third-party rights, publication approval and Marketplace/HACS validation on a public repository remain pending. This private branch is not a public release or HACS listing.
 
 ## At a glance
 
@@ -59,7 +59,7 @@ Real Round Robin Hood 0.9.3 screens from a Home Assistant test setup. Live value
 
 **Already using RRH?** Back up first, then use the version-specific [upgrade and rollback instructions](docs/UPDATE_0.9.3.md). Those instructions cover **0.9.2 → 0.9.3 only**. Avoid mixing older integration code with newer RRH `.storage` data.
 
-**HACS:** Installation through HACS is **not yet verified** for this release. It must not be advertised as available until the HACS checks and public release process have succeeded.
+**Home Assistant Marketplace (formerly HACS):** Starting with Home Assistant 2026.11, the HACS catalog is built into Home Assistant under **Settings → Marketplace**. Older installations still use HACS. **Round Robin Hood is not yet in the shared catalog, and installation via a custom repository is not verified.** Repository validation must be repeated when publication is approved and the GitHub repository becomes public.
 
 ## Documentation — six languages
 
@@ -89,6 +89,7 @@ Read the [full safety guidance](docs/site/en/safety.md) before use.
 - **Current release candidate:** 0.9.3. [Changelog](CHANGELOG.md) · [Release notes](docs/RELEASE_NOTES_0.9.3.md)
 - **Software license (prepared for release):** [Apache License 2.0](LICENSE) · [NOTICE](NOTICE). The license allows private and commercial use, modification and redistribution under its conditions. A separate [branding policy](BRANDING.md) explains name, logo and impersonation concerns; Apache-2.0 does not grant trademark rights. Third-party rights and publisher identification still need review before publication.
 - **Other software:** [Third-party notices](THIRD_PARTY_NOTICES.md).
+- **Publication readiness:** [Release clearance checklist](docs/RELEASE_CLEARANCE_0.9.3.md). Legal identification, brand clearance, Marketplace verification and the actual release package remain outstanding.
 - **Package verification:** When signed release files are published, follow the [verification guide](VERIFY_RELEASE.md). The repository does not contain the private signing key.
 
 Project development has been assisted by AI. Rights in individual components, including artwork, must be checked before release.

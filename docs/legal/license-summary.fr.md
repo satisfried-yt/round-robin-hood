@@ -4,4 +4,4 @@ La licence prévue pour Round Robin Hood est **Apache License 2.0**, présente d
 
 **Nom et logo :** La section 6 n’accorde pas de droits sur les marques. `BRANDING.md` explique comment indiquer l’origine du projet et éviter de présenter une version modifiée comme une édition officielle. Cela ne crée aucun droit exclusif automatique sur le nom ou la mascotte générée avec l’aide de l’IA.
 
-**Statut :** Publication publique et présence dans HACS encore en attente. Les droits de tiers, les conflits éventuels de dénomination et les obligations d’identification de l’éditeur doivent être examinés. Seul le texte anglais de `LICENSE` fait foi ; ce document est un résumé.
+**Statut :** Publication publique et inscription dans le Home Assistant Marketplace (catalogue HACS) encore en attente. Les droits de tiers, les conflits éventuels de dénomination et les obligations d’identification de l’éditeur doivent être examinés. Seul le texte anglais de `LICENSE` fait foi ; ce document est un résumé.

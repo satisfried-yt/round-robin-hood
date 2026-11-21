@@ -29,7 +29,7 @@ RRH is a software controller, **not an electrical protection system**.
 
 **Updating from 0.9.2:** Follow the [specific update and rollback procedure](UPDATE_0.9.3.md). Other upgrade paths are not covered by those commands. Verify that controlled devices are off before replacing code.
 
-**HACS availability:** Not verified yet. Do not promise installation via HACS in a release announcement until its validation and distribution have been confirmed.
+**Marketplace availability:** Home Assistant 2026.11 integrates the former HACS catalog into **Settings → Marketplace**. RRH is **not listed or installation-verified** yet. On earlier Home Assistant versions the HACS name remains applicable. Do not promise either route before public-repository checks, a release and catalog acceptance.
 
 ## Verification status
 
@@ -37,7 +37,7 @@ RRH is a software controller, **not an electrical protection system**.
 - Unit and package test evidence: see [test report](TEST_REPORT_0.9.3.md).
 - Multilingual MkDocs build in strict mode: **passed on GitHub Actions**.
 - Hassfest validation: **passed on GitHub Actions**.
-- HACS validation: **deferred while repository remains private**.
+- Marketplace/HACS validator: **blocked while the repository remains private** (the HACS Action fails); no pass is claimed.
 - Public-release legal and asset review: **open**.
 
 ## Safety and limitations
@@ -49,10 +49,10 @@ Read the [English](site/en/safety.md) or [German](site/de/safety.md) safety guid
 ## Publication checklist
 
 - [x] Prepare Apache-2.0 license, NOTICE and name/logo guidance for review.
-- [ ] Review remaining third-party rights, branding conflicts and legally required publisher identification.
+- [ ] Review remaining third-party rights, branding conflicts and legally required publisher identification; see [release clearance](RELEASE_CLEARANCE_0.9.3.md).
 - [x] Add authentic, privacy-reviewed screenshots.
 - [ ] Validate the final package, checksums, public-key fingerprint and release attachments.
-- [ ] Confirm HACS validation when public access is authorized.
+- [ ] Confirm Marketplace/HACS validation when public access is authorized.
 - [ ] Review the precise version and tag, confirm installation in a clean environment and approve publication.
 
 Publisher: **Satisfried** · Repository: https://github.com/satisfried-yt/round-robin-hood
