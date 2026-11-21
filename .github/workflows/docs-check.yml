@@ -16,6 +16,7 @@ on:
       - "mkdocs.yml"
       - "docs/SITE_BUILD.md"
       - ".github/workflows/docs-check.yml"
+  public:
   workflow_dispatch:
 
 permissions:

@@ -16,6 +16,7 @@ on:
       - "hacs.json"
       - "README.md"
       - ".github/workflows/hacs.yml"
+  public:
   workflow_dispatch:
 
 permissions:

@@ -12,6 +12,7 @@ on:
     paths:
       - "custom_components/**"
       - ".github/workflows/hassfest.yml"
+  public:
   workflow_dispatch:
 
 permissions:

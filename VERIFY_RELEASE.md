@@ -1,34 +1,26 @@
-# Verify the RRH package
+# Verify Round Robin Hood 0.9.3
 
-The release bundle has two complementary checks:
+GitHub release `v0.9.3` provides `round-robin-hood-0.9.3.zip` and `round-robin-hood-0.9.3.sha256`.
 
-1. `SHA256SUMS` **inside** the ZIP lists the checksums of the packaged source, guides, translations, tests and documents.
-2. The **separate** `.sha256` file records the entire ZIP checksum. Its detached Ed25519 signature is verified with the public key distributed beside the package.
+The ZIP contains `SHA256SUMS`, which lists SHA-256 checksums of every other packaged file. The separate `.sha256` file records the digest of the complete ZIP.
 
-## Check archive checksum and detached signature
+Download both files from [the official GitHub Releases page](https://github.com/satisfried-yt/round-robin-hood/releases).
 
-Place these four files in the same directory:
-
-- `round-robin-hood-0.9.3.zip`
-- `round-robin-hood-0.9.3.sha256`
-- `round-robin-hood-0.9.3.sha256.sig`
-- `round-robin-hood-0.9.3-public.pem`
-
-Run:
+Verify the complete archive:
 
 ```sh
 sha256sum -c round-robin-hood-0.9.3.sha256
-openssl pkeyutl -verify -pubin -inkey round-robin-hood-0.9.3-public.pem -sigfile round-robin-hood-0.9.3.sha256.sig -rawin -in round-robin-hood-0.9.3.sha256
 ```
 
-To verify each file as well:
+Verify the contents:
 
 ```sh
+mkdir -p rrh-check
 unzip -q round-robin-hood-0.9.3.zip -d rrh-check
 cd rrh-check
 sha256sum -c SHA256SUMS
 ```
 
-**Trust limitation:** A signature only proves the content was signed with the corresponding private key. The publisher must publish the public-key fingerprint independently through a trusted project channel; a key supplied solely alongside a potentially tampered archive does **not** by itself authenticate its origin.
+**Security limitation:** Checksums detect corruption and support comparison against a digest obtained through a trusted channel, but a checksum hosted alongside an altered archive is not an independent authenticity proof. Version 0.9.3 **does not publish a detached signature or a trusted signing key**.
 
-The private signing key and the private phrase-to-marker map are **not** present in the distributable ZIP or repository.
+The ZIP contains the full tracked source tree. For installation in Home Assistant, copy **only** `custom_components/round_robin_hood`; preserve the existing Home Assistant `.storage` data. For updating 0.9.2 use the [backup/rollback procedure](docs/UPDATE_0.9.3.md).

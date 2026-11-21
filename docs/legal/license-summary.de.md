@@ -1,7 +1,7 @@
-# Lizenzübersicht – Apache 2.0 (Veröffentlichungsvorbereitung)
+# Lizenzübersicht – Apache License 2.0
 
-Für Round Robin Hood ist die **Apache License 2.0** vorgesehen und im privaten Vorbereitungsbranch als `LICENSE` hinterlegt. Sie erlaubt private und kommerzielle Nutzung, Veränderung und Weiterverbreitung des Programms unter ihren Bedingungen (insbesondere Erhalt von Lizenz- und Urheberrechtshinweisen).
+Round Robin Hood wird unter der **Apache License 2.0** bereitgestellt. Sie erlaubt private und kommerzielle Nutzung, Bearbeitung und Weiterverbreitung unter ihren Bedingungen. Lizenz- und Urheberrechtshinweise sind gemäß den Lizenzbedingungen zu erhalten.
 
-**Name und Logo:** Die Apache-2.0-Lizenz gewährt gemäß Abschnitt 6 keine Markenrechte. `BRANDING.md` erläutert korrekte Herkunftsangaben und die Vermeidung irreführender Behauptungen, eine abgewandelte Version sei offiziell. Daraus folgt kein automatisches exklusives Marken- oder Urheberrecht am Namen oder am KI-generierten Maskottchen.
+**Namen und Logos:** Die Softwarelizenz gewährt nach Abschnitt 6 keine Markenrechte. [BRANDING.md](../../BRANDING.md) erläutert Herkunftsangaben und die Vermeidung irreführender offizieller Kennzeichnung. Ein exklusiver Schutz des Projektnamens oder des KI-unterstützt generierten Maskottchens wird nicht behauptet.
 
-**Status:** Noch keine öffentliche Veröffentlichung oder Aufnahme in den Home Assistant Marketplace (HACS-Katalog). Rechte Dritter, mögliche Kennzeichenkonflikte und rechtliche Anbieterpflichten müssen vor der Freigabe geprüft werden. Maßgeblich ist allein der englische Originaltext in `LICENSE`; diese Übersetzung ist nur eine Zusammenfassung.
+**Wichtig:** Maßgeblich ist der vollständige englische Originaltext in [LICENSE](../../LICENSE). Diese Zusammenfassung schafft keine abweichenden Rechte. Rechte Dritter bleiben unberührt.

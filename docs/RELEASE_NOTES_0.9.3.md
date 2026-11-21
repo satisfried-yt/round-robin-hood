@@ -1,58 +1,29 @@
-# Round Robin Hood 0.9.3 — release notes (draft)
+# Round Robin Hood 0.9.3
 
-**Status:** For review only. Not yet a published GitHub release. Apache License 2.0, NOTICE and branding guidance have been prepared on a private branch. Rights clearance, maintainer approval and HACS validation after publication remain outstanding.
+First public release of Round Robin Hood, a Home Assistant integration allocating PV export surplus to configurable appliances.
 
-## What Round Robin Hood does
+## Main features
 
-Round Robin Hood is a Home Assistant integration that allocates measured PV export surplus to selected household appliances. Use configurable consumer profiles, eight allocation strategies and safeguards such as hysteresis, run-time limits, cooldowns and sensor conditions. A responsive sidebar panel, first-run wizard and fully isolated demonstration help with setup.
-
-RRH is a software controller, **not an electrical protection system**.
-
-## What's included in 0.9.3
-
-- Cleans up user-facing preview and old-version wording ahead of public distribution.
-- Improves publisher and attribution information; prepares Apache-2.0 licensing and a separate non-confusing-branding policy.
-- Includes a searchable, offline handbook with 16 chapters in each of six languages: DE, EN, FR, ES, PT and IT.
-- Documents package checksums and a detached Ed25519 signature, to be released with the original archive and a trusted public-key fingerprint.
-- Preserves the existing storage format and controller behavior established in 0.9.2.
-
-### Previous improvements delivered in the 0.9.x series
-
-- More reliable restoration of profiles and consumers at Home Assistant startup.
-- Configurable restart policy: stay off, start on after checks, or restore the prior mode.
-- Setup choices for wizard, isolated demo or manual configuration.
-- Improved unit handling and sensor source validation.
+- Eight distribution strategies, including round robin, fairness, priority, and efficiency.
+- Configurable profiles, on/off and adjustable consumers, hysteresis, reserves, cooldown and sensor conditions.
+- Responsive Home Assistant sidebar, first-run wizard and isolated demo mode.
+- Estimates of energy, utilization and costs.
+- A searchable offline handbook with 16 articles in each of six languages (DE, EN, FR, ES, PT, IT).
+- Apache License 2.0 and separate guidance for truthful attribution and avoiding misleading use of project branding.
+- A full source archive with internal `SHA256SUMS` and a separate ZIP `.sha256`. No cryptographic signature is claimed.
 
 ## Installation and updating
 
-**Fresh installations:** Back up Home Assistant (including `.storage`), install the `custom_components/round_robin_hood` directory into the Home Assistant configuration, restart Core, then add the integration under Settings → Devices & services.
+Home Assistant 2026.11+: under **Settings → Marketplace**, add the GitHub URL `https://github.com/satisfried-yt/round-robin-hood` as a custom repository. Earlier Home Assistant versions use **HACS custom repositories**. Approval for the *official* catalog is a separate process.
 
-**Updating from 0.9.2:** Follow the [specific update and rollback procedure](UPDATE_0.9.3.md). Other upgrade paths are not covered by those commands. Verify that controlled devices are off before replacing code.
+Alternatively, copy **only** `custom_components/round_robin_hood` from the ZIP into the same relative path in Home Assistant, restart, and add the integration in Settings → Devices & services. **Back up Home Assistant, including `.storage`, before installing or updating.**
 
-**Marketplace availability:** Home Assistant 2026.11 integrates the former HACS catalog into **Settings → Marketplace**. RRH is **not listed or installation-verified** yet. On earlier Home Assistant versions the HACS name remains applicable. Do not promise either route before public-repository checks, a release and catalog acceptance.
+To upgrade **0.9.2 → 0.9.3**, follow [the backup and rollback guide](UPDATE_0.9.3.md). Other upgrade paths are not covered there. Integration identity and persisted configuration are intended to stay unchanged.
 
-## Verification status
+## Safety and verification
 
-- User acceptance in a real Home Assistant environment: **reported successful**.
-- Unit and package test evidence: see [test report](TEST_REPORT_0.9.3.md).
-- Multilingual MkDocs build in strict mode: **passed on GitHub Actions**.
-- Hassfest validation: **passed on GitHub Actions**.
-- Marketplace/HACS validator: **blocked while the repository remains private** (the HACS Action fails); no pass is claimed.
-- Public-release legal and asset review: **open**.
+RRH is **not** an electrical safety controller, physical disconnect or calibrated meter. Sensor failures, network errors and actuators can leave loads energized. Use independent thermal and electrical protection. **All OFF is not a hardware emergency stop.** Energy, cost and saving figures are estimates.
 
-## Safety and limitations
+The GitHub release workflow only publishes after HACS validation, Hassfest, Python tests, JavaScript syntax checks, strict documentation build, and checksum verification succeed on the release source. It does not certify real-world electrical safety. See [verification notes](TEST_REPORT_0.9.3.md) and [Safety (EN)](site/en/safety.md).
 
-RRH depends on Home Assistant states, communication and supported actuators. Device switching may fail; an energized heating device is a fire hazard without independent thermal cutoffs. The **All OFF** action is not a substitute for hardware protection. Power utilization and cost figures are estimates and do not guarantee savings.
-
-Read the [English](site/en/safety.md) or [German](site/de/safety.md) safety guidance before controlling real loads.
-
-## Publication checklist
-
-- [x] Prepare Apache-2.0 license, NOTICE and name/logo guidance for review.
-- [ ] Review remaining third-party rights, branding conflicts and legally required publisher identification; see [release clearance](RELEASE_CLEARANCE_0.9.3.md).
-- [x] Add authentic, privacy-reviewed screenshots.
-- [ ] Validate the final package, checksums, public-key fingerprint and release attachments.
-- [ ] Confirm Marketplace/HACS validation when public access is authorized.
-- [ ] Review the precise version and tag, confirm installation in a clean environment and approve publication.
-
-Publisher: **Satisfried** · Repository: https://github.com/satisfried-yt/round-robin-hood
+Publisher: **Satisfried** · [Impressum](http://satisfried.de/) · [Project](https://github.com/satisfried-yt/round-robin-hood)

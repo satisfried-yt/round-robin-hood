@@ -7,7 +7,7 @@
 
 **Round Robin Hood (RRH)** is a Home Assistant custom integration by **Satisfried**. Instead of sending every available watt of solar surplus to the grid, RRH allocates measured grid-export surplus to suitable loads in your home—subject to your priorities, device limits and safety settings.
 
-> **Release preparation:** Version **0.9.3** has passed user acceptance, the six-language documentation build and Hassfest. Apache-2.0 licensing and a separate branding policy are prepared for review; third-party rights, publication approval and Marketplace/HACS validation on a public repository remain pending. This private branch is not a public release or HACS listing.
+> **Version 0.9.3:** Open-source Home Assistant integration under [Apache License 2.0](LICENSE). Check [GitHub Releases](https://github.com/satisfried-yt/round-robin-hood/releases) for downloadable versions. Approval for the official Marketplace/HACS catalog is separate and not implied by a GitHub release.
 
 ## At a glance
 
@@ -47,6 +47,17 @@ Real Round Robin Hood 0.9.3 screens from a Home Assistant test setup. Live value
 | In-app handbook | About |
 | --- | --- |
 | ![Searchable sixteen-chapter in-app handbook with language selection](docs/images/handbook.png) | ![Publisher information and installed RRH version](docs/images/about.png) |
+<!-- ha-marketplace:exclude-start -->
+## Install via Home Assistant Marketplace / HACS
+
+[![Open in Home Assistant Marketplace](https://my.home-assistant.io/badges/marketplace_repository.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=satisfried-yt&repository=round-robin-hood&category=integration)
+
+On **Home Assistant 2026.11+**, open **Settings → Marketplace → Add from link** and enter `https://github.com/satisfried-yt/round-robin-hood`. On older Home Assistant versions, add the same GitHub URL as a **HACS custom integration repository**. This works only after the repository is made public and its validation passes.
+
+The official catalog listing requires a separate review and has not been approved.
+
+<!-- ha-marketplace:exclude-end -->
+
 ## Install manually
 
 > **Before starting:** Make a restorable full Home Assistant backup **including `.storage`**. Use a supported Home Assistant installation and make sure that independently protected loads and suitable Home Assistant entities are already available.
@@ -59,7 +70,7 @@ Real Round Robin Hood 0.9.3 screens from a Home Assistant test setup. Live value
 
 **Already using RRH?** Back up first, then use the version-specific [upgrade and rollback instructions](docs/UPDATE_0.9.3.md). Those instructions cover **0.9.2 → 0.9.3 only**. Avoid mixing older integration code with newer RRH `.storage` data.
 
-**Home Assistant Marketplace (formerly HACS):** Starting with Home Assistant 2026.11, the HACS catalog is built into Home Assistant under **Settings → Marketplace**. Older installations still use HACS. **Round Robin Hood is not yet in the shared catalog, and installation via a custom repository is not verified.** Repository validation must be repeated when publication is approved and the GitHub repository becomes public.
+**Marketplace/HACS:** A public, validated repository can be added by URL. Official catalog inclusion is a separate review and is **not** implied by publishing this repository.
 
 ## Documentation — six languages
 
@@ -86,13 +97,13 @@ Read the [full safety guidance](docs/site/en/safety.md) before use.
 
 ## Version, permissions and project status
 
-- **Current release candidate:** 0.9.3. [Changelog](CHANGELOG.md) · [Release notes](docs/RELEASE_NOTES_0.9.3.md)
-- **Software license (prepared for release):** [Apache License 2.0](LICENSE) · [NOTICE](NOTICE). The license allows private and commercial use, modification and redistribution under its conditions. A separate [branding policy](BRANDING.md) explains name, logo and impersonation concerns; Apache-2.0 does not grant trademark rights. Third-party rights and publisher identification still need review before publication.
+- **Version:** 0.9.3. [Releases](https://github.com/satisfried-yt/round-robin-hood/releases) · [Changelog](CHANGELOG.md) · [Release notes](docs/RELEASE_NOTES_0.9.3.md)
+- **Software license:** [Apache License 2.0](LICENSE) · [NOTICE](NOTICE). Use, modification and redistribution are allowed under its conditions. [Branding guidance](BRANDING.md) explains attribution and avoiding false endorsement; Apache-2.0 grants no trademark rights.
 - **Other software:** [Third-party notices](THIRD_PARTY_NOTICES.md).
-- **Publication readiness:** [Release clearance checklist](docs/RELEASE_CLEARANCE_0.9.3.md). Legal identification, brand clearance, Marketplace verification and the actual release package remain outstanding.
-- **Package verification:** When signed release files are published, follow the [verification guide](VERIFY_RELEASE.md). The repository does not contain the private signing key.
+- **Publisher information:** [Impressum / Legal notice](http://satisfried.de/). Listing in the official Marketplace catalog remains a separate process.
+- **Package verification:** [SHA-256 checksum instructions](VERIFY_RELEASE.md) for the public release ZIP; no detached signature is claimed for 0.9.3.
 
-Project development has been assisted by AI. Rights in individual components, including artwork, must be checked before release.
+Development used AI assistance. Third-party materials retain their respective rights; see [notices](THIRD_PARTY_NOTICES.md).
 
 ## Satisfried
 

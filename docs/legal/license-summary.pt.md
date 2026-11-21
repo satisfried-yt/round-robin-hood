@@ -1,7 +1,7 @@
-# Resumo da licença – Apache 2.0 (preparação da publicação)
+# Resumo da licença – Apache License 2.0
 
-A licença proposta para Round Robin Hood é a **Apache License 2.0**, incluída em `LICENSE` no ramo privado de preparação. Permite utilização privada e comercial, modificação e redistribuição nos seus termos, incluindo a manutenção dos avisos de licença e direitos de autor.
+Round Robin Hood é distribuído sob a **Apache License 2.0**. Permite utilização privada e comercial, modificação e redistribuição nos seus termos, incluindo a manutenção dos avisos de licença e direitos de autor.
 
-**Nome e logótipo:** A secção 6 não concede direitos sobre marcas. `BRANDING.md` explica a atribuição correta e como evitar apresentar uma versão modificada como lançamento oficial. Isto não cria automaticamente direitos exclusivos sobre o nome ou a mascote gerada com assistência de IA.
+**Nomes e logótipos:** A secção 6 não concede direitos de marca. [BRANDING.md](../../BRANDING.md) esclarece a atribuição correta e como evitar a apresentação enganosa de uma versão modificada como oficial. Não é reivindicada proteção exclusiva para o nome ou mascote gerada com assistência de IA.
 
-**Estado:** Ainda não houve publicação pública nem inclusão confirmada no Home Assistant Marketplace (catálogo HACS). É necessário analisar direitos de terceiros, eventuais conflitos de marca e obrigações legais de identificação do editor. O texto inglês de `LICENSE` é o documento vinculativo; este ficheiro é apenas um resumo.
+**Importante:** O texto inglês integral em [LICENSE](../../LICENSE) é o documento vinculativo. Este resumo não acrescenta condições. Os direitos de terceiros mantêm-se.

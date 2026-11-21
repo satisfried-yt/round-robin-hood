@@ -17,6 +17,8 @@ on:
       - "CHANGELOG.md"
       - "hacs.json"
       - ".github/workflows/release-qa.yml"
+      - "scripts/**"
+      - ".github/workflows/publish-release.yml"
   pull_request:
     paths:
       - "custom_components/**"
@@ -28,6 +30,8 @@ on:
       - "README.md"
       - "hacs.json"
       - ".github/workflows/release-qa.yml"
+      - "scripts/**"
+      - ".github/workflows/publish-release.yml"
   workflow_dispatch:
 
 permissions:
@@ -46,7 +50,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Compile Python files
-        run: python -m compileall -q custom_components/round_robin_hood tests
+        run: python -m compileall -q custom_components/round_robin_hood tests scripts
       - name: Execute Python unit and release checks
         run: python -m unittest discover -s tests -p 'test_*.py' -q
       - name: Verify the six offline handbook locales
@@ -57,3 +61,9 @@ jobs:
           for file in custom_components/round_robin_hood/frontend/guides/*/search-index.js; do
             node --check "$file"
           done
+      - name: Build and verify release bundle (private preview)
+        run: |
+          python scripts/build_release.py --output-dir "$RUNNER_TEMP/rrh-preview"
+          python scripts/build_release.py --verify "$RUNNER_TEMP/rrh-preview/round-robin-hood-0.9.3.zip"
+          (cd "$RUNNER_TEMP/rrh-preview" && sha256sum -c round-robin-hood-0.9.3.sha256)
+

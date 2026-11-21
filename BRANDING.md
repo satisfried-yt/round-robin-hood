@@ -1,6 +1,6 @@
 # Round Robin Hood — branding and attribution guidance
 
-**Status:** Prepared for maintainer review prior to public release. This is not evidence of a registered trademark or a substitute for a legal rights assessment.
+**Scope:** This is guidance on project attribution and avoiding misleading branding. It is not proof of trademark registration.
 
 The Round Robin Hood code, documentation and distributed images are provided under the [Apache License 2.0](LICENSE), to the extent the publisher has the relevant rights and except for separately licensed third-party material. **This policy does not add restrictions to the software's Apache-2.0 copyright license.**
 
@@ -33,5 +33,4 @@ For a planned use of the project's distinctive branding that may imply official 
 
 The bundled PNG icon and mascot are currently distributed under Apache-2.0 as described above. This copyright permission cannot be withdrawn retroactively for compliant copies. The separate trademark provision concerns misleading uses as branding and does not prohibit distribution of open-source images under their applicable copyright license. If the publisher later wants different copyright terms for future artwork, that requires a separately reviewed asset-licensing decision and compatibility assessment.
 
-
-The RRH mascot and icons were generated for this project with AI assistance. The extent of any exclusive copyright in those images, protectability of the project names, and possible third-party conflicts has **not** been established. This policy reserves only rights that actually exist; it does not create rights through wording alone. A legal and trademark-clearance review remains required before public release.
+The RRH mascot and icons were generated for the project with AI assistance. The exact scope of protectable rights in the artwork and any third-party conflicts depends on applicable law.
