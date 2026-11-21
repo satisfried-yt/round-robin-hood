@@ -7,7 +7,7 @@
 
 **Round Robin Hood (RRH)** is a Home Assistant custom integration by **Satisfried**. Instead of sending every available watt of solar surplus to the grid, RRH allocates measured grid-export surplus to suitable loads in your home—subject to your priorities, device limits and safety settings.
 
-> **Release preparation:** Version **0.9.3** has passed user acceptance, the six-language documentation build and Hassfest. The HACS check and the legal review of the license are still pending. This repository is being prepared for a public release; no public availability or HACS listing is implied.
+> **Release preparation:** Version **0.9.3** has passed user acceptance, the six-language documentation build and Hassfest. Apache-2.0 licensing and a separate branding policy are prepared for review; third-party rights, publication approval and HACS validation on a public repository remain pending. This private branch is not a public release or HACS listing.
 
 ## At a glance
 
@@ -87,7 +87,7 @@ Read the [full safety guidance](docs/site/en/safety.md) before use.
 ## Version, permissions and project status
 
 - **Current release candidate:** 0.9.3. [Changelog](CHANGELOG.md) · [Release notes](docs/RELEASE_NOTES_0.9.3.md)
-- **License status:** A proprietary personal-use license is planned, but its legal review and final approval are still pending. **No public distribution or general end-user license has been granted yet.** The final license will be published before the release.
+- **Software license (prepared for release):** [Apache License 2.0](LICENSE) · [NOTICE](NOTICE). The license allows private and commercial use, modification and redistribution under its conditions. A separate [branding policy](BRANDING.md) explains name, logo and impersonation concerns; Apache-2.0 does not grant trademark rights. Third-party rights and publisher identification still need review before publication.
 - **Other software:** [Third-party notices](THIRD_PARTY_NOTICES.md).
 - **Package verification:** When signed release files are published, follow the [verification guide](VERIFY_RELEASE.md). The repository does not contain the private signing key.
 
@@ -97,4 +97,4 @@ Project development has been assisted by AI. Rights in individual components, in
 
 [YouTube](https://www.youtube.com/@Satisfried_yt) · [TikTok](https://www.tiktok.com/@satisfried_yt) · [Twitch](https://www.twitch.tv/satisfried_yt) · [GitHub](https://github.com/satisfried-yt)
 
-Copyright © 2026 Satisfried. Rights reserved to the extent owned by the publisher.
+Copyright © 2026 Satisfried (project pseudonym), to the extent the publisher holds rights. See [LICENSE](LICENSE) for copyright permissions; no trademark rights are granted by Apache-2.0.

@@ -7,4 +7,4 @@ This document records dependencies detected by inspection of the Round Robin Hoo
 - **Python standard library:** Imports such as `asyncio`, `json`, `dataclasses` and `datetime` are part of Python.
 - **Frontend assets:** The source package contains RRH's own JavaScript and generated logo/icon imagery; no bundled external font or npm distribution was detected in the package inspection. The logo's AI-generation provenance and third-party resemblance rights require separate legal review.
 
-Before public distribution, inspect any copied snippets, templates, artwork and reference material, and confirm rights to distribute the resulting work. Third-party permissions are unaffected by the RRH license draft.
+Before public distribution, inspect any copied snippets, templates, artwork and reference material, and confirm rights to distribute the resulting work. Third-party permissions are unaffected by the project's Apache-2.0 license. The project-name and logo guidance in BRANDING.md does not add restrictions to the Apache-2.0 software copyright license.

@@ -1,5 +1,7 @@
-# Geplantes Lizenzmodell – Hinweis
+# Lizenzübersicht – Apache 2.0 (Veröffentlichungsvorbereitung)
 
-Round Robin Hood ist derzeit nicht öffentlich freigegeben. Vorgesehen ist eine proprietäre Lizenz für private, nicht kommerzielle Nutzung einschließlich privater Anpassungen. Die Weiterverbreitung, Veröffentlichung abgewandelter Versionen und gewerbliche Nutzung sollen eine gesonderte schriftliche Erlaubnis erfordern.
+Für Round Robin Hood ist die **Apache License 2.0** vorgesehen und im privaten Vorbereitungsbranch als `LICENSE` hinterlegt. Sie erlaubt private und kommerzielle Nutzung, Veränderung und Weiterverbreitung des Programms unter ihren Bedingungen (insbesondere Erhalt von Lizenz- und Urheberrechtshinweisen).
 
-**Dies ist keine Nutzungsfreigabe.** Die rechtlich geprüfte und verbindliche Lizenz wird erst vor der öffentlichen Veröffentlichung bereitgestellt. Rechte Dritter und zwingende gesetzliche Vorschriften bleiben unberührt.
+**Name und Logo:** Die Apache-2.0-Lizenz gewährt gemäß Abschnitt 6 keine Markenrechte. `BRANDING.md` erläutert korrekte Herkunftsangaben und die Vermeidung irreführender Behauptungen, eine abgewandelte Version sei offiziell. Daraus folgt kein automatisches exklusives Marken- oder Urheberrecht am Namen oder am KI-generierten Maskottchen.
+
+**Status:** Noch keine öffentliche Veröffentlichung oder bestätigte HACS-Aufnahme. Rechte Dritter, mögliche Kennzeichenkonflikte und rechtliche Anbieterpflichten müssen vor der Freigabe geprüft werden. Maßgeblich ist allein der englische Originaltext in `LICENSE`; diese Übersetzung ist nur eine Zusammenfassung.

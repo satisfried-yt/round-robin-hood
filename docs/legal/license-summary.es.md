@@ -1,5 +1,7 @@
-# Modelo de licencia previsto – aviso
+# Resumen de licencia – Apache 2.0 (preparación del lanzamiento)
 
-Round Robin Hood aún no se ha publicado. Se prevé una licencia propietaria que permita el uso privado no comercial y las modificaciones privadas. La redistribución, la publicación de versiones modificadas y el uso comercial requerirían autorización escrita por separado.
+La licencia prevista para Round Robin Hood es la **Apache License 2.0**, incluida en `LICENSE` en la rama privada de preparación. Permite el uso privado y comercial, la modificación y la redistribución con sus condiciones, incluida la conservación de los avisos de licencia y derechos de autor.
 
-**Este aviso no concede derechos de uso.** La licencia definitiva, revisada jurídicamente, se publicará antes del lanzamiento público. Se respetarán los derechos de terceros y las normas legales imperativas.
+**Nombre y logotipo:** La sección 6 no concede derechos de marca. `BRANDING.md` explica la atribución veraz y cómo evitar presentar una versión modificada como una publicación oficial. Esto no crea derechos exclusivos automáticos sobre el nombre ni sobre la mascota generada con ayuda de IA.
+
+**Estado:** Aún no existe publicación pública ni inclusión confirmada en HACS. Deben revisarse los derechos de terceros, posibles conflictos de marca y las obligaciones legales de identificación del editor. Prevalece el texto inglés de `LICENSE`; este archivo es únicamente un resumen.
