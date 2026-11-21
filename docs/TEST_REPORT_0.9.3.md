@@ -17,6 +17,6 @@ This is a public-facing text, localization, provenance and documentation cleanup
 ## Limits and release gates
 
 - Tests use Home Assistant simulation boundaries; **no physical-load safety certification or full production HA integration acceptance** was performed in this build.
-- The author must decide and approve a legally appropriate end-user license before any public distribution; the current `COPYRIGHT.md` alone is **not** a grant of installation rights.
+- The author selected the Apache License 2.0 and its full text, NOTICE and separate branding guidance were added on a private release-preparation branch. This historical test report predates those edits; it does **not** establish legal rights clearance or rerun test results. Third-party assets, brand conflicts and any legally required provider identification must be reviewed before the repository is made public.
 - No public GitHub release, Marketplace/HACS registration, GitHub publication or live Home Assistant update was performed.
 - The Ed25519 public key needs out-of-band trust establishment. Store the private signing key and secret origin map securely, never in GitHub/public ZIP.

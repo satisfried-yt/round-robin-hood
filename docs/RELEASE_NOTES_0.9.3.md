@@ -1,6 +1,6 @@
 # Round Robin Hood 0.9.3 — release notes (draft)
 
-**Status:** For review only. Not yet a published GitHub release. Do not create a tag, publish a release or mark it generally available until the license and distribution review have been completed.
+**Status:** For review only. Not yet a published GitHub release. Apache License 2.0, NOTICE and branding guidance have been prepared on a private branch. Rights clearance, maintainer approval and HACS validation after publication remain outstanding.
 
 ## What Round Robin Hood does
 
@@ -11,7 +11,7 @@ RRH is a software controller, **not an electrical protection system**.
 ## What's included in 0.9.3
 
 - Cleans up user-facing preview and old-version wording ahead of public distribution.
-- Improves publisher and attribution information.
+- Improves publisher and attribution information; prepares Apache-2.0 licensing and a separate non-confusing-branding policy.
 - Includes a searchable, offline handbook with 16 chapters in each of six languages: DE, EN, FR, ES, PT and IT.
 - Documents package checksums and a detached Ed25519 signature, to be released with the original archive and a trusted public-key fingerprint.
 - Preserves the existing storage format and controller behavior established in 0.9.2.
@@ -48,7 +48,8 @@ Read the [English](site/en/safety.md) or [German](site/de/safety.md) safety guid
 
 ## Publication checklist
 
-- [ ] Finalize legally reviewed distribution license and asset rights.
+- [x] Prepare Apache-2.0 license, NOTICE and name/logo guidance for review.
+- [ ] Review remaining third-party rights, branding conflicts and legally required publisher identification.
 - [x] Add authentic, privacy-reviewed screenshots.
 - [ ] Validate the final package, checksums, public-key fingerprint and release attachments.
 - [ ] Confirm HACS validation when public access is authorized.

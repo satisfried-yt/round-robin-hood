@@ -4,6 +4,8 @@ All changes below describe Round Robin Hood capabilities. Historical development
 
 ## 0.9.3 - public-facing cleanup and ownership verification
 
+- Prepared Apache License 2.0, NOTICE and separate name/logo branding guidance in the private release branch; distribution and rights checks remain pending.
+
 - Removed obsolete preview warnings and incorrect old-version texts from the Home Assistant integration setup, sidebar and user documentation.
 - Updated publisher copyright and AI-assistance disclosures without removing any safety warnings.
 - Added six-language HA integration descriptions and six-language offline handbooks with searchable chapters (16 per language). The DE/EN guides remain more detailed.
