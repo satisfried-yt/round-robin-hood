@@ -18,4 +18,4 @@ Satisfried_yt
 
 Die aktuelle RRH-Version und die von Home Assistant bereitgestellte Core-Version erscheinen auf der **Über**-Seite. Nicht verfügbare Versionsdaten werden nicht geschätzt.
 
-Copyright (c) 2026 Satisfried. Alle Rechte vorbehalten. Der Urheberrechtshinweis ist selbst keine Nutzungs- oder Weitergabelizenz.
+Copyright (c) 2026 Satisfried. Round Robin Hood steht unter der Apache-Lizenz 2.0. Diese gewährt keine Markenrechte an Namen und Logos; siehe LICENSE und BRANDING.md im Projekt-Repository.

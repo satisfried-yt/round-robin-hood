@@ -18,4 +18,4 @@ Satisfried_yt
 
 The **About** page shows the installed RRH version and the HA Core version when Home Assistant supplies it. Unavailable system versions are not guessed.
 
-Copyright (c) 2026 Satisfried. All rights reserved. The copyright notice does not itself grant installation or redistribution rights.
+Copyright (c) 2026 Satisfried. Round Robin Hood is licensed under Apache License 2.0. This does not grant trademark rights in its names or logos; see LICENSE and BRANDING.md in the project repository.
