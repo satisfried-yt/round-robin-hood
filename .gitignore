@@ -1,0 +1,18 @@
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.coverage
+.venv/
+venv/
+test-results/
+*.log
+config/.storage/
+
+# Local release bundles / private ownership material
+*.zip
+*.sig
+*.pem
+.env
+.env.*
+!*.example
