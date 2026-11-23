@@ -412,6 +412,11 @@ class RrhHoodPanel extends HTMLElement {
     // Static templates and trusted local onboarding labels use innerHTML. Entity names and server text use textContent.
     this.shadowRoot.innerHTML = `
       <style>
+        select[data-rrh-native-backed="true"],input[data-rrh-native-backed="true"]{display:none!important}
+        ha-entity-picker.rrh-entity-picker{display:block;width:100%;margin-top:6px}
+        ha-entity-picker.rrh-entity-picker[hidden]{display:none!important}
+        .rrh-entity-search{width:100%;box-sizing:border-box;margin-bottom:6px}
+        .rrh-entity-search[hidden]{display:none!important}
         :host {
           display: block; height: 100%; overflow: auto;
           background: var(--primary-background-color, #f4f6f8);
@@ -1625,7 +1630,7 @@ class RrhHoodPanel extends HTMLElement {
     for (const [labelText,control] of [[this._wizardText("HA-Steuerentität","HA control entity"),entity],[this._wizardText("Name","Name"),name],[this._wizardText("Leistung (W)","Power (W)"),wattsInput]]) {
       const label=node("label",labelText);label.append(control);row.append(label);
     }
-    row.append(remove);this.$("#wizard-load-list").append(row);
+    row.append(remove);this.$("#wizard-load-list").append(row);this._syncEntityPicker(entity);
   }
 
   _wizardCollectLoads() {
@@ -1739,7 +1744,7 @@ class RrhHoodPanel extends HTMLElement {
         const change=()=>{const isEntity=mode.value==="entity";val.hidden=isEntity;val.disabled=isEntity;entity.hidden=!isEntity;entity.disabled=!isEntity;
           };
         mode.onchange=()=>{change();if(key==="buy"||key==="feed")this._wizardRateEdited.add(key);};val.oninput=entity.onchange=()=>{if(key==="buy"||key==="feed")this._wizardRateEdited.add(key);};
-        field.append(mode,val,entity);content.append(field);change();
+        field.append(mode,val,entity);content.append(field);change();this._syncEntityPicker(entity);
       }
     }
     if(step===5){
@@ -1981,6 +1986,41 @@ class RrhHoodPanel extends HTMLElement {
     }
   }
 
+  _syncNumericConditionPicker(input) {
+    if (!input || !input.parentElement) return;
+    if (!customElements.get("ha-entity-picker")) {
+      if (!input._rrhNativePending) {
+        input._rrhNativePending = true;
+        customElements.whenDefined("ha-entity-picker").then(() => {
+          if (input.isConnected) this._syncNumericConditionPicker(input);
+        });
+      }
+      return; // The existing searchable numeric-sensor datalist is the fallback.
+    }
+    let picker = input._rrhPicker;
+    if (!picker) {
+      picker = document.createElement("ha-entity-picker");
+      picker.className = "rrh-entity-picker";
+      picker.setAttribute("aria-label", "Home Assistant Sensor für Bedingung");
+      picker.required = true;
+      input.required = false;
+      input.dataset.rrhNativeBacked = "true";
+      picker.addEventListener("value-changed", event => {
+        input.value = String(event.detail?.value || "");
+        input.dispatchEvent(new Event("change", {bubbles:true}));
+      });
+      input.after(picker);
+      input._rrhPicker = picker;
+    }
+    const states = this._hass?.states || {};
+    const current = input.value;
+    const ids = Object.keys(states).filter(id =>
+      /^(sensor|number|input_number)\./.test(id) &&
+      (states[id].state !== "" && Number.isFinite(Number(states[id].state)) || id === current));
+    if (current && !ids.includes(current)) ids.push(current);
+    picker.includeEntities = ids;
+    picker.value = current || undefined;
+  }
   _addConditionRule(prefix, entry = {}) {
     const target = this.$(`#${prefix}-conditions-list`);
     if (target.children.length >= 12) return;
@@ -2006,6 +2046,7 @@ class RrhHoodPanel extends HTMLElement {
     op.onchange = () => { if (["==", "!="].includes(op.value)) hyst.value = "0"; hyst.disabled = !this.$(`#${prefix}-conditions-enable`).checked || ["==", "!="].includes(op.value); };
     const remove = node("button", "Entfernen"); remove.type = "button"; remove.onclick = () => row.remove();
     row.append(grid, remove); target.append(row);
+    this._syncNumericConditionPicker(entity);
     this._toggleConditions(prefix);
   }
 
@@ -2183,18 +2224,89 @@ class RrhHoodPanel extends HTMLElement {
     else text(this.$("#profile-error"), this.$("#command-error").textContent);
   }
 
+  _syncEntityPicker(select) {
+    if (!select || !select.parentElement) return;
+    const options = select._rrhSearchOptions || Array.from(select.options, item => ({value: item.value, label: item.textContent}));
+    if (customElements.get("ha-entity-picker")) {
+      if (select._rrhSearch) { select._rrhSearch.remove(); select._rrhSearch = null; }
+      let picker = select._rrhPicker;
+      if (!picker) {
+        picker = document.createElement("ha-entity-picker");
+        picker.className = "rrh-entity-picker";
+        picker.setAttribute("aria-label", "Home Assistant Entität auswählen");
+        const required = select.required;
+        select.required = false;
+        select.dataset.rrhNativeBacked = "true";
+        picker.required = required;
+        picker.addEventListener("value-changed", event => {
+          const value = String(event.detail?.value || "");
+          if (value && !Array.from(select.options).some(item => item.value === value)) {
+            picker.value = select.value || undefined;
+            return;
+          }
+          if (select.value !== value) {
+            select.value = value;
+            select.dispatchEvent(new Event("change", {bubbles: true}));
+          }
+        });
+        select.after(picker);
+        select._rrhPicker = picker;
+        new MutationObserver(() => {
+          picker.hidden = select.hidden;
+          picker.disabled = select.disabled;
+        }).observe(select, {attributes: true, attributeFilter: ["hidden", "disabled"]});
+      }
+      picker.includeEntities = options.filter(item => item.value).map(item => item.value);
+      picker.value = select.value || undefined;
+      picker.hidden = select.hidden;
+      picker.disabled = select.disabled;
+      return;
+    }
+    if (!select._rrhSearch) {
+      const search = document.createElement("input");
+      search.type = "search";
+      search.className = "rrh-entity-search";
+      search.placeholder = "Entität nach Name oder ID suchen";
+      search.setAttribute("aria-label", search.placeholder);
+      search.autocomplete = "off";
+      search.addEventListener("input", () => this._filterEntityOptions(select));
+      select.before(search);
+      select._rrhSearch = search;
+      new MutationObserver(() => { search.hidden = select.hidden; search.disabled = select.disabled; })
+        .observe(select, {attributes:true, attributeFilter:["hidden","disabled"]});
+      search.hidden = select.hidden;
+      search.disabled = select.disabled;
+      customElements.whenDefined("ha-entity-picker").then(() => {
+        if (select.isConnected) this._syncEntityPicker(select);
+      });
+    }
+    select._rrhSearchOptions = options;
+    this._filterEntityOptions(select);
+  }
+  _filterEntityOptions(select) {
+    const options = select._rrhSearchOptions || [];
+    const query = String(select._rrhSearch?.value || "").trim().toLocaleLowerCase();
+    const selected = select.value;
+    const filtered = options.filter(item => !query || item.label.toLocaleLowerCase().includes(query) || item.value.toLowerCase().includes(query));
+    const previous = options.find(item => item.value === selected);
+    if (previous && !filtered.some(item => item.value === selected)) filtered.push(previous);
+    select.replaceChildren(...filtered.map(item => new Option(item.label, item.value)));
+    select.value = selected;
+  }
   _options(select, domain, selected, powerOnly = false) {
+    select._rrhSearchOptions = null;
     select.replaceChildren(new Option("Bitte auswählen", ""));
     const states = this._hass?.states || {};
     const domains = domain.split("|");
     const ids = Object.keys(states).filter(id => domains.some(d => id.startsWith(`${d}.`)) && (!powerOnly || ["W","kW"].includes(states[id].attributes?.unit_of_measurement)));
     if (selected && !ids.includes(selected)) ids.push(selected);
-    ids.sort((a,b) => a.localeCompare(b, "de"));
+    ids.sort((a,b) => (states[a]?.attributes?.friendly_name || a).localeCompare(states[b]?.attributes?.friendly_name || b, "de", {sensitivity:"base"}) || a.localeCompare(b));
     for (const id of ids) {
       const state = states[id];
       select.add(new Option(`${state?.attributes?.friendly_name || id} – ${id}${state ? "" : " (fehlt)"}`, id));
     }
     select.value = selected || "";
+    this._syncEntityPicker(select);
   }
 
   _fillSettings(force = false) {
@@ -2321,6 +2433,7 @@ class RrhHoodPanel extends HTMLElement {
   _statOptions(select, value, kind) {
     const states=this._hass?.states || {};
     const currency=select.id.startsWith("wizard-")?(this.$("#wizard-currency")?.value||this._data?.config?.energy?.currency):this.$("#stat-currency")?.value;
+    select._rrhSearchOptions = null;
     select.replaceChildren(new Option(this._tr("disabled"),""));
     const allowed=kind==="price"||kind==="capacity"?/^(sensor|number|input_number)\./:/^sensor\./;
     const ids=Object.keys(states).filter(id=>allowed.test(id) &&
@@ -2335,6 +2448,7 @@ class RrhHoodPanel extends HTMLElement {
       select.add(new Option(`${state?.attributes?.friendly_name || id} · ${id}${unit?` (${unit})`:""}${valid?"":" ⚠"}`,id));
     }
     select.value=value||"";
+    this._syncEntityPicker(select);
   }
   _number(val, digits=2) {if(val==null || !Number.isFinite(Number(val)))return "—"; const n=Number(val); const shown=Math.abs(n)<0.5*(10**-digits)?0:n; return new Intl.NumberFormat(LOCALE_KEYS[this._language] || "de-DE", {minimumFractionDigits:digits,maximumFractionDigits:digits}).format(shown);}
   _euro(val,digits=2){if(val==null)return "—";const currency=this._data?.config?.energy?.currency||"EUR";return new Intl.NumberFormat(LOCALE_KEYS[this._language]||"de-DE",{style:"currency",currency,minimumFractionDigits:digits,maximumFractionDigits:digits}).format(Number(val));}
@@ -2652,6 +2766,8 @@ class RrhHoodPanel extends HTMLElement {
     this._options(stages, "select|climate", stageSelected ?? stages.value ?? "");
     if (mode === "staged" && !stages.value && /^(select|climate)\./.test(eid.value)) stages.value = eid.value;
     this.$("#consumer-entity-label").firstChild.textContent = mode === "variable" ? "HA-Watt-Sollwert (number)" : mode === "staged" ? "HA-Hauptsteuerung (switch, climate oder select)" : "Vorhandener Schalter";
+    this._syncEntityPicker(eid);
+    this._syncEntityPicker(stages);
   }
 
   _edit(c) {
@@ -2695,6 +2811,7 @@ class RrhHoodPanel extends HTMLElement {
     let conditions;
     try { conditions = this._readConditions("consumer"); }
     catch (err) { text(this.$("#editor-error"), err.message); return; }
+    if (!this.$("#consumer-entity").value) { text(this.$("#editor-error"), "Bitte eine Steuerentität auswählen."); return; }
     const consumer = {id:this._editorId, name:this.$("#consumer-name").value.trim(), entity_id:this.$("#consumer-entity").value, watts:Number(this.$("#consumer-watts").value), enabled:this.$("#consumer-enabled").checked, virtual_confirmed:true,
       min_on_s:this.$("#min-enable").checked ? this._getDuration("min") : 0,
       min_on_strict:this.$("#min-enable").checked && this.$("#min-strict").checked,
