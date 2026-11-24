@@ -33,7 +33,7 @@ const STRATEGY_HELP = {
   power_desc: "Große Geräte zuerst; Strikt oder Überspringen wählbar.",
   stable_operation: "Bevorzugt laufende Geräte und vermeidet unnötige Wechsel."
 };
-const VERSION = "0.9.3";
+const VERSION = "0.9.4";
 const UI_EN = {
   dashboard:"Dashboard", consumers:"Consumers", profiles:"Profiles", energy:"Energy & costs", settings:"Settings", howto:"How-to", about:"About",
   page:"Page", on:"RRH ON", off:"All OFF", pause:"Pause",

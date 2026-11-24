@@ -1,16 +1,20 @@
-name: Publish Round Robin Hood 0.9.3
+name: Publish Round Robin Hood 0.9.4
 
 # Only a public repository can publish a release. The owner must explicitly
 # change visibility in GitHub settings; this workflow cannot do it.
 on:
-  public:
+  push:
+    branches:
+      - main
+    paths:
+      - VERSION
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: rrh-093-publishing
+  group: rrh-094-publishing
   cancel-in-progress: false
 
 jobs:
@@ -42,10 +46,10 @@ jobs:
             echo "::error::Add GitHub topics before publication."
             exit 1
           }
-          test "$(cat VERSION)" = "0.9.3"
+          test "$(cat VERSION)" = "0.9.4"
           test "$(git rev-parse HEAD)" = "$(git ls-remote origin refs/heads/main | cut -f1)"
-          if gh release view "v0.9.3" >/dev/null 2>&1; then
-            echo "::error::Release v0.9.3 already exists. Refusing to replace."
+          if gh release view "v0.9.4" >/dev/null 2>&1; then
+            echo "::error::Release v0.9.4 already exists. Refusing to replace."
             exit 1
           fi
 
@@ -67,7 +71,7 @@ jobs:
         run: |
           python -m compileall -q custom_components/round_robin_hood tests scripts
           python -m unittest discover -s tests -p 'test_*.py' -q
-          python tests/docs_093_check.py
+          python tests/docs_094_check.py
           node --check custom_components/round_robin_hood/frontend/panel.js
           for file in custom_components/round_robin_hood/frontend/guides/*/search-index.js; do
             node --check "$file"
@@ -78,24 +82,24 @@ jobs:
           python -m pip install 'mkdocs>=1.6,<2' 'mkdocs-material>=9.7,<10' 'mkdocs-static-i18n>=1.2,<2'
           python -m mkdocs build --strict
 
-      - name: Create and verify complete 0.9.3 release archive
+      - name: Create and verify complete 0.9.4 release archive
         run: |
           python scripts/build_release.py --output-dir dist
-          python scripts/build_release.py --verify dist/round-robin-hood-0.9.3.zip
-          (cd dist && sha256sum -c round-robin-hood-0.9.3.sha256)
+          python scripts/build_release.py --verify dist/round-robin-hood-0.9.4.zip
+          (cd dist && sha256sum -c round-robin-hood-0.9.4.sha256)
 
-      - name: Publish GitHub release v0.9.3
+      - name: Publish GitHub release v0.9.4
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "$(git ls-remote origin refs/heads/main | cut -f1)"
-          gh release create v0.9.3 \
-            dist/round-robin-hood-0.9.3.zip \
-            dist/round-robin-hood-0.9.3.sha256 \
+          gh release create v0.9.4 \
+            dist/round-robin-hood-0.9.4.zip \
+            dist/round-robin-hood-0.9.4.sha256 \
             --target "$(git rev-parse HEAD)" \
-            --title "Round Robin Hood 0.9.3" \
-            --notes-file docs/RELEASE_NOTES_0.9.3.md \
+            --title "Round Robin Hood 0.9.4" \
+            --notes-file docs/RELEASE_NOTES_0.9.4.md \
             --latest
-          gh release view v0.9.3 --json url,isDraft,isPrerelease,assets \
+          gh release view v0.9.4 --json url,isDraft,isPrerelease,assets \
             --jq '{url,isDraft,isPrerelease,assets:[.assets[].name]}'

@@ -60,7 +60,7 @@ class ApacheReleaseChecks(unittest.TestCase):
         manifest = json.loads((COMP / "manifest.json").read_text(encoding="utf-8"))
         self.assertEqual(hacs["name"], "Round Robin Hood")
         self.assertEqual(manifest["domain"], "round_robin_hood")
-        self.assertEqual(manifest["version"], "0.9.3")
+        self.assertEqual(manifest["version"], (ROOT / "VERSION").read_text().strip())
         self.assertEqual([p.name for p in COMP.parent.iterdir() if p.is_dir()], ["round_robin_hood"])
         self.assertTrue((COMP / "brand" / "icon.png").is_file())
 

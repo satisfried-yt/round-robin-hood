@@ -10,13 +10,13 @@ PAGES=('index','installation','setup','dashboard','consumers','profiles','condit
 class ReleaseHygiene(unittest.TestCase):
     def test_identity_and_storage_unchanged(self):
         m=json.loads((COMP/'manifest.json').read_text())
-        self.assertEqual(m['version'],'0.9.3')
+        self.assertEqual(m['version'],(ROOT/'VERSION').read_text().strip())
         self.assertEqual(m['domain'],'round_robin_hood')
         self.assertIn('@satisfried-yt',m['codeowners'])
         c=(COMP/'const.py').read_text()
         self.assertIn('round_robin_hood.rebuild_2026.state',c)
         self.assertIn('rrh_rebuild_2026',c)
-        self.assertEqual((ROOT/'VERSION').read_text().strip(),'0.9.3')
+        self.assertIn('VERSION = "' + m['version'] + '"',c)
 
     def test_six_locales(self):
         for lang in LANGS:

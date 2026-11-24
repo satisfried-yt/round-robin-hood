@@ -2,7 +2,7 @@
 """Classic RRH identity, separate rebuild storage."""
 DOMAIN = "round_robin_hood"
 NAME = "Round Robin Hood"
-VERSION = "0.9.3"
+VERSION = "0.9.4"
 PANEL_PATH = "round-robin-hood"
 STORAGE_KEY = "round_robin_hood.rebuild_2026.state"
 ENTRY_GENERATION = "rrh_rebuild_2026"

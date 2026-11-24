@@ -2,6 +2,13 @@
 
 All changes below describe Round Robin Hood capabilities. Historical development and verification records remain in the project's version-control history and prior project backups, rather than in the user handbook.
 
+## 0.9.4 - Home Assistant event-loop timezone fix
+
+- Resolve the configured Home Assistant timezone asynchronously once during startup and reuse the resolved tzinfo for each sample and day boundary.
+- Preserve the timezone on statistics reset and factory reset; the isolated demo uses UTC without tzdata lookup.
+- Add regression coverage for day boundaries and Home Assistant adapter initialization; no RRH storage migration or allocation behavior change.
+- Prioritize search in Marketplace/HACS installation instructions while retaining custom-repository links before catalog listing.
+
 ## 0.9.3 - public-facing cleanup and ownership verification
 
 - Prepared Apache License 2.0, NOTICE and separate name/logo branding guidance in the private release branch; distribution and rights checks remain pending.

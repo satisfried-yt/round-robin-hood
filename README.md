@@ -7,7 +7,7 @@
 
 **Round Robin Hood (RRH)** is a Home Assistant custom integration by **Satisfried**. Instead of sending every available watt of solar surplus to the grid, RRH allocates measured grid-export surplus to suitable loads in your home—subject to your priorities, device limits and safety settings.
 
-> **Version 0.9.3:** Open-source Home Assistant integration under [Apache License 2.0](LICENSE). Check [GitHub Releases](https://github.com/satisfried-yt/round-robin-hood/releases) for downloadable versions. Approval for the official Marketplace/HACS catalog is separate and not implied by a GitHub release.
+> **Version 0.9.4:** Open-source Home Assistant integration under [Apache License 2.0](LICENSE). Check [GitHub Releases](https://github.com/satisfried-yt/round-robin-hood/releases) for downloadable versions. Approval for the official Marketplace/HACS catalog is separate and not implied by a GitHub release.
 
 ## Watch the introduction
 
@@ -58,9 +58,9 @@ Real Round Robin Hood 0.9.3 screens from a Home Assistant test setup. Live value
 
 [![Open in Home Assistant Marketplace](https://my.home-assistant.io/badges/marketplace_repository.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=satisfried-yt&repository=round-robin-hood&category=integration)
 
-On **Home Assistant 2026.11+**, open **Settings → Marketplace → Add from link** and enter `https://github.com/satisfried-yt/round-robin-hood`. On older Home Assistant versions, add the same GitHub URL as a **HACS custom integration repository**. This works only after the repository is made public and its validation passes.
+**Search for “Round Robin Hood”** in **Settings → Marketplace** (Home Assistant 2026.11+) or in **HACS** on earlier supported versions.
 
-The official catalog listing requires a separate review and has not been approved.
+If the integration is not listed yet, select **Add from link** in Marketplace or add it as a **custom integration repository** in HACS, using `https://github.com/satisfried-yt/round-robin-hood`. The official catalog entry depends on HACS review; a GitHub release or custom URL alone does not mean it has been approved.
 
 <!-- ha-marketplace:exclude-end -->
 
@@ -74,7 +74,7 @@ The official catalog listing requires a separate review and has not been approve
 4. Add **Round Robin Hood** under **Settings → Devices & services** and open the RRH sidebar panel.
 5. Follow the setup wizard, try the isolated demo or configure manually. Verify the grid sensor's sign and unit before enabling control of real devices.
 
-**Already using RRH?** Back up first, then use the version-specific [upgrade and rollback instructions](docs/UPDATE_0.9.3.md). Those instructions cover **0.9.2 → 0.9.3 only**. Avoid mixing older integration code with newer RRH `.storage` data.
+**Already using RRH?** Back up first, then use the version-specific [upgrade and rollback instructions](docs/UPDATE_0.9.4.md). Those instructions cover **0.9.3 → 0.9.4 only**. Avoid mixing older integration code with newer RRH `.storage` data.
 
 **Marketplace/HACS:** A public, validated repository can be added by URL. Official catalog inclusion is a separate review and is **not** implied by publishing this repository.
 
@@ -103,11 +103,11 @@ Read the [full safety guidance](docs/site/en/safety.md) before use.
 
 ## Version, permissions and project status
 
-- **Version:** 0.9.3. [Releases](https://github.com/satisfried-yt/round-robin-hood/releases) · [Changelog](CHANGELOG.md) · [Release notes](docs/RELEASE_NOTES_0.9.3.md)
+- **Version:** 0.9.4. [Releases](https://github.com/satisfried-yt/round-robin-hood/releases) · [Changelog](CHANGELOG.md) · [Release notes](docs/RELEASE_NOTES_0.9.4.md)
 - **Software license:** [Apache License 2.0](LICENSE) · [NOTICE](NOTICE). Use, modification and redistribution are allowed under its conditions. [Branding guidance](BRANDING.md) explains attribution and avoiding false endorsement; Apache-2.0 grants no trademark rights.
 - **Other software:** [Third-party notices](THIRD_PARTY_NOTICES.md).
 - **Publisher information:** [Impressum / Legal notice](http://satisfried.de/). Listing in the official Marketplace catalog remains a separate process.
-- **Package verification:** [SHA-256 checksum instructions](VERIFY_RELEASE.md) for the public release ZIP; no detached signature is claimed for 0.9.3.
+- **Package verification:** [SHA-256 checksum instructions](VERIFY_RELEASE.md) for the public release ZIP; no detached signature is claimed for 0.9.4.
 
 Development used AI assistance. Third-party materials retain their respective rights; see [notices](THIRD_PARTY_NOTICES.md).
 
