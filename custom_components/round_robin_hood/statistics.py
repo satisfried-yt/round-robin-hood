@@ -9,9 +9,8 @@ sample credit. At startup the clock is rebased, not backfilled across HA downtim
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import UTC, datetime, tzinfo
 import math
-from zoneinfo import ZoneInfo
 
 MAX_GAP_S = 8.0
 MAX_HISTORY = 2890  # 24 h at 30-second sampling, including a restart boundary
@@ -39,15 +38,13 @@ class EnergyLedger:
     last_history_at: float = 0
     last_checkpoint_at: float = 0
     last_source_values: dict = field(default_factory=dict)
-    timezone: str = "UTC"
+    timezone: tzinfo = UTC
 
-    def __init__(self, raw=None, *, timezone="UTC"):
-        if not isinstance(timezone, str):
-            timezone = "UTC"
-        try:
-            ZoneInfo(timezone)
-        except (KeyError, ValueError):
-            timezone = "UTC"
+    def __init__(self, raw=None, *, timezone: tzinfo = UTC):
+        # The caller must provide an already-resolved timezone. Loading tzdata
+        # (ZoneInfo(key)) on Home Assistant's event loop is a blocking call.
+        if not isinstance(timezone, tzinfo):
+            raise TypeError("EnergyLedger requires a resolved tzinfo object")
         self.timezone = timezone
         self.started = None
         self.last_at = None
@@ -119,7 +116,7 @@ class EnergyLedger:
         self.started = float(at)
 
     def _day(self, at):
-        return datetime.fromtimestamp(at, tz=ZoneInfo(self.timezone)).strftime("%Y-%m-%d")
+        return datetime.fromtimestamp(at, tz=self.timezone).strftime("%Y-%m-%d")
 
     def _add(self, key, amount, at):
         if not isinstance(amount,(float,int)) or isinstance(amount,bool) or not math.isfinite(amount) or amount == 0 or (amount < 0 and key != "net_benefit_eur"):

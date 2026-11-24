@@ -6,6 +6,8 @@ net-power report. It is deliberately not serialised into the live RRH document.
 """
 from __future__ import annotations
 
+from datetime import UTC
+
 from .controller import Controller
 from .model import Config, UserError
 
@@ -19,7 +21,7 @@ class DemoSandbox:
         self.saved = None
         self.controller = Controller(None, send=self._send, save=self._save,
                                      send_all_off=self._send_all_off,
-                                     send_level=self._send_level)
+                                     send_level=self._send_level, timezone=UTC)
 
     async def start(self):
         config = Config().to_dict()

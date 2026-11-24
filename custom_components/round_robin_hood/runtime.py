@@ -38,8 +38,14 @@ class Runtime:
         saved = await self.store.async_load()
         if existed and saved is None:
             raise UserError("Vorhandene RRH-Speicherdaten konnten nicht gelesen werden. Keine neue Konfiguration angelegt; HA-Protokoll und Sicherung pr\u00fcfen.")
+        # Resolve the Home Assistant timezone asynchronously once. EnergyLedger
+        # subsequently uses the tzinfo directly, including after statistics reset.
+        timezone_name = self.hass.config.time_zone
+        timezone = await dt_util.async_get_time_zone(timezone_name)
+        if timezone is None:
+            raise UserError(f"Ungültige Home-Assistant-Zeitzone: {timezone_name!r}")
         self.controller = Controller(saved, send=self._send, send_all_off=self._send_all_off,
-                                     send_level=self._send_level, save=self._save_verified, timezone=getattr(getattr(self.hass, "config", None), "time_zone", "UTC"))
+                                     send_level=self._send_level, save=self._save_verified, timezone=timezone)
         self.bind()
         # On initial setup/reload require one actual new source report before dispatch.
         self.controller.wait_after_sequence = self.controller.reading.sequence

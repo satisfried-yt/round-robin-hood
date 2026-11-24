@@ -12,6 +12,7 @@ import json
 from pathlib import Path
 import sys
 from types import ModuleType, SimpleNamespace
+from zoneinfo import ZoneInfo
 from uuid import uuid4
 from unittest.mock import patch
 
@@ -70,6 +71,7 @@ class Services:
 class Hass:
     def __init__(self,path):
         self.path=path; self.data={}; self.listeners=[]; self.timers=[]; self.panels={}; self.commands={}; self.tasks=[]; self.old_entries=[]
+        self.config=SimpleNamespace(time_zone="UTC")
         self.states=States(self); self.services=Services(self)
         self.http=SimpleNamespace(paths=[],async_register_static_paths=self.register_paths)
         self.config_entries=SimpleNamespace(async_entries=lambda domain:self.old_entries if domain=="round_robin_hood" else [])
@@ -137,6 +139,14 @@ class Connection:
     def send_error(self,id,code,message): self.errors.append((id,code,message))
 
 
+async def async_get_time_zone(timezone_name):
+    # Test double: construct the zone in an executor, just as Home Assistant does.
+    try:
+        return await asyncio.to_thread(ZoneInfo, timezone_name)
+    except (KeyError, ValueError, OSError):
+        return None
+
+
 def stubs():
     ws=module("homeassistant.components.websocket_api",websocket_command=ws_command,require_admin=admin,async_response=response,
               async_register_command=lambda hass,fn:hass.commands.update({fn.command_type:fn}))
@@ -157,6 +167,6 @@ def stubs():
         "homeassistant.helpers.config_validation":cv,
         "homeassistant.helpers.storage":module("homeassistant.helpers.storage",Store=Store),
         "homeassistant.helpers.event":module("homeassistant.helpers.event",async_track_state_change_event=lambda h,ids,fn:watch(h,ids,fn,"change"),async_track_state_report_event=lambda h,ids,fn:watch(h,ids,fn,"report"),async_track_time_interval=interval),
-        "homeassistant.util":module("homeassistant.util",dt=SimpleNamespace(utcnow=lambda:datetime.now(timezone.utc))),
+        "homeassistant.util":module("homeassistant.util",dt=SimpleNamespace(utcnow=lambda:datetime.now(timezone.utc), async_get_time_zone=async_get_time_zone)),
     }
     return patch.dict(sys.modules,modules)

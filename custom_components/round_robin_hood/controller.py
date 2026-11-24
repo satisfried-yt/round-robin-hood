@@ -11,6 +11,7 @@ import asyncio
 from collections.abc import Awaitable, Callable
 from copy import deepcopy
 from dataclasses import dataclass, field, replace
+from datetime import UTC, tzinfo
 import logging
 import math
 import time
@@ -60,7 +61,7 @@ class Controller:
                  send_level: Callable[[Consumer, float, str], Awaitable[None]] | None = None,
                  clock: Callable[[], float] = time.monotonic,
                  wall_clock: Callable[[], float] = time.time,
-                 confirmation_timeout: float = CONFIRM_TIMEOUT, timezone: str = "UTC") -> None:
+                 confirmation_timeout: float = CONFIRM_TIMEOUT, timezone: tzinfo = UTC) -> None:
         self.send = send
         self.send_level = send_level or self._unsupported_level
         self.save = save

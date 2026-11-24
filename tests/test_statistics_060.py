@@ -2,6 +2,7 @@
 import json
 import unittest
 from copy import deepcopy
+from zoneinfo import ZoneInfo
 
 import load_core
 from rrh_tested.statistics import EnergyLedger
@@ -57,7 +58,7 @@ class StatsSchemaTests(unittest.TestCase):
 
 class StatsLedgerTests(unittest.TestCase):
     def test_load_estimates_and_capture_ratio(self):
-        l=EnergyLedger(timezone="Europe/Berlin")
+        l=EnergyLedger(timezone=ZoneInfo("Europe/Berlin"))
         tick(l,100,160)
         result=l.status()
         self.assertAlmostEqual(result["total"]["rrh_kwh"],500/1000/60,places=5)
