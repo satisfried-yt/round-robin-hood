@@ -28,7 +28,7 @@ class Release094Checks(unittest.TestCase):
 
     def test_release_workflow_references_existing_python_check_scripts(self):
         workflow = (ROOT / ".github/workflows/publish-release.yml").read_text()
-        scripts = re.findall(r"\\bpython\\s+(tests/[a-zA-Z0-9_]+\\.py)", workflow)
+        scripts = re.findall(r"\bpython\s+(tests/[a-zA-Z0-9_]+\.py)", workflow)
         self.assertTrue(scripts)
         for script in scripts:
             self.assertTrue((ROOT / script).is_file(), script)

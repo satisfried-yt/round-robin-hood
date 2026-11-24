@@ -74,6 +74,7 @@ jobs:
       - name: Run Python unit tests
         run: python -m unittest discover -s tests -p 'test_*.py' -q
 
+      # The release regression suite also checks that this script exists.
       - name: Check six-language offline handbook
         run: python tests/docs_093_check.py
 
