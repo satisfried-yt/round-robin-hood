@@ -68,11 +68,17 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Test Python, handbooks and JavaScript
+      - name: Compile Python source
+        run: python -m compileall -q custom_components/round_robin_hood tests scripts
+
+      - name: Run Python unit tests
+        run: python -m unittest discover -s tests -p 'test_*.py' -q
+
+      - name: Check six-language offline handbook
+        run: python tests/docs_093_check.py
+
+      - name: Check frontend JavaScript syntax
         run: |
-          python -m compileall -q custom_components/round_robin_hood tests scripts
-          python -m unittest discover -s tests -p 'test_*.py' -q
-          python tests/docs_093_check.py
           node --check custom_components/round_robin_hood/frontend/panel.js
           for file in custom_components/round_robin_hood/frontend/guides/*/search-index.js; do
             node --check "$file"
