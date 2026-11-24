@@ -1,6 +1,7 @@
 """Release 0.9.4 identity, installation docs and timezone hotfix consistency."""
 from pathlib import Path
 import json
+import re
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -24,6 +25,13 @@ class Release094Checks(unittest.TestCase):
         self.assertIn('add it as a **custom integration repository**', readme)
         self.assertIn("docs/UPDATE_0.9.4.md", readme)
         self.assertIn("docs/RELEASE_NOTES_0.9.4.md", readme)
+
+    def test_release_workflow_references_existing_python_check_scripts(self):
+        workflow = (ROOT / ".github/workflows/publish-release.yml").read_text()
+        scripts = re.findall(r"\\bpython\\s+(tests/[a-zA-Z0-9_]+\\.py)", workflow)
+        self.assertTrue(scripts)
+        for script in scripts:
+            self.assertTrue((ROOT / script).is_file(), script)
 
     def test_zoneinfo_is_not_called_from_statistics(self):
         code = (COMP / "statistics.py").read_text()

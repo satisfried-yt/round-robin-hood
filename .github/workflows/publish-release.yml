@@ -8,6 +8,7 @@ on:
       - main
     paths:
       - VERSION
+      - .github/workflows/publish-release.yml
   workflow_dispatch:
 
 permissions:
@@ -71,7 +72,7 @@ jobs:
         run: |
           python -m compileall -q custom_components/round_robin_hood tests scripts
           python -m unittest discover -s tests -p 'test_*.py' -q
-          python tests/docs_094_check.py
+          python tests/docs_093_check.py
           node --check custom_components/round_robin_hood/frontend/panel.js
           for file in custom_components/round_robin_hood/frontend/guides/*/search-index.js; do
             node --check "$file"
