@@ -615,6 +615,17 @@ class RrhHoodPanel extends HTMLElement {
         .condition-grid label { font-size: 12px; min-width: 0; }
         .condition-grid input,.condition-grid select { min-width: 0; }
         .condition-row > button { justify-self: start; min-height: 36px; }
+        .schedule-fields { display:grid; gap:10px; }
+        .schedule-fields[hidden] { display:none; }
+        .schedule-list { display:grid; gap:10px; }
+        .schedule-row { display:grid; gap:10px; padding:10px; border:1px solid var(--line); border-radius:10px; }
+        .schedule-days { display:flex; gap:8px; flex-wrap:wrap; }
+        .schedule-days .check { display:inline-flex; gap:3px; align-items:center; min-height:36px; cursor:pointer; }
+        .schedule-times { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+        .schedule-times label { display:grid; gap:4px; min-width:0; }
+        .schedule-times input[type="time"] { min-width:0; width:100%; box-sizing:border-box; }
+        .schedule-row > button { justify-self:start; min-height:36px; }
+        .schedule-info { font-size:12px; overflow-wrap:anywhere; }
         @media (max-width: 540px) { .condition-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
 
         .profile-active-label { color: var(--success-color, #2eaf63); font-weight: 700; }
@@ -1108,6 +1119,15 @@ class RrhHoodPanel extends HTMLElement {
                 <p class="help">Nur numerische Sensorzustände. Bei fehlendem/ungültigem Wert wird diese Bedingung gesperrt. Bei Bedingungsverlust sofort AUS, unabhängig von Mindestlaufzeit; ansonsten normale Round-Robin-Vergabe.</p>
               </div>
             </section>
+
+            <section class="condition-edit schedule-edit" aria-label="diesen Verbraucher">
+              <label class="check"><input id="consumer-schedule-enable" type="checkbox"><span>Zeitsteuerung für diesen Verbraucher aktivieren</span></label>
+              <div class="schedule-fields" id="consumer-schedule-fields" hidden>
+                <div class="schedule-list" id="consumer-schedule-list"></div>
+                <button type="button" id="consumer-schedule-add">+ Zeitfenster hinzufügen</button>
+                <p class="help">Der gewählte Wochentag ist der Starttag. Ein Zeitraum von 22:00 bis 02:00 läuft bis 02:00 am Folgetag. Zeitplan und Sensorbedingungen müssen beide erfüllt sein; bei Ende des Zeitfensters schaltet RRH eigene laufende Verbraucher aus, auch während einer Mindestlaufzeit. Home-Assistant-Zeitzone wird verwendet.</p>
+              </div>
+            </section>
             <div class="form-error" id="editor-error" role="alert"></div>
             <div class="form-actions"><button class="primary" type="submit" id="save-consumer">Speichern</button><button type="button" id="cancel-editor">Abbrechen</button></div>
           </form>
@@ -1166,6 +1186,15 @@ class RrhHoodPanel extends HTMLElement {
                 <div class="condition-list" id="profile-conditions-list"></div>
                 <button type="button" id="profile-conditions-add">+ Bedingung hinzufügen</button>
                 <p class="help">Ist das Profil manuell aktiv, nimmt es nur bei erfüllten Bedingungen an der Vergabe teil. Verliert es die Freigabe, werden alle RRH-gesteuerten Profilverbraucher gemeinsam ausgeschaltet.</p>
+              </div>
+            </section>
+
+            <section class="condition-edit schedule-edit" aria-label="dieses Profil">
+              <label class="check"><input id="profile-schedule-enable" type="checkbox"><span>Zeitsteuerung für dieses Profil aktivieren</span></label>
+              <div class="schedule-fields" id="profile-schedule-fields" hidden>
+                <div class="schedule-list" id="profile-schedule-list"></div>
+                <button type="button" id="profile-schedule-add">+ Zeitfenster hinzufügen</button>
+                <p class="help">Der gewählte Wochentag ist der Starttag. Ein Zeitraum von 22:00 bis 02:00 läuft bis 02:00 am Folgetag. Zeitplan und Sensorbedingungen müssen beide erfüllt sein; bei Ende des Zeitfensters schaltet RRH eigene laufende Verbraucher aus, auch während einer Mindestlaufzeit. Home-Assistant-Zeitzone wird verwendet.</p>
               </div>
             </section>
             <fieldset class="participants-panel"><legend data-release-i18n="profileMembers">Teilnehmer des Profils</legend>
@@ -1272,6 +1301,8 @@ class RrhHoodPanel extends HTMLElement {
     for (const prefix of ["consumer", "profile"]) {
       this.$(`#${prefix}-conditions-enable`).onchange = () => this._toggleConditions(prefix);
       this.$(`#${prefix}-conditions-add`).onclick = () => this._addConditionRule(prefix);
+      this.$("#" + prefix + "-schedule-enable").onchange = () => this._toggleSchedule(prefix);
+      this.$("#" + prefix + "-schedule-add").onclick = () => this._addScheduleWindow(prefix);
     }
 
     // No free-form MDI input: icons are selected using the accessible button grid.
@@ -1881,6 +1912,8 @@ class RrhHoodPanel extends HTMLElement {
       heading.append(actions);
     }
     card.append(heading);
+    const scheduleBadge = this._scheduleStatus(profile);
+    if (scheduleBadge) card.append(scheduleBadge);
     const group = node("div", null, "pipeline");
     const ids = !ORDER_CHOICE_STRATEGIES.has(profile.strategy) || profile.dashboard_order === "allocation"
       ? profile.display_ids : profile.consumer_ids;
@@ -2074,6 +2107,93 @@ class RrhHoodPanel extends HTMLElement {
     return {enabled, logic, rules};
   }
 
+
+  _toggleSchedule(prefix) {
+    const enabled = this.$("#" + prefix + "-schedule-enable").checked;
+    const fields = this.$("#" + prefix + "-schedule-fields");
+    fields.hidden = !enabled;
+    for (const control of fields.querySelectorAll("input,button")) control.disabled = !enabled;
+  }
+
+  _addScheduleWindow(prefix, entry = {}) {
+    const list = this.$("#" + prefix + "-schedule-list");
+    if (list.children.length >= 56) return;
+    const row = node("div", null, "schedule-row");
+    const dayRow = node("div", null, "schedule-days");
+    const names = this._language === "de" ? ["Mo","Di","Mi","Do","Fr","Sa","So"]
+      : ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+    for (let day = 0; day < 7; day++) {
+      const label = node("label", null, "check");
+      const checkbox = node("input");
+      checkbox.type = "checkbox"; checkbox.dataset.day = String(day);
+      checkbox.checked = (entry.weekdays || [0,1,2,3,4,5,6]).includes(day);
+      label.append(checkbox, node("span", names[day]));
+      dayRow.append(label);
+    }
+    const times = node("div", null, "schedule-times");
+    for (const [field, caption, value] of [
+      ["start", this._wizardText("Von", "From"), entry.start || "08:00"],
+      ["end", this._wizardText("Bis", "Until"), entry.end || "18:00"]
+    ]) {
+      const label = node("label", caption);
+      const input = node("input");
+      input.type = "time"; input.step = "60"; input.required = true;
+      input.dataset.field = field; input.value = value;
+      label.append(input); times.append(label);
+    }
+    const remove = node("button", this._wizardText("Zeitfenster entfernen", "Remove window"));
+    remove.type = "button"; remove.onclick = () => row.remove();
+    row.append(dayRow, times, remove); list.append(row);
+    this._toggleSchedule(prefix);
+  }
+
+  _fillScheduleEditor(prefix, schedule) {
+    const settings = schedule || {enabled:false,windows:[]};
+    this.$("#" + prefix + "-schedule-enable").checked = !!settings.enabled;
+    this.$("#" + prefix + "-schedule-list").replaceChildren();
+    for (const window of settings.windows || []) this._addScheduleWindow(prefix, window);
+    this._toggleSchedule(prefix);
+  }
+
+  _readSchedule(prefix) {
+    const enabled = this.$("#" + prefix + "-schedule-enable").checked;
+    const windows = Array.from(this.$("#" + prefix + "-schedule-list").children).map(row => {
+      const weekdays = Array.from(row.querySelectorAll("[data-day]"))
+        .filter(input => input.checked).map(input => Number(input.dataset.day));
+      const start = row.querySelector('[data-field="start"]').value;
+      const end = row.querySelector('[data-field="end"]').value;
+      if (!weekdays.length) throw new Error(this._wizardText("Bitte mindestens einen Wochentag auswählen.", "Select at least one weekday."));
+      if (!/^(?:[01][0-9]|2[0-3]):[0-5][0-9]$/.test(start) || !/^(?:[01][0-9]|2[0-3]):[0-5][0-9]$/.test(end))
+        throw new Error(this._wizardText("Bitte gültige Uhrzeiten eingeben.", "Enter valid times."));
+      if (start === end) throw new Error(this._wizardText("Beginn und Ende dürfen nicht gleich sein.", "Start and end must be different."));
+      return {weekdays,start,end};
+    });
+    if (enabled && !windows.length)
+      throw new Error(this._wizardText("Bitte mindestens ein Zeitfenster hinzufügen.", "Add at least one time window."));
+    return {enabled, windows};
+  }
+
+  _scheduleStatus(item) {
+    if (!item.schedule?.enabled) return null;
+    const allowed = item.schedule_allowed !== false;
+    const label = allowed
+      ? this._wizardText("Zeitplan: freigegeben", "Schedule: allowed")
+      : this._wizardText("Zeitplan: gesperrt", "Schedule: blocked");
+    const detail = node("div", label, allowed ? "schedule-info muted" : "schedule-info consumer-warning");
+    if (!allowed && item.schedule_next_start != null) {
+      const timezone = this._hass?.config?.time_zone || "UTC";
+      try {
+        const locale = LOCALE_KEYS[this._language] || "de-DE";
+        const value = new Intl.DateTimeFormat(locale, {
+          timeZone:timezone, weekday:"short", day:"2-digit", month:"2-digit",
+          hour:"2-digit", minute:"2-digit"
+        }).format(new Date(item.schedule_next_start * 1000));
+        detail.append(node("span", " · " + this._wizardText("Nächster Start: ", "Next opening: ") + value));
+      } catch (_err) { /* The timezone status remains visible if locale rendering fails. */ }
+    }
+    return detail;
+  }
+
   _toggleProfileStrategy() {
     const strategy = this.$("#profile-strategy").value;
     const fair = strategy === "fair_runtime" || strategy === "fair_energy", efficiency = strategy === "maximum_efficiency";
@@ -2116,6 +2236,7 @@ class RrhHoodPanel extends HTMLElement {
     this.$("#profile-efficiency-margin").value = profile?.efficiency_start_margin_w ?? 50;
     this._toggleProfileStrategy();
     this._fillConditionEditor("profile", profile?.conditions);
+    this._fillScheduleEditor("profile", profile?.schedule);
     text(this.$("#profile-error"), "");
     this._renderProfileMembers();
     this.$("#profile-editor").showModal();
@@ -2195,8 +2316,8 @@ class RrhHoodPanel extends HTMLElement {
     const name = this.$("#profile-name").value.trim();
     if (!name) { text(this.$("#profile-error"), "Bitte einen Profilnamen eingeben."); return; }
     const ids = [...this._profileDraftIds];
-    let conditions;
-    try { conditions = this._readConditions("profile"); }
+    let conditions, schedule;
+    try { conditions = this._readConditions("profile"); schedule = this._readSchedule("profile"); }
     catch (err) { text(this.$("#profile-error"), err.message); return; }
     if (this.$("#profile-strategy").value === "maximum_efficiency" && ids.length > 24) {
       text(this.$("#profile-error"), "Maximum Efficiency unterstützt maximal 24 Verbraucher pro Profil."); return;
@@ -2211,7 +2332,7 @@ class RrhHoodPanel extends HTMLElement {
       efficiency_interval_s:this.$("#profile-strategy").value === "maximum_efficiency" ? Number(this.$("#profile-efficiency-interval").value) : 60,
       efficiency_start_margin_w:this.$("#profile-strategy").value === "maximum_efficiency" ? Number(this.$("#profile-efficiency-margin").value) : 50,
       allow_power_skip:POWER_SKIP_STRATEGIES.has(this.$("#profile-strategy").value) && this.$("#profile-allow-power-skip").value === "true",
-      dashboard_order:this.$("#profile-display").value, conditions};
+      dashboard_order:this.$("#profile-display").value, conditions, schedule};
     if (cfg.profiles.some(p => p.id !== this._profileId && p.consumer_ids.some(id => ids.includes(id)))) {
       text(this.$("#profile-error"), "Ein ausgewählter Verbraucher wird bereits in einem anderen Profil verwendet. Bitte neu laden."); return;
     }
@@ -2628,6 +2749,8 @@ class RrhHoodPanel extends HTMLElement {
       }
       const consumerIndicator = this._conditionIndicator(c, "Verbraucherbedingungen");
       if (consumerIndicator) row.append(consumerIndicator);
+      const scheduleStatus = this._scheduleStatus(c);
+      if (scheduleStatus) row.append(scheduleStatus);
       if (c.wait_reason && !c.wait_reason.startsWith("Profilbedingung gesperrt:") &&
           !c.wait_reason.startsWith("Verbraucherbedingung gesperrt:")) {
         const brief = node("div", this._shortWait(c.wait_reason), "muted consumer-entity");
@@ -2800,6 +2923,7 @@ class RrhHoodPanel extends HTMLElement {
     this._setDuration("cool", c?.cooldown_s ?? 0);
     this._toggleTimeFields();
     this._fillConditionEditor("consumer", c?.conditions);
+    this._fillScheduleEditor("consumer", c?.schedule);
     this._toggleConsumerPower(true, c?.entity_id || "", c?.stage_entity_id || "");
     text(this.$("#editor-error"), "");
     this.$("#editor").showModal();
@@ -2808,8 +2932,8 @@ class RrhHoodPanel extends HTMLElement {
   async _saveConsumer() {
     if (this._writing) return;
     const cfg = copy(this._editorConfig);
-    let conditions;
-    try { conditions = this._readConditions("consumer"); }
+    let conditions, schedule;
+    try { conditions = this._readConditions("consumer"); schedule = this._readSchedule("consumer"); }
     catch (err) { text(this.$("#editor-error"), err.message); return; }
     if (!this.$("#consumer-entity").value) { text(this.$("#editor-error"), "Bitte eine Steuerentität auswählen."); return; }
     const consumer = {id:this._editorId, name:this.$("#consumer-name").value.trim(), entity_id:this.$("#consumer-entity").value, watts:Number(this.$("#consumer-watts").value), enabled:this.$("#consumer-enabled").checked, virtual_confirmed:true,
@@ -2818,7 +2942,7 @@ class RrhHoodPanel extends HTMLElement {
       cooldown_s:this.$("#cool-enable").checked ? this._getDuration("cool") : 0,
       cooldown_wait:this.$("#cool-enable").checked && this.$("#cool-mode").value === "wait",
       shutdown_delay_s:this.$("#override-delay").checked ? Number(this.$("#consumer-delay").value) : null,
-      icon:this.$("#consumer-icon").value.trim(), icon_image:this._editorImage, conditions,
+      icon:this.$("#consumer-icon").value.trim(), icon_image:this._editorImage, conditions, schedule,
       power_mode:this.$("#consumer-power-mode").value,
       power_steps:[], stage_entity_id:"", off_option:"off", max_watts:0,
       power_step_w:10, power_hysteresis_w:100, power_interval_s:10};

@@ -11,7 +11,7 @@ import asyncio
 from collections.abc import Awaitable, Callable
 from copy import deepcopy
 from dataclasses import dataclass, field, replace
-from datetime import UTC, tzinfo
+from datetime import UTC, datetime, tzinfo
 import logging
 import math
 import time
@@ -68,6 +68,7 @@ class Controller:
         self.send_all_off = send_all_off or self._send_off_individually
         self.clock = clock
         self.wall_clock = wall_clock
+        self.timezone = timezone
         self.timeout = confirmation_timeout
         self.config = Config()
         self.revision = 0
@@ -392,6 +393,40 @@ class Controller:
                 reason += f" (+{len(failed)-3} weitere)"
         return {"allowed": allowed, "reason": reason, "checks": checks}
 
+
+    def _schedule_report(self, item: Profile | Consumer) -> dict:
+        schedule = item.schedule
+        if not schedule.enabled:
+            return {"allowed": True, "reason": "", "next_start": None}
+        now = self.wall_clock()
+        permitted = schedule.allows(datetime.fromtimestamp(now, self.timezone))
+        return {"allowed": permitted,
+                "reason": "" if permitted else "Außerhalb der erlaubten Zeitfenster",
+                "next_start": None if permitted else schedule.next_start(now, self.timezone)}
+
+    def _eligible(self, scope: str, item: Profile | Consumer) -> bool:
+        # Sensor rules AND weekly schedule; neither can override a denial.
+        return (self._condition_report(scope, item)["allowed"] and
+                self._schedule_report(item)["allowed"])
+
+    def _eligibility_reason(self, scope: str, item: Profile | Consumer) -> str:
+        sensor = self._condition_report(scope, item)
+        window = self._schedule_report(item)
+        failures = []
+        if not sensor["allowed"]:
+            failures.append(sensor["reason"])
+        if not window["allowed"]:
+            failures.append(window["reason"])
+        return "; ".join(failures)
+
+    def _consumer_permitted(self, consumer: Consumer) -> bool:
+        if not consumer.enabled or not consumer.virtual_confirmed or not self._eligible("consumer", consumer):
+            return False
+        profile = self._profile_for(consumer)
+        if profile is not None:
+            return profile.enabled and self._eligible("profile", profile)
+        return consumer.id == self.config.residual_consumer_id
+
     def _profile_for(self, c: Consumer) -> Profile | None:
         return next((p for p in self.config.profiles if c.id in p.consumer_ids), None)
 
@@ -399,13 +434,12 @@ class Controller:
         by_id = {c.id: c for c in self.config.consumers}
         result = []
         for profile in self.config.profiles:
-            report = self._condition_report("profile", profile)
-            if report["allowed"]:
+            if self._eligible("profile", profile):
                 continue
             members = [by_id[cid] for cid in profile.consumer_ids if cid in self.owned and
                        cid in by_id and self.states.get(by_id[cid].entity_id) == "on"]
             if members:
-                result.append((profile, members, report["reason"]))
+                result.append((profile, members, self._eligibility_reason("profile", profile)))
         return result
 
     def observe_grid(self, raw: Any, unit: str | None, *, age_s: float = 0,
@@ -1044,7 +1078,7 @@ class Controller:
         Power shortage alone does not exclude a device. A configured cooldown
         with cooldown_wait=True blocks the order; otherwise it is skipped.
         """
-        if not profile.enabled or not self._condition_report("profile", profile)["allowed"]:
+        if not profile.enabled or not self._eligible("profile", profile):
             return []
         items = self._ranked_members(profile)
         if profile.strategy == "classic" and items:
@@ -1053,7 +1087,7 @@ class Controller:
             items = items[index + 1:] + items[:index + 1]
         return [c for c in items if c.id != self.config.residual_consumer_id and c.enabled and c.virtual_confirmed and
                 self.states.get(c.entity_id) == "off" and
-                self._condition_report("consumer", c)["allowed"] and
+                self._eligible("consumer", c) and
                 (not self._cooldown_remaining(c) or c.cooldown_wait)]
 
     def _profile_candidate(self, profile: Profile) -> Consumer | None:
@@ -1069,7 +1103,7 @@ class Controller:
         running = {c.id for c in members if c.id in self.owned and self.states.get(c.entity_id) == "on"}
         locked = {c.id for c in members if c.id in running and not self._can_preempt(c)}
         choices = [c for c in members if c.id not in locked and c.enabled and c.virtual_confirmed and
-                   self._condition_report("consumer", c)["allowed"] and
+                   self._eligible("consumer", c) and
                    (c.id in running or (self.states.get(c.entity_id) == "off" and not self._cooldown_remaining(c)))]
         current_w = sum(self._load_w(c) for c in members if c.id in running)
         locked_w = sum(self._load_w(c) for c in members if c.id in locked)
@@ -1159,7 +1193,7 @@ class Controller:
         may be silently bypassed in strict mode. Lack of watts never skips the
         head unless this profile explicitly allows power-based overtaking.
         """
-        if not profile.enabled or not self._condition_report("profile", profile)["allowed"]:
+        if not profile.enabled or not self._eligible("profile", profile):
             self._efficiency_goals.pop(profile.id, None)
             return None, False
         if profile.strategy == "maximum_efficiency":
@@ -1226,7 +1260,7 @@ class Controller:
         positions = {c.id: idx for idx, profile in enumerate(profiles) for c in self._profile_members(profile)}
         available = export - self.config.reserve_w
         for idx, profile in enumerate(profiles[:-1]):
-            if not profile.enabled or not self._condition_report("profile", profile)["allowed"]:
+            if not profile.enabled or not self._eligible("profile", profile):
                 continue
             lower = [c for c in running if positions.get(c.id, -1) > idx and self._can_preempt(c)]
             if not lower:
@@ -1358,12 +1392,14 @@ class Controller:
             return disabled, "off"
         for c in owned_on:
             profile = self._profile_for(c)
-            if profile and not self._condition_report("profile", profile)["allowed"]:
-                self.reason = f"Profilbedingung {profile.name} nicht erfüllt: {c.name} wird sofort ausgeschaltet."
+            if profile and not self._eligible("profile", profile):
+                self.reason = f"Profilbedingung/Zeitplan {profile.name} nicht erfüllt: {c.name} wird sofort ausgeschaltet."
                 return c, "off"
             check = self._condition_report("consumer", c)
-            if not check["allowed"]:
-                self.reason = f"Bedingung {c.name} nicht erfüllt: {check['reason']}. Sofort abschalten."
+            window = self._schedule_report(c)
+            if not check["allowed"] or not window["allowed"]:
+                explanation = "; ".join(reason for reason in (check["reason"], window["reason"]) if reason)
+                self.reason = f"Bedingung/Zeitplan {c.name} nicht erfüllt: {explanation}. Sofort abschalten."
                 return c, "off"
         value, error, _ = self.power()
         if error or value is None:
@@ -1454,7 +1490,7 @@ class Controller:
         if needed <= 0.00001:
             # A regular candidate must be able to displace the residual sink.
             for profile in self.config.profiles:
-                if not profile.enabled or not self._condition_report("profile", profile)["allowed"]:
+                if not profile.enabled or not self._eligible("profile", profile):
                     continue
                 eligible = self._eligible_waiting(profile)
                 if not eligible:
@@ -1492,7 +1528,7 @@ class Controller:
         priorities = {cid: idx for idx, p in enumerate(self.config.profiles) for cid in p.consumer_ids}
         flexible.sort(key=lambda c: (c.id == self.config.residual_consumer_id, priorities.get(c.id, 999)))
         for c in flexible:
-            if not c.enabled or not self._condition_report("consumer", c)["allowed"]:
+            if not self._consumer_permitted(c):
                 continue
             current = self._load_w(c)
             desired = self._quantized(c, current + available)
@@ -1500,7 +1536,7 @@ class Controller:
                 return c, desired
         residual = next((c for c in self.config.consumers if c.id == self.config.residual_consumer_id), None)
         if (residual and residual.enabled and self.states.get(residual.entity_id) == "off" and
-                self._condition_report("consumer", residual)["allowed"] and
+                self._consumer_permitted(residual) and
                 self._cooldown_remaining(residual) <= 0 and residual.watts <= available + 1e-7):
             return residual, residual.watts
         return None
@@ -1517,6 +1553,11 @@ class Controller:
         try:
             await self._persist()
             if self.mode != "running" or self.closed or self._emergency_active or epoch != self._emergency_epoch:
+                return
+            if not self._consumer_permitted(c):
+                self.incomplete = None
+                self._changed()
+                await self._persist()
                 return
             p.sent = True
             async with asyncio.timeout(self.timeout):
@@ -1566,6 +1607,15 @@ class Controller:
                 if len(members) > 1:
                     await self._execute_group_condition_off(profile, members, explanation)
                     return
+            # Time-window expiry preempts adjustable-power optimization and
+            # deficit barriers. Never defer an OFF because a watt plan was ready.
+            for c in self.config.consumers:
+                if c.id not in self.owned or self.states.get(c.entity_id) != "on":
+                    continue
+                profile = self._profile_for(c)
+                if not self._schedule_report(c)["allowed"] or (profile and not self._schedule_report(profile)["allowed"]):
+                    await self._execute(c, "off")
+                    return
             # Invalid data/conditions are processed by the ordinary decision path.
             export, error, _ = self.power()
             if error is None and export is not None and (self.wait_after_sequence is None or self.reading.sequence > self.wait_after_sequence):
@@ -1610,14 +1660,14 @@ class Controller:
         self._changed()
         try:
             await self._persist()  # crash marker before any real command
-            still_blocked = not self._condition_report("profile", profile)["allowed"]
+            still_blocked = not self._eligible("profile", profile)
             if self.mode != "running" or self.closed or not still_blocked or self._emergency_active:
                 self.incomplete = None
                 self._changed()
                 await self._persist()
                 return
             p.sent = True
-            self.reason = f"Profil {profile.name}: Bedingung nicht erfüllt ({explanation}). Alle verwalteten Profilgeräte sofort ausschalten."
+            self.reason = f"Profil {profile.name}: Bedingung/Zeitplan nicht erfüllt ({explanation}). Alle verwalteten Profilgeräte sofort ausschalten."
             async with asyncio.timeout(self.timeout):
                 async with self._dispatch_lock:
                     if self._emergency_epoch != epoch or self._emergency_active:
@@ -1665,7 +1715,7 @@ class Controller:
             regulation_ok = (self._regulation_off == (consumer.id, self.reading.sequence)
                              and consumer.power_mode != "fixed" and self.mode == "running" and
                              self.power()[1] is None and self.states.get(consumer.entity_id) == ("off" if target == "on" else "on"))
-            if not regulation_ok and self._decision() != (consumer, target):
+            if (target == "on" and not self._consumer_permitted(consumer)) or (not regulation_ok and self._decision() != (consumer, target)):
                 self.incomplete = None
                 self._changed()
                 await self._persist()
@@ -1678,6 +1728,12 @@ class Controller:
                 async with self._dispatch_lock:
                     if self._emergency_epoch != start_epoch or self._emergency_active:
                         raise UserError("Auftrag durch Hauptschalter AUS abgebrochen.")
+                    if target == "on" and not self._consumer_permitted(consumer):
+                        p.sent = False
+                        self.incomplete = None
+                        self._changed()
+                        await self._persist()
+                        return
                     await self.send(consumer.entity_id, target, p.token)
                 p.service_completed = True
                 p.phase = "Zustandsbestaetigung"
@@ -1846,9 +1902,15 @@ class Controller:
         check = self._condition_report("profile", membership)
         if not check["allowed"]:
             return f"Profilbedingung gesperrt: {check['reason']}"
+        window = self._schedule_report(membership)
+        if not window["allowed"]:
+            return "Profilzeitplan gesperrt: " + window["reason"]
         check = self._condition_report("consumer", c)
         if not check["allowed"]:
             return f"Verbraucherbedingung gesperrt: {check['reason']}"
+        window = self._schedule_report(c)
+        if not window["allowed"]:
+            return "Verbraucherzeitplan gesperrt: " + window["reason"]
         if self.states.get(c.entity_id) == "on":
             return ""
         if self.states.get(c.entity_id) != "off":
@@ -1894,10 +1956,13 @@ class Controller:
             else:
                 display_ids = list(dict.fromkeys(started + ([profile_candidate.id] if profile_candidate else []) + cyclic))
             report = self._condition_report("profile", profile)
+            window = self._schedule_report(profile)
             profiles.append({"id": profile.id, "name": profile.name,
                 "enabled": profile.enabled, "conditions": profile.conditions.to_dict(),
                 "conditions_allowed": report["allowed"],
                 "conditions_reason": report["reason"], "condition_checks": report["checks"],
+                "schedule": profile.schedule.to_dict(), "schedule_allowed": window["allowed"],
+                "schedule_reason": window["reason"], "schedule_next_start": window["next_start"],
                 "strategy": profile.strategy,
                 "allow_power_skip": profile.allow_power_skip,
                 "runtime_window": profile.runtime_window,
@@ -1928,8 +1993,11 @@ class Controller:
                                "cooldown_remaining_s": round(self._cooldown_remaining(c), 1),
                                "deficit_remaining_s": self._deficit_remaining(c, value),
                                "condition_checks": self._condition_report("consumer", c)["checks"],
-                               "conditions_allowed": self._condition_report("consumer", c)["allowed"],
+                               "conditions_allowed": self._eligible("consumer", c),
                                "conditions_reason": self._condition_report("consumer", c)["reason"],
+                               "schedule_allowed": self._schedule_report(c)["allowed"],
+                               "schedule_reason": self._schedule_report(c)["reason"],
+                               "schedule_next_start": self._schedule_report(c)["next_start"],
                                "wait_reason": self._consumer_wait_reason(c, candidate, value, error),
                                "active_watts": self._load_w(c) if self.states.get(c.entity_id) == "on" else 0}
                               for c, c_dict in zip(self.config.consumers, self.config.to_dict()["consumers"], strict=True)],

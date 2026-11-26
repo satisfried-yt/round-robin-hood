@@ -7,6 +7,7 @@ Positive normalized grid power is export. Rated powers are estimates, not meters
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
+from datetime import datetime, time as dt_time, timedelta, tzinfo
 import base64
 import binascii
 import math
@@ -103,6 +104,113 @@ class ConditionSet:
                 "rules": [asdict(rule) for rule in self.rules]}
 
 
+
+@dataclass(frozen=True, slots=True)
+class WeeklyWindow:
+    """A local wall-clock interval; weekdays designate the START day (Mon=0)."""
+
+    weekdays: tuple[int, ...]
+    start: str
+    end: str
+
+    @classmethod
+    def parse(cls, data: Any) -> WeeklyWindow:
+        if not isinstance(data, dict) or set(data) != {"weekdays", "start", "end"}:
+            raise UserError("Zeitfenster: Wochentage, Beginn und Ende angeben.")
+        weekdays = data["weekdays"]
+        if (not isinstance(weekdays, list) or not 1 <= len(weekdays) <= 7 or
+                any(type(day) is not int or day not in range(7) for day in weekdays) or
+                len(set(weekdays)) != len(weekdays)):
+            raise UserError("Zeitfenster: Mindestens einen gültigen Wochentag auswählen.")
+        for field_name in ("start", "end"):
+            value = data[field_name]
+            if not isinstance(value, str) or not re.fullmatch(r"(?:[01][0-9]|2[0-3]):[0-5][0-9]", value):
+                raise UserError("Zeitfenster: Uhrzeit im Format HH:MM angeben.")
+        if data["start"] == data["end"]:
+            raise UserError("Zeitfenster: Beginn und Ende dürfen nicht identisch sein.")
+        return cls(tuple(sorted(weekdays)), data["start"], data["end"])
+
+    def to_dict(self) -> dict:
+        return {"weekdays": list(self.weekdays), "start": self.start, "end": self.end}
+
+    def allows(self, local: datetime) -> bool:
+        minutes = local.hour * 60 + local.minute
+        start = int(self.start[:2]) * 60 + int(self.start[3:])
+        end = int(self.end[:2]) * 60 + int(self.end[3:])
+        if start < end:
+            return local.weekday() in self.weekdays and start <= minutes < end
+        # Overnight: after midnight the PREVIOUS weekday owns the interval.
+        return ((local.weekday() in self.weekdays and minutes >= start) or
+                ((local.weekday() - 1) % 7 in self.weekdays and minutes < end))
+
+
+@dataclass(frozen=True, slots=True)
+class WeeklySchedule:
+    """Optional weekly access gate evaluated in Home Assistant's timezone."""
+
+    enabled: bool = False
+    windows: tuple[WeeklyWindow, ...] = ()
+
+    @classmethod
+    def parse(cls, data: Any) -> WeeklySchedule:
+        if data is None:
+            return cls()
+        if not isinstance(data, dict) or set(data) != {"enabled", "windows"}:
+            raise UserError("Zeitplan: Ungültige oder unvollständige Felder.")
+        if type(data["enabled"]) is not bool:
+            raise UserError("Zeitplan: Aktivierung muss EIN oder AUS sein.")
+        raw = data["windows"]
+        if not isinstance(raw, list) or len(raw) > 56:
+            raise UserError("Zeitplan: Maximal 56 Zeitfenster erlaubt.")
+        windows = tuple(WeeklyWindow.parse(item) for item in raw)
+        if data["enabled"] and not windows:
+            raise UserError("Zeitplan: Mindestens ein Zeitfenster erforderlich.")
+        if len({(w.weekdays, w.start, w.end) for w in windows}) != len(windows):
+            raise UserError("Zeitplan: Doppelte Zeitfenster entfernen.")
+        return cls(data["enabled"], windows)
+
+    def to_dict(self) -> dict:
+        return {"enabled": self.enabled, "windows": [window.to_dict() for window in self.windows]}
+
+    def allows(self, local: datetime) -> bool:
+        return not self.enabled or any(window.allows(local) for window in self.windows)
+
+    def next_start(self, timestamp: float, timezone: tzinfo) -> float | None:
+        """Next permitted start in real time, including repeated/skipped DST hours.
+
+        Called only for blocked schedules. Interpret local HH:MM using the
+        already-resolved HA tzinfo; never instantiate ZoneInfo on the event loop.
+        """
+        if not self.enabled:
+            return None
+        today = datetime.fromtimestamp(timestamp, timezone).date()
+        candidates = []
+        for delta in range(9):
+            day = today + timedelta(days=delta)
+            for window in self.windows:
+                if day.weekday() not in window.weekdays:
+                    continue
+                hours, minutes = map(int, window.start.split(":"))
+                naive = datetime.combine(day, dt_time(hours, minutes))
+                for fold in (0, 1):
+                    candidate = naive.replace(tzinfo=timezone, fold=fold).timestamp()
+                    actual = datetime.fromtimestamp(candidate, timezone)
+                    if actual.date() != day or (actual.hour, actual.minute) != (hours, minutes):
+                        # Nonexistent local time during spring-forward. Pick the
+                        # first real minute after the gap, not a phantom HH:MM.
+                        if actual.date() != day or actual.hour * 60 + actual.minute <= hours * 60 + minutes:
+                            continue
+                        for _ in range(180):
+                            before = candidate - 60
+                            prior = datetime.fromtimestamp(before, timezone)
+                            if prior.date() != day or prior.hour * 60 + prior.minute < hours * 60 + minutes:
+                                break
+                            candidate = before
+                    if candidate > timestamp and self.allows(datetime.fromtimestamp(candidate, timezone)):
+                        candidates.append(candidate)
+        return min(candidates, default=None)
+
+
 @dataclass(frozen=True, slots=True)
 class PowerStep:
     watts: float
@@ -142,11 +250,12 @@ class Consumer:
     power_step_w: float = 10.0
     power_hysteresis_w: float = 100.0
     power_interval_s: int = 10
+    schedule: WeeklySchedule = WeeklySchedule()
 
     @classmethod
     def parse(cls, data: Any) -> Consumer:
         base = {"id", "name", "entity_id", "watts", "enabled", "virtual_confirmed"}
-        extras = {"min_on_s", "min_on_strict", "cooldown_s", "cooldown_wait", "shutdown_delay_s", "icon", "icon_image", "conditions", "power_mode", "power_steps", "stage_entity_id", "off_option", "max_watts", "power_step_w", "power_hysteresis_w", "power_interval_s"}
+        extras = {"min_on_s", "min_on_strict", "cooldown_s", "cooldown_wait", "shutdown_delay_s", "icon", "icon_image", "conditions", "power_mode", "power_steps", "stage_entity_id", "off_option", "max_watts", "power_step_w", "power_hysteresis_w", "power_interval_s", "schedule"}
         if not isinstance(data, dict) or not base <= set(data) or not set(data) <= base | extras:
             raise UserError("Verbraucher: Unvollständige oder unbekannte Felder.")
         for key in ("min_on_strict", "cooldown_wait"):
@@ -230,7 +339,8 @@ class Consumer:
                    seconds("min_on_s"), data.get("min_on_strict", False),
                    seconds("cooldown_s"), data.get("cooldown_wait", False),
                    delay, icon, icon_image, ConditionSet.parse(data.get("conditions")),
-                   mode, steps, stage_entity, off_option, max_watts, resolution, hysteresis, interval)
+                   mode, steps, stage_entity, off_option, max_watts, resolution, hysteresis, interval,
+                   WeeklySchedule.parse(data.get("schedule")))
 
 
 @dataclass(frozen=True, slots=True)
@@ -250,13 +360,14 @@ class Profile:
     efficiency_start_margin_w: float = 50.0
     fair_min_gap_s: float = 60.0
     fair_min_gap_wh: float = 10.0
+    schedule: WeeklySchedule = WeeklySchedule()
 
     @classmethod
     def parse(cls, data: Any) -> Profile:
         if not isinstance(data, dict):
             raise UserError("Profil: Ungültige Daten.")
         base = {"id", "name", "enabled", "strategy", "consumer_ids", "dashboard_order"}
-        optional = {"conditions", "runtime_window", "fair_rotation_s", "efficiency_min_gain_w", "efficiency_interval_s", "allow_power_skip", "efficiency_start_margin_w", "fair_min_gap_s", "fair_min_gap_wh"}
+        optional = {"conditions", "runtime_window", "fair_rotation_s", "efficiency_min_gain_w", "efficiency_interval_s", "allow_power_skip", "efficiency_start_margin_w", "fair_min_gap_s", "fair_min_gap_wh", "schedule"}
         if not base <= set(data) or not set(data) <= base | optional:
             raise UserError("Profil: Unvollständige oder unbekannte Felder.")
         if not isinstance(data["id"], str) or not re.fullmatch(r"[a-zA-Z0-9_-]{1,64}", data["id"]):
@@ -300,7 +411,8 @@ class Profile:
             raise UserError("Maximum Efficiency unterstützt maximal 24 Verbraucher pro Profil.")
         return cls(data["id"], data["name"].strip(), data["enabled"], strategy, tuple(ids),
                    data["dashboard_order"], ConditionSet.parse(data.get("conditions")), window,
-                   rotation, gain, interval, allow_skip, margin, fair_gap_s, fair_gap_wh)
+                   rotation, gain, interval, allow_skip, margin, fair_gap_s, fair_gap_wh,
+                   WeeklySchedule.parse(data.get("schedule")))
 
 
 # Energy sources deliberately reuse HA Energy Dashboard compatible sensors and
@@ -417,8 +529,8 @@ class Config:
 
     def to_dict(self) -> dict:
         result = asdict(self)
-        result["consumers"] = [{**asdict(c), "conditions": c.conditions.to_dict(), "power_steps": [asdict(step) for step in c.power_steps]} for c in self.consumers]
-        result["profiles"] = [{**asdict(p), "consumer_ids": list(p.consumer_ids), "conditions": p.conditions.to_dict()} for p in self.profiles]
+        result["consumers"] = [{**asdict(c), "conditions": c.conditions.to_dict(), "schedule": c.schedule.to_dict(), "power_steps": [asdict(step) for step in c.power_steps]} for c in self.consumers]
+        result["profiles"] = [{**asdict(p), "consumer_ids": list(p.consumer_ids), "conditions": p.conditions.to_dict(), "schedule": p.schedule.to_dict()} for p in self.profiles]
         result["dashboard"] = self.dashboard.to_dict()
         return result
 
