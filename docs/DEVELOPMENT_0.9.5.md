@@ -15,13 +15,14 @@ Status: **development only** on the public `develop` branch of `satisfried-yt/ro
 - Keep independent temperature protections, feedback confirmation, safe shutdown, external control behavior, and backward-compatible 0.9.3 profiles/configuration.
 
 ## 3. Weekly schedules on profiles and consumers
-- **Implemented in develop (pending CI and DEV acceptance):** optional weekly schedules on every profile and consumer, disabled by default on migrated settings.
+- **Implemented in develop (source CI passed; DEV acceptance pending):** optional weekly schedules on every profile and consumer, disabled by default on migrated settings.
 - Each interval has one or more selectable weekdays (Monday=0 through Sunday=6), local HH:MM start and exclusive end. Multiple intervals per day and overlapping windows are supported. A cross-midnight interval belongs to its selected START day.
 - The HA timezone is resolved once outside the event loop's scheduling path. Local-time checks honor DST; skipped hours open at the first valid local minute and repeated hours are evaluated on both occurrences. No forced UTC scheduling.
 - Effective eligibility is **profile schedule AND consumer schedule AND numeric sensor conditions**. An active schedule closing forces OFF of RRH-owned consumers ahead of grid-data barriers and strict minimum on-time. A profile closing can use the existing confirmed bulk OFF path. External loads are never adopted or switched off merely for a schedule.
 - HA panel: responsive weekday checkboxes, time inputs, multiple rows, add/remove, independent enable switches, visible blocked/allowed state and next opening in the HA timezone.
 - Automatic tests in `tests/test_weekly_schedules_095.py` cover migration, input validation, mixed windows, overnight, DST gaps/folds, gating, expiry, bulk OFF, and preflight race.
-- **Remaining before release:** complete CI verification, DEV hands-on acceptance, translation/documentation sweep, and explicit release approval.
+- **Source CI:** successful run [45838213099](https://github.com/satisfried-yt/round-robin-hood/actions/runs/45838213099) (Python unit tests, JavaScript syntax, documentation checks and preview bundle). The frontend uses a development-only cache token to avoid retaining an old JavaScript module after manual DEV updates.
+- **Remaining before release:** DEV hands-on acceptance, translation/documentation sweep, and explicit release approval.
 
 ## 4. Multiple notification destinations
 - **Multiple phones AND multiple speakers can be selected**: zero, one or many of each, in the same notification policy.
