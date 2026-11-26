@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 import tempfile
 from types import SimpleNamespace
+from urllib.parse import parse_qs, urlsplit
 import unittest
 
 import load_core
@@ -49,7 +50,13 @@ class AdapterTests(unittest.IsolatedAsyncioTestCase):
         panel=next(iter(self.hass.panels.values()))
         self.assertTrue(panel["require_admin"])
         expected_version = (load_core.ROOT / "VERSION").read_text().strip()
-        self.assertEqual(panel["module_url"], f"/{DOMAIN}/panel.js?v={expected_version}")
+        module = urlsplit(panel["module_url"])
+        self.assertEqual(module.path, f"/{DOMAIN}/panel.js")
+        parameters = parse_qs(module.query)
+        self.assertEqual(parameters.get("v"), [expected_version])
+        self.assertLessEqual(set(parameters), {"v", "dev"})
+        if "dev" in parameters:
+            self.assertTrue(all(parameters["dev"]))
         self.assertEqual(self.rt.controller.mode,"stopped")
         self.assertTrue(self.rt.store.atomic_writes)
 
