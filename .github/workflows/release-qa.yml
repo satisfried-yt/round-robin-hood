@@ -56,7 +56,23 @@ jobs:
       - name: Compile Python files
         run: python -m compileall -q custom_components/round_robin_hood tests scripts
       - name: Execute Python unit and release checks
-        run: python -m unittest discover -s tests -p 'test_*.py' -q
+        id: unit_tests
+        continue-on-error: true
+        shell: bash
+        run: |
+          set +e
+          python -m unittest discover -s tests -p 'test_*.py' -q > unit-output.txt 2>&1
+          result=$?
+          cat unit-output.txt
+          if [ "$result" -ne 0 ]; then
+            failure="$(grep -m1 -E '^(FAIL|ERROR):' unit-output.txt || true)"
+            failure="${failure:-No named failure; inspect job log}"
+            printf 'failure=%s\n' "${failure:0:160}" >> "$GITHUB_OUTPUT"
+          fi
+          exit "$result"
+      - name: Check failed unit test - ${{ steps.unit_tests.outputs.failure }}
+        if: steps.unit_tests.outcome == 'failure'
+        run: exit 1
       - name: Verify the six offline handbook locales
         run: python tests/docs_093_check.py
       - name: Check frontend JavaScript syntax
