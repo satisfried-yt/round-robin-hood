@@ -1,4 +1,4 @@
-"""Current release identity (0.9.5), installation docs and timezone hotfix consistency."""
+"""Current identity, historical 0.9.4 docs, and timezone hotfix regression."""
 from pathlib import Path
 import json
 import re
@@ -23,8 +23,8 @@ class Release094Checks(unittest.TestCase):
         readme = (ROOT / "README.md").read_text()
         self.assertIn('Search for “Round Robin Hood”', readme)
         self.assertIn('add it as a **custom integration repository**', readme)
-        self.assertIn("docs/UPDATE_0.9.4.md", readme)
-        self.assertIn("docs/RELEASE_NOTES_0.9.4.md", readme)
+        self.assertIn("docs/UPDATE_0.9.5.md", readme)
+        self.assertIn("docs/RELEASE_NOTES_0.9.5.md", readme)
 
     def test_release_workflow_references_existing_python_check_scripts(self):
         workflow = (ROOT / ".github/workflows/publish-release.yml").read_text()
