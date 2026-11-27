@@ -9,3 +9,12 @@ O assistente pode ser aberto novamente em Definições. A opção de não voltar
 ---
 
 [Início](index.md) | [Segurança](safety.md)
+
+
+## Selecionar entidades na 0.9.5
+
+A configuração oferece um seletor Home Assistant com pesquisa. Escreva parte do nome ou ID e escolha o resultado; os tipos permitidos dependem do campo.
+
+Funciona também em telemóveis. Se o seletor nativo ainda não estiver disponível, mantém-se a alternativa de pesquisa. Pode adicionar períodos semanais em Consumidores e Perfis.
+
+O controlo automático exige ativação consciente, medições válidas e verificações de segurança.

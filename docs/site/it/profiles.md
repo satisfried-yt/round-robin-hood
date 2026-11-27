@@ -18,3 +18,14 @@ Le otto strategie sono descritte qui sotto. A seconda della scelta, puoi imposta
 ---
 
 [Introduzione](index.md) | [Sicurezza](safety.md)
+
+
+## Programmazione settimanale dei profili (dalla 0.9.5)
+
+In Profili → Modifica è possibile attivare una programmazione indipendente per ogni profilo. Ogni fascia include giorni selezionabili, inizio, fine e più intervalli nello stesso giorno.
+
+Le programmazioni di profilo e dispositivo sono indipendenti. Per avviare servono profilo attivo, entrambe le fasce consentite e condizioni dei sensori valide. La strategia seleziona poi il carico idoneo.
+
+Quando la fascia del profilo termina, RRH richiede lo spegnimento confermato dei dispositivi attivi che gestisce; più dispositivi possono essere spenti con il comando di gruppo. Non assume il controllo di dispositivi accesi esternamente.
+
+Le fasce oltre mezzanotte appartengono al giorno iniziale. Si utilizza il fuso di Home Assistant, inclusi i cambi d'ora. Il pannello mostra la prossima apertura.

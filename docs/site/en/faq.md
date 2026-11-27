@@ -23,3 +23,12 @@
 **Why are some words in German?** `auto` follows HA language. The KB is complete in DE/EN for this version; some legacy specialized UI messages may still fall back to DE/EN for FR/ES/PT/IT.
 
 **How do I report a bug?** Note version, page/action, sanitized HA logs, safe test setup, expected and actual results. If an actuator behaves dangerously, physically isolate it before troubleshooting.
+
+
+## FAQ for 0.9.5
+
+- Why doesn't a consumer start despite surplus? Check the profile, both weekly schedules, sensor conditions, cooldown and grid sensor. The status shows the blocker and any next opening.
+- How do I allow Monday 22:00 until Tuesday 02:00? Select Monday and enter 22:00–02:00. The weekday is the start day and the end is exclusive.
+- Can I set multiple windows? Yes, even within one day. Any window may permit its own schedule, but the profile and consumer schedules must both allow operation.
+- Does RRH switch off at the end? Yes, for its own running loads, even during minimum runtime. It does not automatically take over externally started devices.
+- Are phone and speaker notifications included? No. Multiple recipients and event notifications are planned for a later version.

@@ -1,4 +1,4 @@
-"""Release 0.9.4 identity, installation docs and timezone hotfix consistency."""
+"""Current release identity (0.9.5), installation docs and timezone hotfix consistency."""
 from pathlib import Path
 import json
 import re
@@ -11,7 +11,7 @@ COMP = ROOT / "custom_components" / "round_robin_hood"
 class Release094Checks(unittest.TestCase):
     def test_version_consistency(self):
         version = (ROOT / "VERSION").read_text().strip()
-        self.assertEqual(version, "0.9.4")
+        self.assertEqual(version, "0.9.5")
         self.assertEqual(json.loads((COMP / "manifest.json").read_text())["version"], version)
         self.assertIn(f'VERSION = "{version}"', (COMP / "const.py").read_text())
         self.assertIn(f'const VERSION = "{version}";', (COMP / "frontend/panel.js").read_text())

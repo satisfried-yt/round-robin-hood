@@ -9,3 +9,12 @@ Puoi rilanciare la procedura in Impostazioni. La scelta di non mostrare più l�
 ---
 
 [Introduzione](index.md) | [Sicurezza](safety.md)
+
+
+## Selezione delle entità nella 0.9.5
+
+La configurazione usa un selettore Home Assistant con ricerca. Digitare parte del nome o ID e scegliere il risultato; i tipi ammessi dipendono dal campo.
+
+La ricerca funziona anche su smartphone. Se il selettore nativo non è disponibile resta un'alternativa compatibile. Le fasce settimanali si aggiungono in Dispositivi e Profili.
+
+Il controllo automatico richiede sempre attivazione esplicita, misure valide e verifiche di sicurezza.

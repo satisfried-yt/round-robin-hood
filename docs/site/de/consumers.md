@@ -50,3 +50,14 @@ Individuell freischalten und über `UND` / `ODER` kombinieren, siehe [Sensorbedi
 ## Bedienung und Funktionen
 
 Im Verbrauchereditor gibt es keinen technischen MDI-Dropdown mehr. Wähle ein Symbol direkt in der anklickbaren Icon-Galerie (mit Vorschau); das ausgewählte Symbol wird umrandet. Bereits konfigurierte Symbole werden beim Update nicht überschrieben. Eigene PNG- und WebP-Symbole bleiben möglich.
+
+
+## Neu in 0.9.5: Entitätssuche und Verbraucherzeitplan
+
+Öffne Verbraucher → Bearbeiten. HA-Steuerentität und ggf. Stufensteuerung sind jetzt über die durchsuchbare Home-Assistant-Auswahl zugänglich. Gib einen Teil des Namens oder der Entitäts-ID ein; bestehende Zuordnungen bleiben erhalten.
+
+Aktiviere „Zeitsteuerung für diesen Verbraucher“ nur bei Bedarf. Wähle mit „Zeitfenster hinzufügen“ einen oder mehrere Zeiträume; pro Zeile kannst du Mo–So markieren sowie Beginn und Ende (HH:MM) wählen. Ohne aktivierten Plan gibt es keine zusätzliche zeitliche Sperre.
+
+Ein Intervall Montag 22:00–Dienstag 02:00 wird unter Montag angelegt. Das Ende ist exklusiv (02:00 ist bereits gesperrt). Mehrere Zeitfenster werden als ODER betrachtet, Sensor- und Profilbedingungen gelten zusätzlich mit UND.
+
+Läuft ein von RRH verwalteter Verbraucher beim Ende seines Zeitfensters, schaltet RRH ihn ab – auch bei strikter Mindestlaufzeit. Das ersetzt keinen unabhängigen Temperatur- oder elektrischen Schutz. Der Status zeigt die nächste erlaubte Öffnung in der HA-Zeitzone.

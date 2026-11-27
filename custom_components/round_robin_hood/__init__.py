@@ -45,7 +45,7 @@ async def async_setup_entry(hass, entry):
         await panel_custom.async_register_panel(
             hass, frontend_url_path=PANEL_PATH, webcomponent_name="rrh-hood-panel",
             sidebar_title=NAME, sidebar_icon="mdi:solar-power",
-            module_url=f"/{DOMAIN}/panel.js?v={VERSION}&dev=weekly-schedules-095",
+            module_url=f"/{DOMAIN}/panel.js?v={VERSION}",
             embed_iframe=False, require_admin=True, config_panel_domain=DOMAIN,
         )
     except Exception:

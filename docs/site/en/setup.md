@@ -27,3 +27,12 @@ Open **Settings → Restart setup wizard**. Existing configurations require conf
 ## Locale and initial defaults
 
 RRH first follows Home Assistant's language (`auto`; DE/EN for onboarding). Later select a manual UI language under [Settings](settings.md). Initial reserve is **100 W**, global delay **30 s**, maximum reading age **60 s**; adjust these to the actual installation.
+
+
+## Selecting entities in 0.9.5
+
+Setup now uses searchable Home Assistant entity selectors. Type part of the displayed name or entity ID and select the match; allowed domains depend on the field.
+
+Search also works on phones. If the native picker has not registered, a compatible search/selection control remains available. You can add weekly windows later under Consumers and Profiles.
+
+Automatic control still requires deliberate activation, valid measurements and safety checks. Sensor conditions, schedules and independent protections remain separate.

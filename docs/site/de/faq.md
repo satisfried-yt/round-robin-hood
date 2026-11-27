@@ -23,3 +23,12 @@
 **Warum wird mir eine andere Sprache angezeigt?** `auto` orientiert sich an HA. Die vollständige neue KB existiert auf DE/EN, ältere Spezialtexte der Oberfläche können in FR/ES/PT/IT noch teilweise deutsch/englisch sein.
 
 **Wie melde ich Fehler?** Version, betreffende Seite/Aktion, relevante HA-Logs (ohne persönliche Daten), ungefährlichen Testaufbau, erwartetes und beobachtetes Verhalten dokumentieren. Bei unsicherem Aktor zuerst unabhängige Abschaltung veranlassen.
+
+
+## FAQ zu 0.9.5
+
+- Warum startet ein Verbraucher trotz Überschuss nicht? Prüfe Profilaktivierung, beide Wochenzeitpläne, Sensorbedingungen, Wiedereinschaltsperre und Netzsensor. Im Status steht der Sperrgrund und ggf. die nächste Zeitfreigabe.
+- Wie gebe ich Montag 22:00 bis Dienstag 02:00 frei? Wähle Montag und trage 22:00 bis 02:00 ein. Der Wochentag bezeichnet den Beginn. Das Ende ist exklusiv.
+- Kann ich mehrere Zeitfenster einstellen? Ja, auch an einem Tag. Innerhalb eines Plans reicht eines der Fenster; Profil- und Verbraucherplan müssen gleichzeitig erlauben.
+- Schaltet RRH am Zeitende ab? Ja, RRH-eigene laufende Verbraucher, unabhängig von der Mindestlaufzeit. Andere, extern eingeschaltete Geräte werden nicht automatisch übernommen.
+- Sind Smartphone- und Lautsprecherbenachrichtigungen enthalten? Nein. Mehrfachziele und Ereignisbenachrichtigungen bleiben für eine spätere Version geplant.

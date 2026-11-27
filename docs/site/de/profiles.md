@@ -40,3 +40,14 @@ Profile gruppieren Verbraucher. Ein Verbraucher kann nur einem Profil angehören
 ## Teilnehmer des Profils
 
 Die Mitgliedsauswahl und Grundreihenfolge sind im Profil-Editor jetzt in einem gemeinsam beschrifteten Abschnitt **Teilnehmer des Profils** gruppiert. Das beeinflusst nur die Darstellung, nicht die Priorität oder Strategie.
+
+
+## Wochenzeitpläne für Profile (ab 0.9.5)
+
+Unter Profile → Bearbeiten lässt sich pro Profil ein eigener Wochenplan aktivieren. Für jeden Zeitraum kannst du mehrere Wochentage sowie Beginn und Ende auswählen; mehrere Zeitfenster pro Tag sind möglich.
+
+Ein Profilzeitplan ist unabhängig vom Verbraucherzeitplan. Startfreigabe besteht nur, wenn Profil aktiv, Profilzeitplan, Verbraucherzeitplan und vorhandene Sensorbedingungen erfüllt sind. Die Verteilstrategie bestimmt dann, welcher berechtigte Verbraucher startet.
+
+Endet der Profilzeitraum, fordert RRH für seine laufenden Profilverbraucher eine bestätigte Abschaltung an. Sind mehrere betroffen, kann der vorhandene Gruppen-AUS-Befehl genutzt werden. Extern eingeschaltete Geräte werden durch die Zeitsteuerung nicht übernommen.
+
+Zeitfenster über Mitternacht gehören zum Startwochentag. RRH nutzt die unter Home Assistant eingestellte Zeitzone einschließlich Zeitumstellungen. Das Panel zeigt Freigabe und nächstes Zeitfenster.

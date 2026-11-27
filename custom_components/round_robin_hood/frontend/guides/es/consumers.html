@@ -4,4 +4,10 @@
 <p>Eliminar un consumidor de RRH no elimina la entidad correspondiente en Home Assistant.</p>
 <hr />
 <p><a href="index.html">Inicio</a> | <a href="safety.html">Seguridad</a></p>
+
+<h2>Nuevo en 0.9.5: búsqueda y horario del consumidor</h2>
+<p>En Consumidores → Editar, selecciona las entidades de control y etapas mediante el selector Home Assistant con búsqueda por nombre o ID. Se mantienen las selecciones existentes.</p>
+<p>Activa el horario solo si lo necesitas. Añade varias franjas, marca los días lun–dom y escribe inicio y fin (HH:MM). Si está desactivado no limita el uso.</p>
+<p>Para lunes 22:00–martes 02:00, marca lunes como día inicial. La hora de fin queda excluida. Varias franjas se unen con O; el horario del perfil y las condiciones de sensores también deben cumplirse (Y).</p>
+<p>Al terminar la franja RRH apaga los consumidores activos que gestiona incluso durante el tiempo mínimo estricto. No sustituye protecciones independientes. El siguiente inicio se muestra en la zona horaria de HA.</p>
 <hr><p><small>Copyright (c) 2026 Satisfried | Seguridad | <a href="safety.html">Seguridad</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" artículos encontrados":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/consumers.html";});filter();})();</script></body></html>

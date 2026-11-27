@@ -40,3 +40,14 @@ Fair scores count only confirmed RRH allocation while the associated fair strate
 ## Profile participants
 
 The profile editor groups member selection and base order inside the labelled **Profile participants** fieldset. This is a presentation change; profile priority and strategy behaviour are unchanged.
+
+
+## Weekly profile schedules (since 0.9.5)
+
+In Profiles → Edit you can enable a separate weekly schedule per profile. Each window can include multiple weekdays, start and end times; multiple windows per day are supported.
+
+A profile schedule is independent of each consumer schedule. Starting requires an enabled profile, allowed profile schedule, allowed consumer schedule and valid numeric sensor conditions. The allocation strategy then selects among eligible loads.
+
+When a profile window ends, RRH requests confirmed shutdown of its running profile loads and can use the existing group OFF action for multiple loads. Loads turned on externally are not adopted by the scheduler.
+
+Overnight windows belong to the selected start weekday. HA's configured timezone, including daylight saving, is used. The panel shows whether the profile is permitted and its next opening.

@@ -4,4 +4,9 @@
 <p>Puoi rilanciare la procedura in Impostazioni. La scelta di non mostrare più l’avviso riguarda solo il messaggio di sicurezza.</p>
 <hr />
 <p><a href="index.html">Introduzione</a> | <a href="safety.html">Sicurezza</a></p>
+
+<h2>Selezione delle entità nella 0.9.5</h2>
+<p>La configurazione usa un selettore Home Assistant con ricerca. Digitare parte del nome o ID e scegliere il risultato; i tipi ammessi dipendono dal campo.</p>
+<p>La ricerca funziona anche su smartphone. Se il selettore nativo non è disponibile resta un'alternativa compatibile. Le fasce settimanali si aggiungono in Dispositivi e Profili.</p>
+<p>Il controllo automatico richiede sempre attivazione esplicita, misure valide e verifiche di sicurezza.</p>
 <hr><p><small>Copyright (c) 2026 Satisfried | Sicurezza | <a href="safety.html">Sicurezza</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" articoli trovati":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/setup.html";});filter();})();</script></body></html>

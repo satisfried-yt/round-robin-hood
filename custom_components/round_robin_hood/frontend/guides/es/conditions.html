@@ -3,4 +3,10 @@
 <p>Si el sensor está <code>unknown</code> o <code>unavailable</code>, la condición no autoriza un nuevo arranque. Una condición de temperatura de software no sustituye un limitador independiente de sobretemperatura.</p>
 <hr />
 <p><a href="index.html">Inicio</a> | <a href="safety.html">Seguridad</a></p>
+
+<h2>Combinar condiciones de sensores y horarios (0.9.5)</h2>
+<p>Las condiciones numéricas y los horarios semanales se activan por separado. Las reglas de sensores conservan Y/O; el horario siempre se añade mediante Y.</p>
+<p>Un consumidor inicia solo si el perfil está activo, el horario del perfil lo permite, su horario individual lo permite y se cumplen las condiciones numéricas aplicables.</p>
+<p>Un sensor inválido impide el inicio. Al terminar la franja, RRH apaga las cargas que controla sin esperar el tiempo mínimo. Las reglas de software no sustituyen protecciones independientes.</p>
+<p>Busca entidades numéricas con el selector Home Assistant. Configura las franjas en los editores de perfiles y consumidores.</p>
 <hr><p><small>Copyright (c) 2026 Satisfried | Seguridad | <a href="safety.html">Seguridad</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" artículos encontrados":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/conditions.html";});filter();})();</script></body></html>

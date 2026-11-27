@@ -10,10 +10,18 @@
 <ol>
 <li>Use <strong>All OFF</strong> and physically verify that every configured actuator is off. Pause is not an electrical disconnect.</li>
 <li>Create a full Home Assistant backup including <code>.storage</code> and verify it can be restored.</li>
-<li>Follow the version-guarded upgrade in <code>docs/UPDATE_0.9.3.md</code>. This command is intended for <strong>v0.9.2</strong> installations.</li>
+<li>Follow the version-guarded upgrade in <code>docs/UPDATE_0.9.5.md</code>. This command is intended for <strong>v0.9.4</strong> installations.</li>
 <li>Restart HA Core and verify existing consumers, profiles, sensors, statistics, startup behavior and <strong>All OFF</strong>.</li>
 </ol>
 <h2>Rollback and recovery</h2>
 <p>Restore the <strong>code and matching RRH data together</strong>. Never replace <code>.storage</code> while HA Core is running. RRH changes since the backup will be lost. Alternatively restore the verified full Home Assistant backup.</p>
 <p>RRH factory reset removes RRH data, not Home Assistant devices or recorder history. Back up first.</p>
+
+<h2>Upgrade from 0.9.4 to 0.9.5</h2><ol>
+<li>Use RRH All OFF and physically verify every actuator is off. Pause does not switch off loads.</li>
+<li>Create and verify a full Home Assistant backup including /config/.storage. Select Always OFF for the startup policy if automatic start is unwanted during the upgrade.</li>
+<li>Install v0.9.5 via HACS/Marketplace or the official GitHub release. For a manual installation replace only custom_components/round_robin_hood; see docs/UPDATE_0.9.5.md for tested steps and rollback.</li>
+<li>Restart Home Assistant Core and verify consumers, profiles, conditions, statistics, the entity picker and new schedules.</li>
+<li>New weekly schedules start disabled. To roll back, restore the matching code and .storage backup while HA Core is stopped.</li>
+</ol>
 <hr><p><small>Copyright (c) 2026 Satisfried | Safety | <a href="safety.html">Safety</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" matching articles":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/installation.html";});filter();})();</script></body></html>

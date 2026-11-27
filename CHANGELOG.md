@@ -2,6 +2,15 @@
 
 All changes below describe Round Robin Hood capabilities. Historical development and verification records remain in the project's version-control history and prior project backups, rather than in the user handbook.
 
+## 0.9.5 - native entity search and weekly schedules
+
+- Added native searchable Home Assistant entity pickers (with fallback), covering configuration, wizard, consumers, stage controllers, statistics and numeric sensor conditions; verified on desktop and mobile DEV.
+- Added optional independent weekly schedules for profiles and consumers: selectable weekdays, multiple windows per day, overnight spans and HA-local timezone/DST handling.
+- Combined profile and consumer schedules with existing numeric sensor conditions using AND; time-window expiry enforces confirmed shutdown for RRH-owned loads, even with minimum runtime, with profile group OFF where applicable.
+- Display schedule status and next opening; preserve pre-existing configuration and leave new schedules disabled by default.
+- Localized new schedule controls and synchronized offline/on-GitHub handbook documentation in German, English, French, Spanish, Portuguese and Italian.
+- Added validation, DST, safety, and migration unit tests; full source CI and release checks required for publication. Notifications and a redesigned device-independent multistage wizard remain future work.
+
 ## 0.9.4 - Home Assistant event-loop timezone fix
 
 - Resolve the configured Home Assistant timezone asynchronously once during startup and reuse the resolved tzinfo for each sample and day boundary.

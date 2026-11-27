@@ -4,4 +4,10 @@
 <p>Supprimer un appareil RRH ne supprime jamais l’entité Home Assistant.</p>
 <hr />
 <p><a href="index.html">Accueil</a> | <a href="safety.html">Sécurité</a></p>
+
+<h2>Nouveau en 0.9.5 : recherche et planning des appareils</h2>
+<p>Dans Appareils → Modifier, choisissez les entités de commande et de niveau grâce au sélecteur Home Assistant avec recherche par nom ou identifiant. Les valeurs existantes sont conservées.</p>
+<p>Activez le planning uniquement si nécessaire. Ajoutez plusieurs plages, choisissez les jours lun–dim et saisissez le début et la fin (HH:MM). Un planning désactivé ne limite pas le fonctionnement.</p>
+<p>Pour lundi 22:00–mardi 02:00, choisissez lundi : le jour désigne le début. La fin est exclue. Plusieurs plages sont liées par OU ; planning du profil et conditions des capteurs restent requis par ET.</p>
+<p>À la fermeture de la plage, RRH arrête ses appareils actifs même durant la durée minimale. Cela ne remplace pas une protection thermique ou électrique indépendante. Le prochain début s'affiche dans le fuseau HA.</p>
 <hr><p><small>Copyright (c) 2026 Satisfried | Sécurité | <a href="safety.html">Sécurité</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" articles trouvés":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/consumers.html";});filter();})();</script></body></html>

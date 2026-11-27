@@ -19,3 +19,14 @@ Prüfe Netz-Einspeisung, Reserve, aktive Profile, Sensorbedingungen, Mindestlauf
 ## Nach einem fehlgeschlagenen Update
 
 Beende aktive Schaltvorgänge, erstelle bei Bedarf ein vollständiges HA-Backup und folge der zum ZIP gehörenden `docs/UPDATE_*.md`. **Nicht** mehrere fehlgeschlagene Installationsbefehle blind wiederholen. RRH-eigene Daten liegen separat unter `.storage/round_robin_hood.rebuild_2026.state`.
+
+
+## Fehlersuche: Zeitsteuerung und Entitätssuche (0.9.5)
+
+Keine Schaltung trotz PV-Überschuss: Status von Profil und Verbraucher öffnen. Beide Zeitpläne und die Sensorbedingungen müssen freigeben. Zusätzlich Netzmessung, Reserve, Mindestleistung und Wiedereinschaltsperre prüfen.
+
+Falsche Uhrzeit oder unerwarteter Folgetag: Unter Home Assistant die konfigurierte Zeitzone kontrollieren. Bei Zeitfenstern über Mitternacht ist der ausgewählte Wochentag der Starttag. Bei Sommer-/Winterzeitumstellung können lokale Uhrzeiten übersprungen oder doppelt vorkommen.
+
+Entität fehlt in der Suche: HA-Entität und passende Domäne/Einheit prüfen. Bereits gespeicherte oder momentan nicht verfügbare Entitäten bleiben nach Möglichkeit erhalten. Falls die neue Ansicht nicht erscheint, Browsercache aktualisieren und HA nach dem Update neu starten.
+
+Nach fehlgeschlagener Abschaltbestätigung den realen Gerätzustand kontrollieren und HA-Protokolle prüfen. RRH ist keine elektrische Notabschaltung; nicht unkontrolliert neu starten.

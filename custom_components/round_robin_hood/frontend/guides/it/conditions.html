@@ -3,4 +3,10 @@
 <p>Un sensore <code>unknown</code> o <code>unavailable</code> non autorizza nuovi avvii. Una condizione di temperatura software non sostituisce un limitatore termico indipendente.</p>
 <hr />
 <p><a href="index.html">Introduzione</a> | <a href="safety.html">Sicurezza</a></p>
+
+<h2>Combinare condizioni dei sensori e programmazioni (0.9.5)</h2>
+<p>Le condizioni numeriche e gli orari settimanali si attivano separatamente. Le regole dei sensori conservano AND/OR; la programmazione è sempre un'ulteriore condizione AND.</p>
+<p>Un dispositivo si avvia solo con profilo attivo, programmazione del profilo consentita, programmazione individuale consentita e condizioni numeriche valide.</p>
+<p>Un sensore non valido impedisce l'avvio. Alla fine di una fascia, RRH spegne i dispositivi che gestisce senza attendere il tempo minimo. Queste regole non sostituiscono le protezioni indipendenti.</p>
+<p>Cercare le entità numeriche nel selettore Home Assistant. Configurare le fasce negli editor di profili e dispositivi.</p>
 <hr><p><small>Copyright (c) 2026 Satisfried | Sicurezza | <a href="safety.html">Sicurezza</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" articoli trovati":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/conditions.html";});filter();})();</script></body></html>

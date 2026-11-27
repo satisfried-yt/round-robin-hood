@@ -14,4 +14,10 @@
 </ul>
 <hr />
 <p><a href="index.html">Accueil</a> | <a href="safety.html">Sécurité</a></p>
+
+<h2>Plannings hebdomadaires des profils (depuis 0.9.5)</h2>
+<p>Dans Profils → Modifier, activez un planning propre au profil. Chaque plage accepte plusieurs jours, une heure de début et de fin, ainsi que plusieurs plages par jour.</p>
+<p>Les plannings du profil et des appareils sont indépendants. Pour autoriser un démarrage, il faut un profil actif, les deux plannings autorisés et toutes les conditions de capteurs requises. La stratégie choisit ensuite parmi les appareils admissibles.</p>
+<p>À la fermeture du planning, RRH demande l'arrêt confirmé des appareils actifs gérés du profil ; un arrêt groupé est possible. Les appareils allumés de manière externe ne sont pas adoptés.</p>
+<p>Les plages passant minuit relèvent du jour de départ. Le fuseau horaire de Home Assistant et les changements d'heure sont respectés. Le panneau montre le prochain début.</p>
 <hr><p><small>Copyright (c) 2026 Satisfried | Sécurité | <a href="safety.html">Sécurité</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" articles trouvés":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/profiles.html";});filter();})();</script></body></html>

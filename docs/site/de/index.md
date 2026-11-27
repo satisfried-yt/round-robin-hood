@@ -1,6 +1,6 @@
 # Round Robin Hood - Handbuch
 
-**Version 0.9.3.** [English](en/) | [Sicherheit](safety.md) | [Erste Schritte](setup.md)
+**Version 0.9.5.** [English](en/) | [Sicherheit](safety.md) | [Erste Schritte](setup.md)
 
 RRH verteilt gemessenen PV-Überschuss auf geeignete Verbraucher nach konfigurierbaren Leistungswerten, Profilen und Strategien. Die eigentliche Regelgröße ist die **Netzleistung** (W oder kW), nicht ein kWh-Energiezähler. Bereits laufende Verbraucher sind im gemessenen Netzfluss berücksichtigt.
 
@@ -22,3 +22,11 @@ RRH verteilt gemessenen PV-Überschuss auf geeignete Verbraucher nach konfigurie
 - [Sicherheit](safety.md), [FAQ](faq.md), [Glossar](glossary.md), [Über](about.md).
 
 RRH hat keine eigene Strommesshardware und verändert nicht die Konfiguration des Home Assistant Energy Dashboards. Nennleistungen und Geldbeträge sind Schätzwerte, keine geeichten Messungen.
+
+
+## Neu in Version 0.9.5
+
+- Suche nach Home-Assistant-Entitäten in den Einstellungen, im Assistenten sowie in Verbraucher-, Sensor- und Energieformularen, auch auf Mobilgeräten.
+- Wöchentliche Freigaben für Profile und einzelne Verbraucher mit Wochentagen, mehreren Zeitfenstern und Regeln über Mitternacht.
+- Sensorbedingungen und beide Zeitpläne müssen erfüllt sein; endet die Freigabe, schaltet RRH selbst eingeschaltete Geräte auch vor Ablauf der Mindestlaufzeit aus.
+- Bisherige Konfigurationen bleiben erhalten; die neuen Zeitpläne sind standardmäßig deaktiviert. Vor Updates immer das vollständige HA-Backup einschließlich .storage erstellen.

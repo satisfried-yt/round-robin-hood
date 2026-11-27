@@ -18,3 +18,14 @@ Las ocho estrategias aparecen a continuación. Según la estrategia se configura
 ---
 
 [Inicio](index.md) | [Seguridad](safety.md)
+
+
+## Horarios semanales por perfil (desde 0.9.5)
+
+En Perfiles → Editar puedes activar un horario independiente para cada perfil. Cada franja admite varios días, inicio, fin y varias franjas por día.
+
+Los horarios de perfil y consumidor son independientes. Para iniciar se necesitan el perfil activado, ambos horarios permitidos y las condiciones de sensores válidas. Después, la estrategia decide qué carga elegible inicia.
+
+Al terminar la franja del perfil, RRH solicita el apagado confirmado de las cargas activas que controla; puede agrupar el apagado de varias. No asume el control de equipos encendidos externamente.
+
+Las franjas que cruzan medianoche pertenecen al día inicial. Se respeta la zona horaria de Home Assistant y los cambios de hora. El panel muestra la próxima apertura.

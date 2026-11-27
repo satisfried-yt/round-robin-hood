@@ -11,7 +11,7 @@
 
 1. Use **All OFF** and physically verify that every configured actuator is off. Pause is not an electrical disconnect.
 2. Create a full Home Assistant backup including `.storage` and verify it can be restored.
-3. Follow the version-guarded upgrade in `docs/UPDATE_0.9.3.md`. This command is intended for **v0.9.2** installations.
+3. Follow the version-guarded upgrade in `docs/UPDATE_0.9.5.md`. This command is intended for **v0.9.4** installations.
 4. Restart HA Core and verify existing consumers, profiles, sensors, statistics, startup behavior and **All OFF**.
 
 ## Rollback and recovery
@@ -19,3 +19,12 @@
 Restore the **code and matching RRH data together**. Never replace `.storage` while HA Core is running. RRH changes since the backup will be lost. Alternatively restore the verified full Home Assistant backup.
 
 RRH factory reset removes RRH data, not Home Assistant devices or recorder history. Back up first.
+
+
+## Upgrade from 0.9.4 to 0.9.5
+
+- Use RRH All OFF and physically verify every actuator is off. Pause does not switch off loads.
+- Create and verify a full Home Assistant backup including /config/.storage. Select Always OFF for the startup policy if automatic start is unwanted during the upgrade.
+- Install v0.9.5 via HACS/Marketplace or the official GitHub release. For a manual installation replace only custom_components/round_robin_hood; see docs/UPDATE_0.9.5.md for tested steps and rollback.
+- Restart Home Assistant Core and verify consumers, profiles, conditions, statistics, the entity picker and new schedules.
+- New weekly schedules start disabled. To roll back, restore the matching code and .storage backup while HA Core is stopped.

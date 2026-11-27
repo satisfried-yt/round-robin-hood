@@ -18,3 +18,14 @@ As oito estratégias estão descritas abaixo. Conforme a estratégia pode config
 ---
 
 [Início](index.md) | [Segurança](safety.md)
+
+
+## Horários semanais por perfil (desde 0.9.5)
+
+Em Perfis → Editar, ative um horário independente para o perfil. Cada período permite vários dias, início, fim e vários períodos no mesmo dia.
+
+Os horários do perfil e do consumidor são independentes. Um início requer perfil ativo, ambos os horários permitidos e condições dos sensores válidas. A estratégia escolhe depois a carga elegível.
+
+Quando o período do perfil termina, o RRH solicita o desligamento confirmado dos dispositivos ativos que gere; vários podem usar o desligamento em grupo. Dispositivos ligados externamente não são assumidos.
+
+Períodos que atravessam a meia-noite pertencem ao dia inicial. Usa-se o fuso horário de Home Assistant com mudanças de hora. O painel mostra a próxima abertura.

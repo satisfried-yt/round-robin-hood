@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - main
-      - release-prep/v0.9.3
+      - develop
+      - 'release-prep/**'
     paths:
       - "docs/site/**"
       - "mkdocs.yml"

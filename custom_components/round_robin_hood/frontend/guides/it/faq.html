@@ -5,4 +5,12 @@
 <p><strong>Le stime dei costi sono una bolletta?</strong> No, si basano su potenze nominali e tariffe configurate.</p>
 <hr />
 <p><a href="index.html">Introduzione</a> | <a href="safety.html">Sicurezza</a></p>
+
+<h2>FAQ della versione 0.9.5</h2><ul>
+<li>Perché un dispositivo non si avvia con surplus? Controllare il profilo, entrambe le programmazioni, i sensori, il blocco di riavvio e il misuratore. Lo stato indica il motivo.</li>
+<li>Come consentire lunedì 22:00 fino a martedì 02:00? Selezionare lunedì e 22:00–02:00. Il giorno indica l'inizio e la fine è esclusa.</li>
+<li>Sono possibili più fasce? Sì. Una fascia basta all'interno di un piano, ma le programmazioni di profilo e dispositivo devono permettere entrambe.</li>
+<li>RRH spegne alla fine? Sì, i dispositivi attivi che controlla, anche durante il tempo minimo. Non assume il controllo di dispositivi accesi esternamente.</li>
+<li>Sono incluse notifiche per smartphone o altoparlanti? No, sono previste per una versione successiva.</li>
+</ul>
 <hr><p><small>Copyright (c) 2026 Satisfried | Sicurezza | <a href="safety.html">Sicurezza</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" articoli trovati":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/faq.html";});filter();})();</script></body></html>

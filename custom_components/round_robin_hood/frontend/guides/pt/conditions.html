@@ -3,4 +3,10 @@
 <p>Sensores <code>unknown</code> ou <code>unavailable</code> não autorizam novo arranque. Uma condição de temperatura via software não substitui um limitador térmico independente.</p>
 <hr />
 <p><a href="index.html">Início</a> | <a href="safety.html">Segurança</a></p>
+
+<h2>Combinar condições de sensores e horários (0.9.5)</h2>
+<p>As condições numéricas e os horários semanais são ativados separadamente. As regras de sensores mantêm E/OU; o horário é sempre uma condição E adicional.</p>
+<p>Um consumidor só inicia com perfil ativo, horário do perfil permitido, horário do consumidor permitido e condições numéricas aplicáveis cumpridas.</p>
+<p>Um sensor inválido impede o início. No fim do período, o RRH desliga os dispositivos que gere sem esperar pelo tempo mínimo. Estas regras não substituem proteções independentes.</p>
+<p>Procure entidades numéricas no seletor Home Assistant. Configure os períodos nos editores de perfil e consumidor.</p>
 <hr><p><small>Copyright (c) 2026 Satisfried | Segurança | <a href="safety.html">Segurança</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" artigos encontrados":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/conditions.html";});filter();})();</script></body></html>

@@ -14,4 +14,10 @@
 </ul>
 <hr />
 <p><a href="index.html">Início</a> | <a href="safety.html">Segurança</a></p>
+
+<h2>Horários semanais por perfil (desde 0.9.5)</h2>
+<p>Em Perfis → Editar, ative um horário independente para o perfil. Cada período permite vários dias, início, fim e vários períodos no mesmo dia.</p>
+<p>Os horários do perfil e do consumidor são independentes. Um início requer perfil ativo, ambos os horários permitidos e condições dos sensores válidas. A estratégia escolhe depois a carga elegível.</p>
+<p>Quando o período do perfil termina, o RRH solicita o desligamento confirmado dos dispositivos ativos que gere; vários podem usar o desligamento em grupo. Dispositivos ligados externamente não são assumidos.</p>
+<p>Períodos que atravessam a meia-noite pertencem ao dia inicial. Usa-se o fuso horário de Home Assistant com mudanças de hora. O painel mostra a próxima abertura.</p>
 <hr><p><small>Copyright (c) 2026 Satisfried | Segurança | <a href="safety.html">Segurança</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" artigos encontrados":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/profiles.html";});filter();})();</script></body></html>

@@ -33,7 +33,7 @@ const STRATEGY_HELP = {
   power_desc: "Große Geräte zuerst; Strikt oder Überspringen wählbar.",
   stable_operation: "Bevorzugt laufende Geräte und vermeidet unnötige Wechsel."
 };
-const VERSION = "0.9.4";
+const VERSION = "0.9.5";
 const UI_EN = {
   dashboard:"Dashboard", consumers:"Consumers", profiles:"Profiles", energy:"Energy & costs", settings:"Settings", howto:"How-to", about:"About",
   page:"Page", on:"RRH ON", off:"All OFF", pause:"Pause",
@@ -136,6 +136,7 @@ const RELEASE_COPY = {
  pt:{startupPending:"Início em espera",howtoIntro:"Leia o guia aqui: escolha ou pesquise um capítulo na navegação.",startupTitle:"Início após reiniciar o Home Assistant",startupHelp:"Aguardar nova medição da rede e confirmar os estados dos dispositivos antes de atuar.",startupLast:"Restaurar último estado do RRH",startupOn:"Sempre LIGADO (após verificação)",startupOff:"Sempre DESLIGADO (recomendado)",sensorChoose:"Apenas sensores compatíveis são apresentados.",donation:"Paga-me uma bebida",donationSetting:"Mostrar ligação para donativos no painel",profileMembers:"Participantes do perfil",energyConfig:"Tarifas e dados solares",resetTitle:"Repor completamente o RRH",resetAction:"Apagar todos os dados do RRH",resetWarning:"Irreversível: dispositivos, perfis, definições, tempos, estatísticas e confirmação de segurança serão apagados. Os dispositivos e histórico do HA ficam intactos. Requer desligamento confirmado.",resetType:"Escreva RESET ROUND ROBIN HOOD para confirmar",resetCancel:"Cancelar",resetExecute:"Desligar tudo e repor",resetFailure:"Falha na reposição. Consulte os registos do HA.",aboutImprint:"Aviso legal",aboutMaker:"Criado por",aboutLinks:"Canais de Satisfried",aboutVersions:"Versões",aboutHa:"Home Assistant Core",aboutUnknown:"Indisponível",aboutSafety:"Projeto independente criado com apoio de IA. Não substitui um controlador de segurança certificado.",aboutCopyright:"Copyright (c) 2026 Satisfried. Licença Apache 2.0; sem concessão de direitos de marca.",iconHint:"Escolher ícone",donationTooltip:"Muito rum e cola alimentaram este projeto. E isso custa dinheiro.",welcomeTitle:"Bem-vindo ao Round Robin Hood",welcomeLead:"Como quer começar? Nenhuma opção liga automaticamente dispositivos reais.",welcomeWizard:"Iniciar assistente",welcomeWizardHelp:"Configure sensores, consumidores, perfis e tarifas passo a passo.",welcomeDemo:"Experimentar modo de demonstração",welcomeDemoHelp:"Explore seis consumidores simulados sem comandar dispositivos reais.",welcomeSkip:"Ignorar configuração",welcomeSkipHelp:"RRH continua DESLIGADO. Pode configurá-lo manualmente mais tarde.",welcomeError:"Não foi possível guardar a opção. Tente novamente."},
  it:{startupPending:"Avvio in attesa",howtoIntro:"Leggi qui la guida: scegli o cerca un capitolo nel menu.",startupTitle:"Avvio dopo il riavvio di Home Assistant",startupHelp:"Attendere una nuova misura di rete e stati verificati dei dispositivi prima di azionarli.",startupLast:"Ripristina l’ultimo stato RRH",startupOn:"Sempre ACCESO (dopo i controlli)",startupOff:"Sempre SPENTO (consigliato)",sensorChoose:"Vengono mostrati solo i sensori compatibili.",donation:"Offrimi un drink",donationSetting:"Mostra il link per le donazioni nella dashboard",profileMembers:"Partecipanti al profilo",energyConfig:"Tariffe e dati FV",resetTitle:"Ripristina completamente RRH",resetAction:"Elimina tutti i dati RRH",resetWarning:"Irreversibile: dispositivi, profili, impostazioni, tempi, statistiche e conferma di sicurezza verranno eliminati. Dispositivi e cronologia HA restano invariati. Occorre lo spegnimento confermato.",resetType:"Digita RESET ROUND ROBIN HOOD per confermare",resetCancel:"Annulla",resetExecute:"Spegni tutto e ripristina",resetFailure:"Ripristino non riuscito. Controlla i log di HA.",aboutImprint:"Note legali",aboutMaker:"Creato da",aboutLinks:"Canali di Satisfried",aboutVersions:"Versioni",aboutHa:"Home Assistant Core",aboutUnknown:"Non disponibile",aboutSafety:"Progetto indipendente creato con il supporto dell’IA. Non sostituisce un sistema di sicurezza certificato.",aboutCopyright:"Copyright (c) 2026 Satisfried. Licenza Apache 2.0; nessun diritto sui marchi concesso.",iconHint:"Scegli un'icona",donationTooltip:"Tanto rum e cola hanno alimentato questo progetto. E costa.",welcomeTitle:"Benvenuto in Round Robin Hood",welcomeLead:"Come vuoi iniziare? Nessuna opzione attiva automaticamente dispositivi reali.",welcomeWizard:"Avvia configurazione guidata",welcomeWizardHelp:"Configura sensori, dispositivi, profili e tariffe passo dopo passo.",welcomeDemo:"Prova la modalità demo",welcomeDemoHelp:"Esplora sei dispositivi simulati senza comandare quelli reali.",welcomeSkip:"Salta la configurazione",welcomeSkipHelp:"RRH resta SPENTO. Potrai configurarlo manualmente in seguito.",welcomeError:"Impossibile salvare la scelta. Riprova."}
 };
+const SCHEDULE_COPY = {"de":{"consumerEnable":"Zeitsteuerung für diesen Verbraucher aktivieren","profileEnable":"Zeitsteuerung für dieses Profil aktivieren","addWindow":"+ Zeitfenster hinzufügen","help":"Der gewählte Wochentag ist der Starttag. 22:00–02:00 endet um 02:00 am Folgetag. Profilzeitplan, Verbraucherzeitplan und Sensorbedingungen müssen erfüllt sein. Außerhalb der Freigabe schaltet RRH eigene laufende Geräte auch während einer Mindestlaufzeit aus. Es gilt die Home-Assistant-Zeitzone.","days":["Mo","Di","Mi","Do","Fr","Sa","So"],"start":"Von","end":"Bis","remove":"Zeitfenster entfernen","needDay":"Bitte mindestens einen Wochentag auswählen.","needTime":"Bitte gültige Uhrzeiten eingeben.","same":"Beginn und Ende dürfen nicht gleich sein.","needWindow":"Bitte mindestens ein Zeitfenster hinzufügen.","allowed":"Zeitplan: freigegeben","blocked":"Zeitplan: gesperrt","next":"Nächster Beginn: ","entity":"Home-Assistant-Entität auswählen","numeric":"Home-Assistant-Sensor für Bedingung"},"en":{"consumerEnable":"Enable weekly schedule for this consumer","profileEnable":"Enable weekly schedule for this profile","addWindow":"+ Add time window","help":"Selected weekdays are start days. 22:00–02:00 continues until 02:00 the next day. Profile schedule, consumer schedule and sensor conditions must all allow operation. Outside the window, RRH switches off its own running loads even during minimum runtime. Home Assistant's timezone applies.","days":["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],"start":"From","end":"Until","remove":"Remove window","needDay":"Select at least one weekday.","needTime":"Enter valid times.","same":"Start and end must be different.","needWindow":"Add at least one time window.","allowed":"Schedule: allowed","blocked":"Schedule: blocked","next":"Next opening: ","entity":"Select Home Assistant entity","numeric":"Home Assistant sensor for condition"},"fr":{"consumerEnable":"Activer le planning de cet appareil","profileEnable":"Activer le planning de ce profil","addWindow":"+ Ajouter une plage horaire","help":"Les jours choisis indiquent le début. 22:00–02:00 se termine le lendemain à 02:00. Les plannings du profil et de l'appareil ainsi que les conditions des capteurs doivent tous être respectés. Hors plage, RRH arrête ses appareils actifs, même pendant une durée minimale. Le fuseau horaire de Home Assistant s'applique.","days":["lun","mar","mer","jeu","ven","sam","dim"],"start":"De","end":"À","remove":"Supprimer la plage","needDay":"Sélectionnez au moins un jour.","needTime":"Saisissez des heures valides.","same":"Le début et la fin doivent être différents.","needWindow":"Ajoutez au moins une plage horaire.","allowed":"Planning : autorisé","blocked":"Planning : bloqué","next":"Prochaine ouverture : ","entity":"Choisir une entité Home Assistant","numeric":"Capteur Home Assistant pour la condition"},"es":{"consumerEnable":"Activar horario de este consumidor","profileEnable":"Activar horario de este perfil","addWindow":"+ Añadir franja horaria","help":"Los días seleccionados indican el inicio. 22:00–02:00 termina a las 02:00 del día siguiente. Deben cumplirse los horarios del perfil y del consumidor y las condiciones del sensor. Fuera del horario, RRH apaga los dispositivos que controla, incluso durante el tiempo mínimo de funcionamiento. Se usa la zona horaria de Home Assistant.","days":["lun","mar","mié","jue","vie","sáb","dom"],"start":"Desde","end":"Hasta","remove":"Eliminar franja","needDay":"Selecciona al menos un día.","needTime":"Introduce horas válidas.","same":"Inicio y fin deben ser diferentes.","needWindow":"Añade al menos una franja horaria.","allowed":"Horario: permitido","blocked":"Horario: bloqueado","next":"Próxima apertura: ","entity":"Seleccionar entidad Home Assistant","numeric":"Sensor Home Assistant para la condición"},"pt":{"consumerEnable":"Ativar horário deste consumidor","profileEnable":"Ativar horário deste perfil","addWindow":"+ Adicionar período","help":"Os dias selecionados indicam o início. 22:00–02:00 termina às 02:00 do dia seguinte. O horário do perfil, do consumidor e as condições dos sensores devem ser cumpridos. Fora do período, o RRH desliga os seus dispositivos ativos, mesmo durante o tempo mínimo de funcionamento. Usa-se o fuso horário do Home Assistant.","days":["seg","ter","qua","qui","sex","sáb","dom"],"start":"Das","end":"Até","remove":"Remover período","needDay":"Selecione pelo menos um dia.","needTime":"Introduza horas válidas.","same":"Início e fim devem ser diferentes.","needWindow":"Adicione pelo menos um período.","allowed":"Horário: permitido","blocked":"Horário: bloqueado","next":"Próxima abertura: ","entity":"Selecionar entidade Home Assistant","numeric":"Sensor Home Assistant para a condição"},"it":{"consumerEnable":"Attiva programmazione per questo dispositivo","profileEnable":"Attiva programmazione per questo profilo","addWindow":"+ Aggiungi fascia oraria","help":"I giorni selezionati indicano l'inizio. 22:00–02:00 termina alle 02:00 del giorno successivo. Devono essere consentiti gli orari del profilo e del dispositivo e le condizioni dei sensori. Fuori fascia, RRH spegne i dispositivi attivi che gestisce, anche durante il tempo minimo di funzionamento. Vale il fuso orario di Home Assistant.","days":["lun","mar","mer","gio","ven","sab","dom"],"start":"Dalle","end":"Alle","remove":"Rimuovi fascia","needDay":"Seleziona almeno un giorno.","needTime":"Inserisci orari validi.","same":"Inizio e fine devono essere diversi.","needWindow":"Aggiungi almeno una fascia oraria.","allowed":"Orario: consentito","blocked":"Orario: bloccato","next":"Prossima apertura: ","entity":"Seleziona entità Home Assistant","numeric":"Sensore Home Assistant per la condizione"}};
 const CHART_LABELS = {gauge:"chartGauge",line:"chartLine",bar:"chartBar",area:"chartArea",donut:"chartDonut",stacked:"chartStacked",sparkline:"chartSpark"};
 const CARD_NAMES = {grid:"grid",budget:"budget",managed:"managed",live_chart:"live_chart",rate:"rate",total_net:"total_net",total_energy:"total_energy",capture:"capture",pipeline:"pipeline",pv_power:"pv_power"};
 
@@ -273,8 +274,10 @@ class RrhHoodPanel extends HTMLElement {
   }
   disconnectedCallback() { clearTimeout(this._timer); this._timer = null; }
   $(selector) { return this.shadowRoot.querySelector(selector); }
+  _scheduleText(key) { return (SCHEDULE_COPY[this._language] || SCHEDULE_COPY.en)[key] || SCHEDULE_COPY.en[key] || key; }
   _tr(key) { return RELEASE_COPY[this._language]?.[key] || LOCALIZED_STATS[this._language]?.[key] || (this._language === "en" ? UI_EN : UI_DE)[key] || UI_EN[key] || UI_DE[key] || key; }
   _translateStatic() {
+    for (const el of this.shadowRoot.querySelectorAll("[data-schedule-i18n]")) text(el, this._scheduleText(el.dataset.scheduleI18n));
     for (const el of this.shadowRoot.querySelectorAll("[data-release-i18n]")) text(el, this._tr(el.dataset.releaseI18n));
     for (const el of this.shadowRoot.querySelectorAll("[data-i18n]")) {
       const helpNodes = Array.from(el.children).filter(child => child.classList.contains("info-wrap"));
@@ -1121,11 +1124,11 @@ class RrhHoodPanel extends HTMLElement {
             </section>
 
             <section class="condition-edit schedule-edit" aria-label="diesen Verbraucher">
-              <label class="check"><input id="consumer-schedule-enable" type="checkbox"><span>Zeitsteuerung für diesen Verbraucher aktivieren</span></label>
+              <label class="check"><input id="consumer-schedule-enable" type="checkbox"><span data-schedule-i18n="consumerEnable">Zeitsteuerung für diesen Verbraucher aktivieren</span></label>
               <div class="schedule-fields" id="consumer-schedule-fields" hidden>
                 <div class="schedule-list" id="consumer-schedule-list"></div>
-                <button type="button" id="consumer-schedule-add">+ Zeitfenster hinzufügen</button>
-                <p class="help">Der gewählte Wochentag ist der Starttag. Ein Zeitraum von 22:00 bis 02:00 läuft bis 02:00 am Folgetag. Zeitplan und Sensorbedingungen müssen beide erfüllt sein; bei Ende des Zeitfensters schaltet RRH eigene laufende Verbraucher aus, auch während einer Mindestlaufzeit. Home-Assistant-Zeitzone wird verwendet.</p>
+                <button type="button" id="consumer-schedule-add" data-schedule-i18n="addWindow">+ Zeitfenster hinzufügen</button>
+                <p class="help" data-schedule-i18n="help">Der gewählte Wochentag ist der Starttag. 22:00–02:00 endet um 02:00 am Folgetag. Profilzeitplan, Verbraucherzeitplan und Sensorbedingungen müssen erfüllt sein. Außerhalb der Freigabe schaltet RRH eigene laufende Geräte auch während einer Mindestlaufzeit aus. Es gilt die Home-Assistant-Zeitzone.</p>
               </div>
             </section>
             <div class="form-error" id="editor-error" role="alert"></div>
@@ -1190,11 +1193,11 @@ class RrhHoodPanel extends HTMLElement {
             </section>
 
             <section class="condition-edit schedule-edit" aria-label="dieses Profil">
-              <label class="check"><input id="profile-schedule-enable" type="checkbox"><span>Zeitsteuerung für dieses Profil aktivieren</span></label>
+              <label class="check"><input id="profile-schedule-enable" type="checkbox"><span data-schedule-i18n="profileEnable">Zeitsteuerung für dieses Profil aktivieren</span></label>
               <div class="schedule-fields" id="profile-schedule-fields" hidden>
                 <div class="schedule-list" id="profile-schedule-list"></div>
-                <button type="button" id="profile-schedule-add">+ Zeitfenster hinzufügen</button>
-                <p class="help">Der gewählte Wochentag ist der Starttag. Ein Zeitraum von 22:00 bis 02:00 läuft bis 02:00 am Folgetag. Zeitplan und Sensorbedingungen müssen beide erfüllt sein; bei Ende des Zeitfensters schaltet RRH eigene laufende Verbraucher aus, auch während einer Mindestlaufzeit. Home-Assistant-Zeitzone wird verwendet.</p>
+                <button type="button" id="profile-schedule-add" data-schedule-i18n="addWindow">+ Zeitfenster hinzufügen</button>
+                <p class="help" data-schedule-i18n="help">Der gewählte Wochentag ist der Starttag. 22:00–02:00 endet um 02:00 am Folgetag. Profilzeitplan, Verbraucherzeitplan und Sensorbedingungen müssen erfüllt sein. Außerhalb der Freigabe schaltet RRH eigene laufende Geräte auch während einer Mindestlaufzeit aus. Es gilt die Home-Assistant-Zeitzone.</p>
               </div>
             </section>
             <fieldset class="participants-panel"><legend data-release-i18n="profileMembers">Teilnehmer des Profils</legend>
@@ -2034,7 +2037,7 @@ class RrhHoodPanel extends HTMLElement {
     if (!picker) {
       picker = document.createElement("ha-entity-picker");
       picker.className = "rrh-entity-picker";
-      picker.setAttribute("aria-label", "Home Assistant Sensor für Bedingung");
+      picker.setAttribute("aria-label", this._scheduleText("numeric"));
       picker.required = true;
       input.required = false;
       input.dataset.rrhNativeBacked = "true";
@@ -2120,8 +2123,7 @@ class RrhHoodPanel extends HTMLElement {
     if (list.children.length >= 56) return;
     const row = node("div", null, "schedule-row");
     const dayRow = node("div", null, "schedule-days");
-    const names = this._language === "de" ? ["Mo","Di","Mi","Do","Fr","Sa","So"]
-      : ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+    const names = this._scheduleText("days");
     for (let day = 0; day < 7; day++) {
       const label = node("label", null, "check");
       const checkbox = node("input");
@@ -2132,8 +2134,8 @@ class RrhHoodPanel extends HTMLElement {
     }
     const times = node("div", null, "schedule-times");
     for (const [field, caption, value] of [
-      ["start", this._wizardText("Von", "From"), entry.start || "08:00"],
-      ["end", this._wizardText("Bis", "Until"), entry.end || "18:00"]
+      ["start", this._scheduleText("start"), entry.start || "08:00"],
+      ["end", this._scheduleText("end"), entry.end || "18:00"]
     ]) {
       const label = node("label", caption);
       const input = node("input");
@@ -2141,7 +2143,7 @@ class RrhHoodPanel extends HTMLElement {
       input.dataset.field = field; input.value = value;
       label.append(input); times.append(label);
     }
-    const remove = node("button", this._wizardText("Zeitfenster entfernen", "Remove window"));
+    const remove = node("button", this._scheduleText("remove"));
     remove.type = "button"; remove.onclick = () => row.remove();
     row.append(dayRow, times, remove); list.append(row);
     this._toggleSchedule(prefix);
@@ -2162,14 +2164,14 @@ class RrhHoodPanel extends HTMLElement {
         .filter(input => input.checked).map(input => Number(input.dataset.day));
       const start = row.querySelector('[data-field="start"]').value;
       const end = row.querySelector('[data-field="end"]').value;
-      if (!weekdays.length) throw new Error(this._wizardText("Bitte mindestens einen Wochentag auswählen.", "Select at least one weekday."));
+      if (!weekdays.length) throw new Error(this._scheduleText("needDay"));
       if (!/^(?:[01][0-9]|2[0-3]):[0-5][0-9]$/.test(start) || !/^(?:[01][0-9]|2[0-3]):[0-5][0-9]$/.test(end))
-        throw new Error(this._wizardText("Bitte gültige Uhrzeiten eingeben.", "Enter valid times."));
-      if (start === end) throw new Error(this._wizardText("Beginn und Ende dürfen nicht gleich sein.", "Start and end must be different."));
+        throw new Error(this._scheduleText("needTime"));
+      if (start === end) throw new Error(this._scheduleText("same"));
       return {weekdays,start,end};
     });
     if (enabled && !windows.length)
-      throw new Error(this._wizardText("Bitte mindestens ein Zeitfenster hinzufügen.", "Add at least one time window."));
+      throw new Error(this._scheduleText("needWindow"));
     return {enabled, windows};
   }
 
@@ -2177,8 +2179,8 @@ class RrhHoodPanel extends HTMLElement {
     if (!item.schedule?.enabled) return null;
     const allowed = item.schedule_allowed !== false;
     const label = allowed
-      ? this._wizardText("Zeitplan: freigegeben", "Schedule: allowed")
-      : this._wizardText("Zeitplan: gesperrt", "Schedule: blocked");
+      ? this._scheduleText("allowed")
+      : this._scheduleText("blocked");
     const detail = node("div", label, allowed ? "schedule-info muted" : "schedule-info consumer-warning");
     if (!allowed && item.schedule_next_start != null) {
       const timezone = this._hass?.config?.time_zone || "UTC";
@@ -2188,7 +2190,7 @@ class RrhHoodPanel extends HTMLElement {
           timeZone:timezone, weekday:"short", day:"2-digit", month:"2-digit",
           hour:"2-digit", minute:"2-digit"
         }).format(new Date(item.schedule_next_start * 1000));
-        detail.append(node("span", " · " + this._wizardText("Nächster Start: ", "Next opening: ") + value));
+        detail.append(node("span", " · " + this._scheduleText("next") + value));
       } catch (_err) { /* The timezone status remains visible if locale rendering fails. */ }
     }
     return detail;
@@ -2354,7 +2356,7 @@ class RrhHoodPanel extends HTMLElement {
       if (!picker) {
         picker = document.createElement("ha-entity-picker");
         picker.className = "rrh-entity-picker";
-        picker.setAttribute("aria-label", "Home Assistant Entität auswählen");
+        picker.setAttribute("aria-label", this._scheduleText("entity"));
         const required = select.required;
         select.required = false;
         select.dataset.rrhNativeBacked = "true";

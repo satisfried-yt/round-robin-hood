@@ -3,4 +3,10 @@
 <p>Un capteur inconnu ou indisponible ne donne pas l’autorisation de démarrer. Une condition logicielle de température <strong>ne remplace pas</strong> un limiteur thermique indépendant.</p>
 <hr />
 <p><a href="index.html">Accueil</a> | <a href="safety.html">Sécurité</a></p>
+
+<h2>Combiner conditions de capteurs et horaires (0.9.5)</h2>
+<p>Les conditions numériques et les plannings hebdomadaires peuvent être activés indépendamment. Les règles du capteur conservent leur ET/OU ; le planning est toujours un ET supplémentaire.</p>
+<p>Un appareil démarre uniquement si le profil est actif, le planning du profil autorisé, son propre planning autorisé et toutes les conditions numériques applicables remplies.</p>
+<p>Un capteur invalide empêche le démarrage. À la fin d'une plage, RRH arrête les appareils qu'il gère sans attendre la durée minimale. Les conditions logicielles ne remplacent pas les protections indépendantes.</p>
+<p>Le sélecteur Home Assistant permet la recherche d'entités numériques. Réglez les plages dans les éditeurs de profil et d'appareil.</p>
 <hr><p><small>Copyright (c) 2026 Satisfried | Sécurité | <a href="safety.html">Sécurité</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" articles trouvés":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/conditions.html";});filter();})();</script></body></html>

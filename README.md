@@ -7,7 +7,7 @@
 
 **Round Robin Hood (RRH)** is a Home Assistant custom integration by **Satisfried**. Instead of sending every available watt of solar surplus to the grid, RRH allocates measured grid-export surplus to suitable loads in your home—subject to your priorities, device limits and safety settings.
 
-> **Version 0.9.4:** Open-source Home Assistant integration under [Apache License 2.0](LICENSE). Check [GitHub Releases](https://github.com/satisfried-yt/round-robin-hood/releases) for downloadable versions. Approval for the official Marketplace/HACS catalog is separate and not implied by a GitHub release.
+> **Version 0.9.5:** Open-source Home Assistant integration under [Apache License 2.0](LICENSE). Check [GitHub Releases](https://github.com/satisfried-yt/round-robin-hood/releases) for downloadable versions. Approval for the official Marketplace/HACS catalog is separate and not implied by a GitHub release.
 
 ## Watch the introduction
 
@@ -21,10 +21,16 @@
 | --- | --- |
 | Solar input | Home Assistant grid-power sensor (W or kW), with selectable export sign |
 | Loads | On/off switches, multi-stage appliances, adjustable power targets and an optional residual-surplus consumer |
-| Scheduling | Eight allocation strategies, including round robin, fairness, priority and efficiency |
+| Scheduling | Eight allocation strategies plus optional weekday/time windows for profiles and consumers |
 | Safeguards | Reserve, hysteresis, minimum run time, cooldown, delayed deficit handling, sensor freshness and conditions |
-| Operation | Responsive sidebar panel, profiles, restart policy, setup wizard and isolated demonstration |
+| Operation | Responsive sidebar panel with searchable native HA entity selectors, profiles, restart policy, setup wizard and isolated demonstration |
 | Insights | Estimates for energy use, utilized surplus and costs based on configured device power and tariffs |
+
+### New in 0.9.5
+
+Searchable Home Assistant entity selection replaces hard-to-navigate lists in supported setup and settings forms, with a compatible fallback if the native picker is not yet available. Each profile and consumer can separately enable multiple weekday/time windows, including overnight periods. Start eligibility requires **profile schedule AND consumer schedule AND sensor conditions**. When a window closes, RRH switches off its running managed loads, even during a strict minimum runtime. Previously saved configurations are preserved; weekly schedules are disabled by default. Details are in the [six-language handbook](docs/site/en/conditions.md) and [0.9.5 release notes](docs/RELEASE_NOTES_0.9.5.md).
+
+**Not in 0.9.5:** multi-recipient phone/speaker notifications and the redesigned multistage consumer wizard are planned enhancements, not shipped features.
 
 ### Eight scheduling strategies
 
@@ -74,7 +80,7 @@ If the integration is not listed yet, select **Add from link** in Marketplace or
 4. Add **Round Robin Hood** under **Settings → Devices & services** and open the RRH sidebar panel.
 5. Follow the setup wizard, try the isolated demo or configure manually. Verify the grid sensor's sign and unit before enabling control of real devices.
 
-**Already using RRH?** Back up first, then use the version-specific [upgrade and rollback instructions](docs/UPDATE_0.9.4.md). Those instructions cover **0.9.3 → 0.9.4 only**. Avoid mixing older integration code with newer RRH `.storage` data.
+**Already using RRH?** Back up first, then use the version-specific [upgrade and rollback instructions](docs/UPDATE_0.9.5.md). Those instructions cover **0.9.4 → 0.9.5 only**. Avoid mixing older integration code with newer RRH `.storage` data.
 
 **Marketplace/HACS:** A public, validated repository can be added by URL. Official catalog inclusion is a separate review and is **not** implied by publishing this repository.
 
@@ -103,11 +109,11 @@ Read the [full safety guidance](docs/site/en/safety.md) before use.
 
 ## Version, permissions and project status
 
-- **Version:** 0.9.4. [Releases](https://github.com/satisfried-yt/round-robin-hood/releases) · [Changelog](CHANGELOG.md) · [Release notes](docs/RELEASE_NOTES_0.9.4.md)
+- **Version:** 0.9.5. [Releases](https://github.com/satisfried-yt/round-robin-hood/releases) · [Changelog](CHANGELOG.md) · [Release notes](docs/RELEASE_NOTES_0.9.5.md)
 - **Software license:** [Apache License 2.0](LICENSE) · [NOTICE](NOTICE). Use, modification and redistribution are allowed under its conditions. [Branding guidance](BRANDING.md) explains attribution and avoiding false endorsement; Apache-2.0 grants no trademark rights.
 - **Other software:** [Third-party notices](THIRD_PARTY_NOTICES.md).
 - **Publisher information:** [Impressum / Legal notice](http://satisfried.de/). Listing in the official Marketplace catalog remains a separate process.
-- **Package verification:** [SHA-256 checksum instructions](VERIFY_RELEASE.md) for the public release ZIP; no detached signature is claimed for 0.9.4.
+- **Package verification:** [SHA-256 checksum instructions](VERIFY_RELEASE.md) for the public release ZIP; no detached signature is claimed for 0.9.5.
 
 Development used AI assistance. Third-party materials retain their respective rights; see [notices](THIRD_PARTY_NOTICES.md).
 

@@ -18,3 +18,14 @@ Les huit stratégies sont décrites ci-dessous. Selon le mode, configurez l’au
 ---
 
 [Accueil](index.md) | [Sécurité](safety.md)
+
+
+## Plannings hebdomadaires des profils (depuis 0.9.5)
+
+Dans Profils → Modifier, activez un planning propre au profil. Chaque plage accepte plusieurs jours, une heure de début et de fin, ainsi que plusieurs plages par jour.
+
+Les plannings du profil et des appareils sont indépendants. Pour autoriser un démarrage, il faut un profil actif, les deux plannings autorisés et toutes les conditions de capteurs requises. La stratégie choisit ensuite parmi les appareils admissibles.
+
+À la fermeture du planning, RRH demande l'arrêt confirmé des appareils actifs gérés du profil ; un arrêt groupé est possible. Les appareils allumés de manière externe ne sont pas adoptés.
+
+Les plages passant minuit relèvent du jour de départ. Le fuseau horaire de Home Assistant et les changements d'heure sont respectés. Le panneau montre le prochain début.

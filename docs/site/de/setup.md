@@ -27,3 +27,12 @@ Unter **Einstellungen → Einrichtungsassistent erneut starten** lässt sich der
 ## Sprache und Standardwerte
 
 Die Oberfläche orientiert sich zunächst an der Home-Assistant-Sprache (`auto`, DE/EN bevorzugt). Die [Einstellungen](settings.md) erlauben spätere manuelle Sprachwahl. Reserve ist standardmäßig **100 W**, globale Verzögerung **30 s**, maximales Datenalter **60 s**; vor Verwendung an die reale Anlage anpassen.
+
+
+## Entitäten auswählen in 0.9.5
+
+Bei der Einrichtung erscheinen durchsuchbare Home-Assistant-Entitätsauswahlen. Tippe einen Teil des Anzeigenamens oder der Entity-ID ein und wähle den passenden Treffer; die verfügbaren Domänen sind je Feld eingeschränkt.
+
+Die Suche funktioniert auch auf Smartphones. Ist der native Picker noch nicht verfügbar, bleibt die kompatible Auswahl/Suche aktiv. Nach der Ersteinrichtung kannst du unter Verbraucher und Profile individuelle Zeitfenster ergänzen.
+
+Die automatische Steuerung beginnt nur nach ausdrücklicher Freigabe sowie gültigen Daten und Sicherheitsprüfungen. Sensorbedingungen, Zeitpläne und Schutzmaßnahmen bleiben unabhängig.

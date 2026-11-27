@@ -1,6 +1,6 @@
 # Round Robin Hood - Início
 
-**Version 0.9.3** | [Deutsch](../) | [English](../en/)
+**Version 0.9.5** | [Deutsch](../) | [English](../en/)
 
 Round Robin Hood (RRH) distribui o excedente solar medido por consumidores autorizados, de acordo com as potências nominais e os perfis. A entrada principal é a potência instantânea de rede (W ou kW), não um contador de energia em kWh.
 
@@ -23,3 +23,11 @@ Round Robin Hood (RRH) distribui o excedente solar medido por consumidores autor
 - [Perguntas frequentes](faq.md)
 - [Glossário](glossary.md)
 - [Sobre](about.md)
+
+
+## Novidades da versão 0.9.5
+
+- Seleção pesquisável de entidades Home Assistant nas definições, assistente, consumidores, condições e energia, também em telemóveis.
+- Horários semanais opcionais para perfis e consumidores, com dias à escolha, vários períodos e intervalos que atravessam a meia-noite.
+- As condições dos sensores e ambos os horários devem permitir o funcionamento. Ao terminar o período, o RRH desliga os dispositivos que gere mesmo antes do tempo mínimo.
+- A configuração existente é mantida e os horários começam desativados. Faça um backup completo de HA, incluindo .storage, antes de atualizar.

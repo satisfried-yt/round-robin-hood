@@ -5,4 +5,12 @@
 <p><strong>Les statistiques représentent-elles une facture ?</strong> Non, elles reposent sur des valeurs nominales et les tarifs configurés.</p>
 <hr />
 <p><a href="index.html">Accueil</a> | <a href="safety.html">Sécurité</a></p>
+
+<h2>FAQ de la version 0.9.5</h2><ul>
+<li>Pourquoi un appareil ne démarre-t-il pas malgré le surplus ? Vérifiez le profil, les deux plannings, les capteurs, le délai de redémarrage et le capteur réseau. Le statut indique la raison du blocage.</li>
+<li>Comment autoriser lundi 22:00 jusqu'à mardi 02:00 ? Choisissez lundi et 22:00–02:00. Le jour indique le début et la fin est exclue.</li>
+<li>Plusieurs plages sont-elles possibles ? Oui. Une plage suffit dans un même planning, mais plannings du profil et de l'appareil doivent tous deux autoriser.</li>
+<li>RRH arrête-t-il à la fin ? Oui, les appareils actifs qu'il commande, même pendant la durée minimale. Il n'adopte pas les appareils allumés de l'extérieur.</li>
+<li>Les notifications téléphone/haut-parleur sont-elles incluses ? Non, elles sont prévues pour une version ultérieure.</li>
+</ul>
 <hr><p><small>Copyright (c) 2026 Satisfried | Sécurité | <a href="safety.html">Sécurité</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" articles trouvés":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/faq.html";});filter();})();</script></body></html>

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build and verify RRH 0.9.4 archive from Git-tracked files only.
+"""Build and verify RRH 0.9.5 archive from Git-tracked files only.
 
 Includes SHA256SUMS inside ZIP and a separate ZIP .sha256 checksum.
 No signature is generated or claimed.
@@ -12,7 +12,7 @@ from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "0.9.4"
+VERSION = "0.9.5"
 BASENAME = f"round-robin-hood-{VERSION}"
 NEEDED = {
     "VERSION", "LICENSE", "NOTICE", "README.md", "BRANDING.md",

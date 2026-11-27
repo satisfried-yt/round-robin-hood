@@ -14,4 +14,10 @@
 </ul>
 <hr />
 <p><a href="index.html">Introduzione</a> | <a href="safety.html">Sicurezza</a></p>
+
+<h2>Programmazione settimanale dei profili (dalla 0.9.5)</h2>
+<p>In Profili → Modifica è possibile attivare una programmazione indipendente per ogni profilo. Ogni fascia include giorni selezionabili, inizio, fine e più intervalli nello stesso giorno.</p>
+<p>Le programmazioni di profilo e dispositivo sono indipendenti. Per avviare servono profilo attivo, entrambe le fasce consentite e condizioni dei sensori valide. La strategia seleziona poi il carico idoneo.</p>
+<p>Quando la fascia del profilo termina, RRH richiede lo spegnimento confermato dei dispositivi attivi che gestisce; più dispositivi possono essere spenti con il comando di gruppo. Non assume il controllo di dispositivi accesi esternamente.</p>
+<p>Le fasce oltre mezzanotte appartengono al giorno iniziale. Si utilizza il fuso di Home Assistant, inclusi i cambi d'ora. Il pannello mostra la prossima apertura.</p>
 <hr><p><small>Copyright (c) 2026 Satisfried | Sicurezza | <a href="safety.html">Sicurezza</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" articoli trovati":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/profiles.html";});filter();})();</script></body></html>

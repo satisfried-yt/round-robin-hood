@@ -15,3 +15,14 @@ Inspect export, reserve, enabled profiles, eligibility conditions, minimum runti
 ## Upgrade or storage problem
 
 Preserve a full Home Assistant backup including `.storage` and consult the matching `docs/UPDATE_*.md` for the exact upgrade/rollback procedure. Do not rerun a failed install blindly. RRH uses `.storage/round_robin_hood.rebuild_2026.state` for its own persistent state.
+
+
+## Troubleshooting schedules and entity search (0.9.5)
+
+No start despite PV surplus: inspect consumer and profile status. Both schedules and the sensor conditions must permit it. Also check grid data, reserve, wattage and cooldown.
+
+Unexpected time or day: verify the configured Home Assistant timezone. Overnight intervals use the selected START weekday. During daylight-saving changes, local clock times can be skipped or repeated.
+
+Missing entity: verify the HA entity, compatible domain and unit. Previously saved or temporarily unavailable IDs are preserved where possible. If the old interface appears, refresh the browser cache and restart HA after updating.
+
+If switch-off confirmation fails, verify the physical actuator state and HA logs. RRH is not an electrical emergency stop; avoid uncontrolled retries.

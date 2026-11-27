@@ -4,4 +4,9 @@
 <p>Vous pouvez relancer l’assistant depuis <strong>Paramètres</strong>. Le choix de ne plus afficher l’avertissement concerne seulement cet avertissement.</p>
 <hr />
 <p><a href="index.html">Accueil</a> | <a href="safety.html">Sécurité</a></p>
+
+<h2>Choix des entités dans la version 0.9.5</h2>
+<p>La configuration propose une recherche d'entités Home Assistant. Saisissez une partie du nom ou de l'identifiant puis choisissez le résultat ; les types autorisés dépendent du champ.</p>
+<p>La recherche fonctionne sur mobile. Si le sélecteur natif n'est pas disponible, la recherche compatible reste utilisable. Ajoutez ensuite les plages hebdomadaires dans Appareils et Profils.</p>
+<p>La commande automatique nécessite toujours une activation volontaire, des mesures valides et les vérifications de sécurité.</p>
 <hr><p><small>Copyright (c) 2026 Satisfried | Sécurité | <a href="safety.html">Sécurité</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" articles trouvés":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/setup.html";});filter();})();</script></body></html>

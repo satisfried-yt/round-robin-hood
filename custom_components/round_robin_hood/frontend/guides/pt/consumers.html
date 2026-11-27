@@ -4,4 +4,10 @@
 <p>Remover um consumidor do RRH não elimina a entidade do Home Assistant.</p>
 <hr />
 <p><a href="index.html">Início</a> | <a href="safety.html">Segurança</a></p>
+
+<h2>Novo em 0.9.5: pesquisa e horário do consumidor</h2>
+<p>Em Consumidores → Editar, selecione entidades de controlo e etapas no seletor pesquisável Home Assistant por nome ou ID. As escolhas anteriores mantêm-se.</p>
+<p>Ative o horário apenas se necessário. Adicione vários períodos, escolha os dias seg–dom e defina início e fim (HH:MM). Um horário desativado não restringe a operação.</p>
+<p>Para segunda 22:00–terça 02:00, escolha segunda como dia de início. A hora final é exclusiva. Vários períodos usam OU; o horário do perfil e as condições dos sensores também devem permitir (E).</p>
+<p>Quando um período termina, o RRH desliga o consumidor ativo que gere mesmo com tempo mínimo estrito. Não substitui proteção elétrica ou térmica independente. A próxima abertura usa o fuso horário HA.</p>
 <hr><p><small>Copyright (c) 2026 Satisfried | Segurança | <a href="safety.html">Segurança</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" artigos encontrados":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/consumers.html";});filter();})();</script></body></html>

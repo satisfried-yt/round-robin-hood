@@ -9,3 +9,12 @@ Puedes volver a iniciar el asistente desde Ajustes. La opción de no volver a mo
 ---
 
 [Inicio](index.md) | [Seguridad](safety.md)
+
+
+## Seleccionar entidades en 0.9.5
+
+La configuración ofrece selección de entidades Home Assistant con búsqueda. Escribe parte del nombre o del ID y elige un resultado; cada campo limita los tipos de entidad.
+
+Funciona también en móviles. Si el selector nativo no está disponible, queda una alternativa compatible. Añade después las franjas semanales en Consumidores y Perfiles.
+
+El control automático sigue necesitando activación expresa, medidas válidas y comprobaciones de seguridad.

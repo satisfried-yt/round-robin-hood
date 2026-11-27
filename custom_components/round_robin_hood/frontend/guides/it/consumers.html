@@ -4,4 +4,10 @@
 <p>Rimuovere un dispositivo da RRH non elimina l’entità Home Assistant.</p>
 <hr />
 <p><a href="index.html">Introduzione</a> | <a href="safety.html">Sicurezza</a></p>
+
+<h2>Nuovo in 0.9.5: ricerca e orari dei dispositivi</h2>
+<p>In Dispositivi → Modifica, selezionare entità di comando e livelli mediante il selettore Home Assistant con ricerca per nome o ID. Le associazioni esistenti restano valide.</p>
+<p>Attivare la programmazione soltanto se serve. Aggiungere più fasce, scegliere i giorni lun–dom e inserire inizio e fine (HH:MM). Una programmazione disattivata non limita il funzionamento.</p>
+<p>Per lunedì 22:00–martedì 02:00 selezionare lunedì come giorno di inizio. L'ora finale è esclusa. Più fasce sono in OR; anche programmazione del profilo e condizioni dei sensori devono essere soddisfatte (AND).</p>
+<p>Alla fine della fascia RRH spegne i dispositivi attivi gestiti anche se il tempo minimo rigoroso non è terminato. Non sostituisce le protezioni elettriche o termiche indipendenti. Il prossimo inizio usa il fuso HA.</p>
 <hr><p><small>Copyright (c) 2026 Satisfried | Sicurezza | <a href="safety.html">Sicurezza</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" articoli trovati":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/consumers.html";});filter();})();</script></body></html>

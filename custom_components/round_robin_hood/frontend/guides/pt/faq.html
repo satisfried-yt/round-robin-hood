@@ -5,4 +5,12 @@
 <p><strong>As estatísticas são valores de fatura?</strong> Não, são estimativas a partir de potências nominais e tarifas.</p>
 <hr />
 <p><a href="index.html">Início</a> | <a href="safety.html">Segurança</a></p>
+
+<h2>FAQ da versão 0.9.5</h2><ul>
+<li>Porque não arranca um consumidor apesar do excedente? Verifique o perfil, ambos os horários, sensores, bloqueio de religação e medidor. O estado mostra a razão.</li>
+<li>Como permitir segunda 22:00 até terça 02:00? Escolha segunda e 22:00–02:00. O dia indica o início e a hora final é exclusiva.</li>
+<li>São possíveis vários períodos? Sim. Basta um período dentro do mesmo horário, mas os horários do perfil e consumidor têm ambos de permitir.</li>
+<li>O RRH desliga no fim? Sim, os consumidores ativos que gere, mesmo durante o tempo mínimo. Não assume dispositivos ligados externamente.</li>
+<li>Há notificações para telemóveis/colunas? Não, estão previstas para uma versão futura.</li>
+</ul>
 <hr><p><small>Copyright (c) 2026 Satisfried | Segurança | <a href="safety.html">Segurança</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" artigos encontrados":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/faq.html";});filter();})();</script></body></html>

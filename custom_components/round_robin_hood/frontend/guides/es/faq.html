@@ -5,4 +5,12 @@
 <p><strong>¿Las cifras de costes equivalen a la factura?</strong> No: son estimaciones con potencia nominal y tarifas configuradas.</p>
 <hr />
 <p><a href="index.html">Inicio</a> | <a href="safety.html">Seguridad</a></p>
+
+<h2>FAQ de la versión 0.9.5</h2><ul>
+<li>¿Por qué no arranca una carga con excedente? Comprueba el perfil, ambos horarios, los sensores, el tiempo de espera y el medidor de red. El estado indica el motivo.</li>
+<li>¿Cómo permitir lunes 22:00 hasta martes 02:00? Marca lunes e introduce 22:00–02:00. El día es el de inicio y el fin queda excluido.</li>
+<li>¿Se permiten varias franjas? Sí. Una franja basta dentro de su horario, pero los horarios de perfil y consumidor deben cumplirse ambos.</li>
+<li>¿Apaga RRH al terminar? Sí, las cargas activas que controla incluso durante el tiempo mínimo. No asume equipos encendidos externamente.</li>
+<li>¿Hay notificaciones móviles o altavoces? No, están previstas para una versión posterior.</li>
+</ul>
 <hr><p><small>Copyright (c) 2026 Satisfried | Seguridad | <a href="safety.html">Seguridad</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" artículos encontrados":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/faq.html";});filter();})();</script></body></html>

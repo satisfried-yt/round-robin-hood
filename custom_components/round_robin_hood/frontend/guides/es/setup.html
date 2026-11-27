@@ -4,4 +4,9 @@
 <p>Puedes volver a iniciar el asistente desde Ajustes. La opción de no volver a mostrar el aviso afecta solo al aviso de seguridad.</p>
 <hr />
 <p><a href="index.html">Inicio</a> | <a href="safety.html">Seguridad</a></p>
+
+<h2>Seleccionar entidades en 0.9.5</h2>
+<p>La configuración ofrece selección de entidades Home Assistant con búsqueda. Escribe parte del nombre o del ID y elige un resultado; cada campo limita los tipos de entidad.</p>
+<p>Funciona también en móviles. Si el selector nativo no está disponible, queda una alternativa compatible. Añade después las franjas semanales en Consumidores y Perfiles.</p>
+<p>El control automático sigue necesitando activación expresa, medidas válidas y comprobaciones de seguridad.</p>
 <hr><p><small>Copyright (c) 2026 Satisfried | Seguridad | <a href="safety.html">Seguridad</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" artículos encontrados":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/setup.html";});filter();})();</script></body></html>

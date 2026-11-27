@@ -11,4 +11,12 @@
 <p><strong>Can I use existing HA Energy Dashboard sources?</strong> Yes, select suitable existing sensor entities; RRH neither configures the Energy Dashboard nor imports historical energy data.</p>
 <p><strong>Why are some words in German?</strong> <code>auto</code> follows HA language. The KB is complete in DE/EN for this version; some legacy specialized UI messages may still fall back to DE/EN for FR/ES/PT/IT.</p>
 <p><strong>How do I report a bug?</strong> Note version, page/action, sanitized HA logs, safe test setup, expected and actual results. If an actuator behaves dangerously, physically isolate it before troubleshooting.</p>
+
+<h2>FAQ for 0.9.5</h2><ul>
+<li>Why doesn't a consumer start despite surplus? Check the profile, both weekly schedules, sensor conditions, cooldown and grid sensor. The status shows the blocker and any next opening.</li>
+<li>How do I allow Monday 22:00 until Tuesday 02:00? Select Monday and enter 22:00–02:00. The weekday is the start day and the end is exclusive.</li>
+<li>Can I set multiple windows? Yes, even within one day. Any window may permit its own schedule, but the profile and consumer schedules must both allow operation.</li>
+<li>Does RRH switch off at the end? Yes, for its own running loads, even during minimum runtime. It does not automatically take over externally started devices.</li>
+<li>Are phone and speaker notifications included? No. Multiple recipients and event notifications are planned for a later version.</li>
+</ul>
 <hr><p><small>Copyright (c) 2026 Satisfried | Safety | <a href="safety.html">Safety</a></small></p></main><script src="search-index.js"></script><script>(function(){"use strict";const field=document.getElementById("filter");const status=document.getElementById("search-status");const links=Array.from(document.querySelectorAll("#nav a"));const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase();const index=new Map((window.RRH_GUIDE_SEARCH_INDEX||[]).map(item=>[item.href,norm(item.title+" "+item.text)]));function filter(){const q=norm(field.value.trim());let count=0;for(const link of links){const hit=!q||(index.get(link.getAttribute("href"))||norm(link.textContent)).includes(q);link.hidden=!hit;if(hit)count++;}status.textContent=q?count+" matching articles":"";}field.addEventListener("input",filter);document.getElementById("guide-language").addEventListener("change",event=>{const dst=event.target.value;if(/^(de|en|fr|es|pt|it)$/.test(dst))location.href="../"+dst+"/faq.html";});filter();})();</script></body></html>

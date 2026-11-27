@@ -48,3 +48,14 @@ Enable and combine individual sensor predicates using `ALL` or `ANY`. See [Senso
 ## Features and usage
 
 The consumer editor no longer has a textual MDI dropdown. Choose an icon from the clickable preview gallery; the selected tile is highlighted. Existing saved icons survive an update. Custom PNG and WebP images remain supported.
+
+
+## New in 0.9.5: entity search and consumer schedules
+
+Open Consumers → Edit. Control and stage entities use the searchable Home Assistant picker. Search by part of an entity name or ID; existing selections are retained.
+
+Enable the consumer schedule only if needed. Add one or more time windows, select weekdays Mon–Sun and enter From/Until (HH:MM) for each row. Disabled schedules do not restrict operation.
+
+For Monday 22:00–Tuesday 02:00, select Monday as the start day. End time is exclusive. Multiple windows allow operation if ANY matches, while profile schedule and sensor conditions must ALSO allow it.
+
+When a window closes, RRH switches off its managed running consumer even if strict minimum runtime has not finished. This is not a substitute for independent electrical or thermal safety. The UI shows the next opening in HA's timezone.

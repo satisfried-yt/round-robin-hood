@@ -7,3 +7,14 @@ Si no se conectan consumidores, revisa la reserva, la potencia disponible, perfi
 ---
 
 [Inicio](index.md) | [Seguridad](safety.md)
+
+
+## Solución de problemas: horarios y búsqueda (0.9.5)
+
+No arranca con excedente: consulta el estado del perfil y consumidor. Deben cumplirse ambos horarios y los sensores. Comprueba también el medidor, reserva, potencia y bloqueo de reinicio.
+
+Hora o día inesperado: verifica la zona horaria de Home Assistant. Las franjas nocturnas corresponden al día de inicio. Un cambio horario puede omitir o repetir horas locales.
+
+Entidad ausente: comprueba entidad, dominio y unidad compatibles. Se conservan referencias anteriores cuando es posible. Si aparece la interfaz vieja, actualiza la caché y reinicia HA.
+
+Si falla la confirmación de apagado, revisa el actuador real y los registros HA. RRH no es un interruptor de emergencia.
